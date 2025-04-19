@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../layout/CSS/all.min.css">
+    <link rel="stylesheet" href="../layout/CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="../layout/CSS/navbar.css">
+    <title>navbar</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand h3" href="#">ProjectLogo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main" aria-controls="main" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="main">
+                <ul class="navbar-nav m-auto mb-lg-0" id="navItems">
+                    <li class="nav-item"><a class="nav-link active text-uppercase" href="Home.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-uppercase" href="#">One</a></li>
+                    <li class="nav-item"><a class="nav-link text-uppercase" href="#">Two</a></li>
+                    <li class="nav-item"><a class="nav-link text-uppercase" href="#">Three</a></li>
+                    <li class="nav-item"><a class="nav-link text-uppercase" href="#">Four</a></li>
+                </ul>
+                
+                <form class="d-flex align-items-center w-75 ms-5 d-none" id="searchForm">
+                    <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+                    <button class="btn btn-outline-secondary" type="button" id="closeSearch"><i class="fa-solid fa-xmark"></i></button>
+                </form>
+                <div class="search ps-5 d-none d-lg-block" id="searchIcon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="cart ps-5 pe-5 d-none d-lg-block" id="cartIcon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+                <a class="btn login-btn rounded-pill btn-light" href="#" id="loginBtn">Login</a>
+            </div>
+        </div>
+    </nav> 
+    <script src="../layout/JS/all.min.js"></script>
+    <script src="../layout/JS/bootstrap.bundle.min.js"></script>
+    <script>
+        const searchIcon = document.getElementById('searchIcon');
+        const navItems = document.getElementById('navItems');
+        const searchForm = document.getElementById('searchForm');
+        const closeSearch = document.getElementById('closeSearch');
+        
+        searchIcon.addEventListener('click', () => {
+            navItems.classList.add('d-none');
+            searchForm.classList.remove('d-none');
+            searchIcon.classList.add('d-none');
+        });
+        
+        closeSearch.addEventListener('click', () => {
+            navItems.classList.remove('d-none');
+            searchForm.classList.add('d-none');
+            searchIcon.classList.remove('d-none');
+        });
+    </script>
+</body>
+</html>

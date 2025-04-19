@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/layout/CSS/home.css">
+    <title>ProjectName</title>
+</head>
+<body>
+    <div id="navbar"></div>
+    <script>
+        fetch('/include/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+            document.getElementById('navbar').innerHTML = data;
+            const searchIcon = document.getElementById('searchIcon');
+            const navItems = document.getElementById('navItems');
+            const searchForm = document.getElementById('searchForm');
+            const closeSearch = document.getElementById('closeSearch');
+        
+            if (searchIcon && closeSearch) {
+                searchIcon.addEventListener('click', () => {
+                navItems.classList.add('d-none');
+                searchForm.classList.remove('d-none');
+                searchIcon.classList.add('d-none');
+                });
+                
+                closeSearch.addEventListener('click', () => {
+                navItems.classList.remove('d-none');
+                searchForm.classList.add('d-none');
+                searchIcon.classList.remove('d-none');
+                });
+            }
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+    </script>
+
+    <div class="landing">
+        <div class="container-fluid">
+            <div class="row">
+                <img src="/imgs/Landingimg.jpg" class="landing-img p-0" alt="Landing Image">
+                <div class="landing-content">
+                    <h1>Discover the Future of Tech</h1>
+                    <p>Explore smart devices, electronics & more</p>
+                    <a href="#" class="btn btn-primary rounded-pill">Shop Now<i class="fa-solid fa-arrow-down ms-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- footer -->
+    <footer class="d-flex mb-3 text-center">
+        <div class="company col-10 col-md-4 d-flex flex-column">
+            <p class="h4 text-white">Company</p>
+            <ul>
+                <li>About</li>
+                <li>Blog</li>
+                <li>0000</li>
+                <li>0000</li>
+            </ul>
+        </div>
+        <div class="help-center col-10 col-md-4 d-flex flex-column">
+            <p class="h4 text-white">Help-center</p>
+            <ul>
+                <li>Discord Server</li>
+                <li>Facebook</li>
+                <li>Twitter</li>
+                <li>Contact Us</li>
+            </ul>
+        </div>
+        <div class="legacy col-10 col-md-4 d-flex flex-column">
+            <p class="h4 text-white">Legacy</p>
+            <ul>
+                <li>Privacy</li>
+                <li>Licensing</li>
+                <li>Terms & Conditions</li>
+            </ul>
+        </div>
+        
+    </footer>
+
+    <script src="../layout/JS/all.min.js"></script>
+    <script src="../layout/JS/bootstrap.bundle.min.js"></script>
+</body>
+</html>
