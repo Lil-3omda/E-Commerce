@@ -59,7 +59,8 @@ footer{
     background-color: var(--dark-color);
     color: var(--footer-text-color);
 }
-footer ul{
-    list-style: none;
+footer ul li a{
+    color: var(--footer-text-color) !important; 
 }
+
 /* end footer*/
