@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        async function loadData() {
+            try{
+                // let responseOne = await fetch('/admins.json');
+                // let responseTwo = await fetch('/customers.json');
+                // let responseThree = await fetch('/products.json');
+                // let responseFour = await fetch('/sellers.json');
+                // let dataOne = await responseOne.json();
+                // let dataTwo = await responseTwo.json();
+                // let dataThree = await responseThree.json();
+                // let dataFour = await responseFour.json();
+                // localStorage.setItem("loggedInuser", JSON.stringify(dataOne));
+                // localStorage.setItem("loggedInuser", JSON.stringify(dataTwo));
+                // localStorage.setItem("Product", JSON.stringify(dataThree));
+                // localStorage.setItem("loggedInuser", JSON.stringify(dataFour));
+                const [adminRes, sellersRes, customersRes] = await Promise.all([
+                    fetch('/admins.json'),
+                    fetch('/sellers.json'),
+                    fetch('/customers.json')
+                ]);
+                const [admin, sellers, customers] = await Promise.all([
+                    adminRes.json(),
+                    sellersRes.json(),
+                    customersRes.json()
+                ]);
+                const combineData = {
+                    admin : admin,
+                    sellers : sellers,
+                    customers : customers
+                };
+                localStorage.setItem("userData", JSON.stringify(combineData));
+                console.log(combineData.admin[0].role)
+            }
+            catch(error){
+                throw new Error(error);
+            }
+        }
+        
+        // async function UserRole() {
+        //     try{
+        //         let response =  await fetch('/admins.json');
+        //         let data = await response.json();
+        //         localStorage.setItem("loggedInuser", JSON.stringify(data));
+        //         console.log(data[0].role);
+        //     }
+        //     catch(error){
+        //         throw new Error(error);
+        //     }
+        // }
+        // fetchData();
+        loadData();
+    </script>
+</body>
+</html>
