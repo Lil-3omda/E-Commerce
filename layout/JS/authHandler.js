@@ -13,7 +13,7 @@ loginForm.addEventListener('submit', async (event) => {
 
     try{
         const [customer, seller, admin]= await Promise.all([
-            chechFile('../../include/JsonFiles/admins.json', 'admin'),
+            checkFile('../../include/JsonFiles/admins.json', 'admin'),
             checkFile('../../include/JsonFiles/customers.json', 'customer'),
             checkFile('../../include/JsonFiles/sellers.json', 'seller')
         ]);
