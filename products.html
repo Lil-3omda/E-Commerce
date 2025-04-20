@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/layout/CSS/products.css">
+    <script src="/layout/JS/products.js"></script>
     <title>Products</title>
 </head>
 <body>
@@ -37,13 +38,37 @@
         })
         .catch(error => console.error('Error loading navbar:', error));
     </script>
-    <h1 class="col-xs-12 d-flex justify-content-center mt-3 mb-5">Product List</h1>
-    <div id="product-container" class="container">
-        <div class="row">
-            <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-3"></div>
-            <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-3"></div>
-            <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-3"></div>
-            <div class="item col-xs-12 col-sm-6 col-md-4 col-lg-3"></div>
+    <h1 class="col-xs-12 d-flex justify-content-center mt-4 mb-4">Product List</h1>
+
+    <div class="product-container mb-5">
+        <div class="filter-buttons d-flex flex-row justify-content-center ">
+            <button data-name="all" class="btn rounded-pill fs-6 active">Show all</button>
+            <button data-name="best-seller" class="btn rounded-pill fs-6">Best sellers</button>
+            <button data-name="new-releases" class="btn rounded-pill fs-6">New Releases</button>
+            <button data-name="discount" class="btn rounded-pill fs-6">Discount</button>
+        </div>
+    </div>
+    <div class="filterable-cards">
+        <div class="card item p-2 m-4 mt-0">
+            <img src="/imgs/1_0kSjibsvIt9GsTS1KcgIJA.webp" alt="">
+            <div class="card-body">
+                <h6 class="card-title">!!!!</h6>
+                <p class="card-description">what Now!!!!!</p>
+            </div>
+        </div>
+        <div class="card item p-2 m-4 mt-0">
+            <img src="/imgs/1_0kSjibsvIt9GsTS1KcgIJA.webp" alt="">
+            <div class="card-body">
+                <h6 class="card-title">!!!!</h6>
+                <p class="card-description">what Now!!!!!</p>
+            </div>
+        </div>
+        <div class="card item p-2 m-4 mt-0">
+            <img src="/imgs/1_0kSjibsvIt9GsTS1KcgIJA.webp" alt="">
+            <div class="card-body">
+                <h6 class="card-title">!!!!</h6>
+                <p class="card-description">what Now!!!!!</p>
+            </div>
         </div>
     </div>
 
