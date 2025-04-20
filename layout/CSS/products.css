@@ -1,0 +1,19 @@
+:root{
+    --dark-color: #19283f;
+    --green-color: #33d1cc;
+    --red-color: #ff3150;
+    --yellow-color: #ffc400;
+    --section-color: #eff7fa;
+    --navbar-color: #6e2cf5;
+    --test-color : #231709;
+    --footer-text-color: #9ca3af;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.item{
+    border: 1px solid gray;
+    min-height: 10px;
+}
