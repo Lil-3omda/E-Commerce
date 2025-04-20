@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../layout/CSS/all.min.css">
+    <link rel="stylesheet" href="../layout/CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="../layout/CSS/cart.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="navbar"></div>
+    <script>
+        fetch('/include/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+            document.getElementById('navbar').innerHTML = data;
+            const searchIcon = document.getElementById('searchIcon');
+            const navItems = document.getElementById('navItems');
+            const searchForm = document.getElementById('searchForm');
+            const closeSearch = document.getElementById('closeSearch');
+        
+            if (searchIcon && closeSearch) {
+                searchIcon.addEventListener('click', () => {
+                navItems.classList.add('d-none');
+                searchForm.classList.remove('d-none');
+                searchIcon.classList.add('d-none');
+                });
+                
+                closeSearch.addEventListener('click', () => {
+                navItems.classList.remove('d-none');
+                searchForm.classList.add('d-none');
+                searchIcon.classList.remove('d-none');
+                });
+            }
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+    </script>
+    <div class="container">
+        <div class="row cartContant">
+            <div class="col-8 items">
+                <div class="cartHeader">
+                    <p class="headparagraph">Shopping Cart</p>
+                    <p class="headparagraph" id="itemsNumber">3 items</p>
+                </div>
+                <hr>
+                <div class="titels">
+                    <div class="row">
+                        <div class="col-4">Product</div>
+                        <div class="col-4">Price</div>
+                        <div class="col-4">Quantity</div>
+                    </div>
+                </div>
+                <div id="cartItem">
+                </div>
+            </div>
+            <div class="col-4 summary">
+                <p class="headparagraph">Order Summary</p>
+                <p></p>
+                <hr>
+                <p id="itemsNumber">3 items</p>
+                <p id="totalCost">Totail Cost : </p>
+                address:<input type="text" placeholder="ENTER YOUR ADDRESS">
+                <button>CHECHOUT</button>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
