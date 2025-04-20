@@ -24,6 +24,7 @@ body{
 }
 .product-container .filter-buttons{
     gap: 10px;
+    flex-wrap: wrap;
 }
 .product-container .filter-buttons button{
     padding: 10px 20px;
@@ -38,12 +39,23 @@ body{
 .filterable-cards{
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .card{
+    flex-grow: 1;
     flex-basis: 300px;
+    max-width: 300px;
     border-radius: 10px !important; 
 }
 .card img{
     width: 100%;
     border-radius: 10px 10px 0 0;
 }
+.card-title{
+    color: var(--dark-color);
+    font-weight: 500;
+}
+.card-description{
+    color: var(--dark-color);
+}
+
