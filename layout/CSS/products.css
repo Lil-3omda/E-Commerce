@@ -12,8 +12,38 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: sans-serif;
 }
-.item{
-    border: 1px solid gray;
-    min-height: 10px;
+body{
+    min-height: 100vh;
+}
+.product-container{
+    position: relative;
+    max-width: 100vw;
+    width: 100%;
+}
+.product-container .filter-buttons{
+    gap: 10px;
+}
+.product-container .filter-buttons button{
+    padding: 10px 20px;
+    background-color: rgb(235, 234, 234);
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.product-container .filter-buttons button.active{
+    background-color: blueviolet;
+    color: white;
+}
+.filterable-cards{
+    display: flex;
+    justify-content: center;
+}
+.card{
+    flex-basis: 300px;
+    border-radius: 10px !important; 
+}
+.card img{
+    width: 100%;
+    border-radius: 10px 10px 0 0;
 }
