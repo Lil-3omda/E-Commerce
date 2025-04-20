@@ -17,8 +17,6 @@ body{
 .login-btn:hover {
     color: var(--red-color);
 }
-
-
 /* start navbar */
 .navbar{
     background-color: var(--navbar-color);
