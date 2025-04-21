@@ -51,6 +51,13 @@ body {
     font-size: 1rem;
 }
 
+
+/* featured */
+.card-img-top {
+    height: 200px; /* Or any height you want */
+    object-fit: contain;
+  }
+
 /* start footer*/
 footer{
     min-height: 20vh;
