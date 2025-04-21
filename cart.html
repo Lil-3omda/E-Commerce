@@ -37,8 +37,8 @@
         .catch(error => console.error('Error loading navbar:', error));
     </script>
     <div class="container">
-        <div class="row cartContant">
-            <div class="col-8 items">
+        <div class="row cartContant" id="cartContant">
+            <div class="col-12 col-md-8 items">
                 <div class="cartHeader">
                     <p class="headparagraph">Shopping Cart</p>
                     <p class="headparagraph" id="itemsNumber">3 items</p>
@@ -51,10 +51,10 @@
                         <div class="col-4">Quantity</div>
                     </div>
                 </div>
-                <div id="cartItem">
+                <div id="cartItems" class="row">
                 </div>
             </div>
-            <div class="col-4 summary">
+            <div class="col-12 col-md-4 summary">
                 <p class="headparagraph">Order Summary</p>
                 <p></p>
                 <hr>
@@ -65,6 +65,6 @@
             </div>
         </div>
     </div>
-    
+    <script src="layout/JS/cart.js"></script>
 </body>
 </html>
