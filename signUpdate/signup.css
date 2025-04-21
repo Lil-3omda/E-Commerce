@@ -1,0 +1,224 @@
+/* Custom Styles to work with Bootstrap */
+body {
+    background-image: url(pexels-fwstudio-33348-129731.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding-top: 70px; /* Added to account for fixed navbar */
+}
+
+/* Navbar Styles */
+.navbar-custom {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+    transition: all 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: #4d3f2e;
+    font-size: 1.5rem;
+}
+
+.navbar-brand i {
+    color: rgb(222, 184, 135);
+}
+
+.navbar-toggler {
+    border: none;
+    color: #4d3f2e;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.nav-link {
+    color: #4d3f2e;
+    font-weight: 500;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: burlywood;
+}
+
+.nav-link.active {
+    color: burlywood;
+    font-weight: 600;
+}
+
+.nav-link.active:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: burlywood;
+}
+
+.btn-signup {
+    background-color: rgb(255, 218, 170);
+    color: #4d3f2e;
+    border-radius: 20px;
+    padding: 8px 20px;
+    margin-left: 10px;
+}
+
+.btn-signup:hover {
+    background-color: burlywood;
+    color: #4d3f2e;
+}
+
+/* Form Card Styles */
+.auth-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: none;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+h1 {
+    color: #4d3f2e;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 2.5rem;
+}
+
+.input-group-text {
+    background-color: rgb(255, 218, 170);
+    border: none;
+    color: #4d3f2e;
+}
+
+.form-control {
+    border: 1px solid rgba(245, 245, 220, 0.842);
+    background-color: rgba(245, 245, 220, 0.3);
+    transition: border-color 0.15s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: burlywood;
+    box-shadow: 0 0 0 0.25rem rgba(222, 184, 135, 0.25);
+}
+
+.btn-primary {
+    background-color: rgb(255, 218, 170);
+    border: none;
+    color: #4d3f2e;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 50px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: burlywood;
+    color: #4d3f2e;
+}
+
+a {
+    color: #4d3f2e;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: burlywood;
+    text-decoration: underline;
+}
+
+.forgot-password {
+    font-size: 0.9rem;
+}
+
+.form-check-input:checked {
+    background-color: burlywood;
+    border-color: burlywood;
+}
+
+.password-strength {
+    margin-top: 5px;
+}
+
+.progress {
+    height: 5px;
+    margin-bottom: 5px;
+}
+
+.progress-bar.weak {
+    background-color: #dc3545;
+}
+
+.progress-bar.medium {
+    background-color: #ffc107;
+}
+
+.progress-bar.strong {
+    background-color: #28a745;
+}
+
+.alert-danger {
+    background-color: rgba(240, 98, 114, 0.1);
+    border-color: #f06272;
+    color: #ec384d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        padding: 15px;
+        margin-top: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-link {
+        padding: 10px 15px;
+    }
+    
+    .btn-signup {
+        display: inline-block;
+        margin: 10px 15px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 60px;
+    }
+    
+    .auth-card {
+        margin: 20px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+}
