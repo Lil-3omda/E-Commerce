@@ -9,10 +9,6 @@
     height: 100%;
     object-fit: cover;
 }
-.category-banner:hover img {
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-}
 .category-overlay {
     position: absolute;
     top: 0;
@@ -45,4 +41,36 @@
     background: #f5f5f5;
     padding: 2rem;
     text-align: center;
+}
+.top-selling-slide {
+    border-right: 1px solid #eee;
+    padding: 1rem;
+}
+.top-selling-slide:last-child {
+    border-right: none;
+}
+.top-selling-product {
+    margin-bottom: 1rem;
+}
+.top-selling-product img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    margin-right: 10px;
+}
+.top-selling-product h6 {
+    margin: 0;
+    font-size: 1rem;
+}
+.top-selling-product .price {
+    color: red;
+    font-weight: bold;
+}
+.top-selling-product del {
+    font-size: 0.9rem;
+    color: gray;
+}
+.category-banner:hover img {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
 }
