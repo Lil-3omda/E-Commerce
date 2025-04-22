@@ -65,6 +65,17 @@
             </div>
         </div>
     </div>
+
+    <div id="footer"></div>
+    <script>
+        fetch('/include/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            });
+    </script>
     <script src="layout/JS/cart.js"></script>
+    <script src="../layout/JS/all.min.js"></script>
+    <script src="../layout/JS/bootstrap.bundle.min.js"></script>
 </body>
 </html>

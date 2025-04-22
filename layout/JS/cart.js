@@ -9,7 +9,7 @@ let counters = cartData.map(() => 1); // Initialize all quantities to 1
 function renderCart() {
     let totalCost=0
   if (cartData.length === 0) {
-    cartContant.innerHTML = `<h2 class="text-center">Your cart is empty</h2>`;
+    cartContant.innerHTML = `<h2 style="height:80vh;" class="text-center">Your cart is empty</h2>`;
     return;
   }
 
