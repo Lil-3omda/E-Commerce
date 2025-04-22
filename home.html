@@ -13,24 +13,6 @@
             .then(response => response.text())
             .then(data => {
             document.getElementById('navbar').innerHTML = data;
-            const searchIcon = document.getElementById('searchIcon');
-            const navItems = document.getElementById('navItems');
-            const searchForm = document.getElementById('searchForm');
-            const closeSearch = document.getElementById('closeSearch');
-        
-            if (searchIcon && closeSearch) {
-                searchIcon.addEventListener('click', () => {
-                navItems.classList.add('d-none');
-                searchForm.classList.remove('d-none');
-                searchIcon.classList.add('d-none');
-                });
-                
-                closeSearch.addEventListener('click', () => {
-                navItems.classList.remove('d-none');
-                searchForm.classList.add('d-none');
-                searchIcon.classList.remove('d-none');
-                });
-            }
         })
         .catch(error => console.error('Error loading navbar:', error));
     </script>

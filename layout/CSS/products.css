@@ -50,6 +50,8 @@ body{
 .card img{
     width: 100%;
     border-radius: 10px 10px 0 0;
+    height: 200px;
+    object-fit: contain;
 }
 .card-title{
     color: var(--dark-color);

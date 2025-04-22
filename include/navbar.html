@@ -1,62 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../layout/CSS/all.min.css">
-    <link rel="stylesheet" href="../layout/CSS/bootstrap.min.css">
-    <link rel="stylesheet" href="../layout/CSS/navbar.css">
-    <title>navbar</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yaomix Navbar</title>
+  <link rel="stylesheet" href="/layout/CSS/all.min.css">
+  <link rel="stylesheet" href="/layout/CSS/bootstrap.min.css">
+  <style>
+        body {
+        margin: 0;
+        padding: 0;
+        }
+        .top-bar {
+        background-color: #111118;
+        color: white;
+        }
+        .search-bar input {
+        border-radius: 30px 0 0 30px;
+        border: none;
+        }
+        .search-bar button {
+        border-radius: 0 30px 30px 0;
+        background-color: #d10024;
+        color: white;
+        border: none;
+        }
+        .icon-badge {
+        position: relative;
+        margin-left: 20px;
+        }
+        .icon-badge .badge {
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        background-color: #d10024;
+        font-size: 10px;
+        }
+        .bottom-nav {
+        border-top: 2px solid #d10024;
+        background-color: #fff;
+        }
+        .offcanvas-header {
+        background-color: #111118;
+        color: white;
+        }
+        .offcanvas-body a {
+        padding: 0.5rem 1rem;
+        display: block;
+        }
+        @media (max-width: 768px) {
+        .logo-line {
+            text-align: center;
+            padding-top: 10px;
+        }
+        .search-wrapper {
+            padding: 10px;
+        }
+        .icon-bar {
+            padding: 10px;
+            justify-content: center;
+        }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand h3" href="#">ProjectLogo</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main" aria-controls="main" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="main">
-                <ul class="navbar-nav m-auto mb-lg-0" id="navItems">
-                    <li class="nav-item ms-2"><a class="nav-link active text-uppercase" href="/home.html">Home</a></li>
-                    <li class="nav-item ms-2"><a class="nav-link text-uppercase" href="/products.html">Products</a></li>
-                    <li class="nav-item ms-2"><a class="nav-link text-uppercase" href="#">Mobiles</a></li>
-                    <li class="nav-item ms-2"><a class="nav-link text-uppercase" href="#">PC</a></li>
-                    <li class="nav-item ms-2"><a class="nav-link text-uppercase" href="#">Storage</a></li>
-                    <li class="nav-item ms-2"><a class="nav-link text-uppercase" href="#">Accessories</a></li>
-                </ul>
-                <div class="search ps-3 d-block" id="searchIcon">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+
+    <div class="top-bar">
+        <div class="container-fluid">
+        <div class="row p-3">
+
+            <div class="col-12 col-md-2 logo-line d-md-flex justify-content-center align-items-center ">
+            <h2 class="fw-bold m-0 text-center text-md-start">Yaomix<span class="text-danger">.</span></h2>
+            </div>
+
+            <div class="col-12 col-md-6 search-wrapper mx-auto mt-1">
+            <div class="d-flex search-bar input-group">
+                <select class="form-select rounded-start input-group-text" style="max-width: 150px;">
+                <option>All Categories</option>
+                <option>Laptops</option>
+                <option>Phones</option>
+                <option>HeadPhone</option>
+                </select>
+                <input type="text" class="form-control" placeholder="Search here">
+                <button class="btn px-4">Search</button>
+            </div>
+            </div>
+
+            <div class="col-12 col-md-3 d-flex justify-content-center icon-bar align-items-center gap-4 mt-2 mt-md-0">
+                <div class="icon-badge text-center text-white">
+                    <i class="fa-solid fa-heart fs-5"></i>
+                    <span class="badge rounded-pill">2</span>
+                    <div class="small">Wishlist</div>
                 </div>
-                <form class="d-flex align-items-center w-75 ms-5 d-none" id="searchForm">
-                    <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
-                    <button class="btn btn-outline-secondary" type="button" id="closeSearch"><i class="fa-solid fa-xmark"></i></button>
-                </form>
-                <div class="cart ps-3 pe-5 d-lg-block" id="cartIcon">
-                    <i class="fa-solid fa-cart-shopping"></i>
+                <div class="icon-badge text-center text-white">
+                    <i class="fa-solid fa-cart-shopping fs-5"></i>
+                    <span class="badge rounded-pill">3</span>
+                    <div class="small">Cart</div>
                 </div>
+                
+                <button class="btn btn-outline-light d-md-none" data-bs-toggle="offcanvas" data-bs-target="#sideMenu">
+                    <i class="fa-solid fa-bars fs-5"></i> 
+                    <div class="small">Menu</div>
+                </button>
                 <a class="btn login-btn rounded-pill btn-light" href="#" id="loginBtn">Login</a>
+                </div>
             </div>
         </div>
-    </nav> 
-    <script src="../layout/JS/all.min.js"></script>
-    <script src="../layout/JS/bootstrap.bundle.min.js"></script>
-    <script>
-        const searchIcon = document.getElementById('searchIcon');
-        const navItems = document.getElementById('navItems');
-        const searchForm = document.getElementById('searchForm');
-        const closeSearch = document.getElementById('closeSearch');
-        
-        searchIcon.addEventListener('click', () => {
-            navItems.classList.add('d-none');
-            searchForm.classList.remove('d-none');
-            searchIcon.classList.add('d-none');
-        });
-        
-        closeSearch.addEventListener('click', () => {
-            navItems.classList.remove('d-none');
-            searchForm.classList.add('d-none');
-            searchIcon.classList.remove('d-none');
-        });
-    </script>
+    </div>
+
+    <nav class="navbar navbar-expand-md bottom-nav d-none d-md-block">
+        <div class="container">
+        <ul class="navbar-nav mx-auto gap-3">
+            <li class="nav-item">
+            <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Hot Deals</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Laptops</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Smartphones</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Accessories</a>
+            </li>        
+        </ul>
+        </div>
+    </nav>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sideMenu">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Menu</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+            <a href="#">Home</a>
+            <a href="#">Laptops</a>
+            <a href="#">Hot Deals</a>
+            <a href="#">Smartphones</a>
+            <a href="#">Cameras</a>
+            <a href="#">Accessories</a>
+        </div>
+    </div>
+
+    <script src="/layout/JS/all.min.js"></script>
+    <script src="/layout/JS/bootstrap.bundle.min.js"></script>
 </body>
 </html>
