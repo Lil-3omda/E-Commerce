@@ -1,5 +1,48 @@
-.mainSections img{
-    max-width: 100%;
+.category-banner {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+    background-color: #f5f5f5;
+}
+.category-banner img {
+    width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+}
+.category-banner:hover img {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+.category-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(204, 0, 43, 0.85);
+    clip-path: polygon(0 0, 100% 0, 50% 100%, 0% 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+}
+.category-overlay h5 {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+.category-overlay a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.hot-deal {
+    background: #f5f5f5;
+    padding: 2rem;
+    text-align: center;
 }
