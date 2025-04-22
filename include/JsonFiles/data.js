@@ -1109,19 +1109,7 @@ const initialProducts = [
 
 
   // Accessories (20 products)
-// ]
-
-// function initializeData() {
-//     if (!localStorage.getItem('products')) {
-//         localStorage.setItem('products', JSON.stringify(initialProducts));
-//     }
-// }
-
-// initializeData();
-
-
 // Headphones (25 products)
-
 {
   id: 401,
   name: "Sennheiser Consumer Audio Momentum 4",
@@ -1644,7 +1632,13 @@ const initialProducts = [
 }
 ]
 
+function initializeData() {
+    if (!localStorage.getItem('products')) {
+        localStorage.setItem('products', JSON.stringify(initialProducts));
+    }
+}
 
+initializeData();
 
 
 
