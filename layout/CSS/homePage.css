@@ -1,3 +1,47 @@
+:root{
+    --dark-color: #19283f;
+    --green-color: #33d1cc;
+    --red-color: #ff3150;
+    --yellow-color: #ffc400;
+    --section-color: #eff7fa;
+    --navbar-color: #6e2cf5;
+    --test-color : #231709;
+    --footer-text-color: #9ca3af;
+}
+.landing{
+    position: relative;
+}
+.landing-img {
+    height: calc(100vh - 61px);
+    object-fit: cover;
+}
+.landing-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4); 
+    padding: 20px;
+}
+.landing-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+.landing-content p {
+    font-size: 1.5rem;
+    margin: 15px 0;
+}
+.landing-content .btn {
+    padding: 10px 25px;
+    font-size: 1rem;
+}
 .category-banner {
     position: relative;
     overflow: hidden;
