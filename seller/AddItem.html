@@ -90,8 +90,8 @@
         </select>
         </div>
         <div class="col-md-2">
-        <label for="sellerId" class="form-label">Seller ID</label>
-        <input type="text" class="form-control" id="sellerId">
+        <label for="AdditionalDetails" class="form-label">Additional details</label>
+        <input type="text" class="form-control" id="AdditionalDetails">
         </div>
     
         <div class="col-12">
@@ -112,6 +112,7 @@
         const brand = document.getElementById('brand').value.trim();
         const numberOfPieces = parseInt(document.getElementById('numberOfPieces').value);
         const category = document.getElementById('category').value;
+        const additionalDetails = document.getElementById('AdditionalDetails').value.trim();
 
         if (!name || !image || !price || !brand || !numberOfPieces || category === "Choose...") {
             alert("Please fill all required fields properly.");
@@ -137,8 +138,9 @@
             brand,
             numberOfPieces,
             category,
-            sellerId,
+            sellerId : 201,
             added: getFormattedDate(),
+            moreDetails : additionalDetails,
         };
         existingProducts.push(newProduct);
         localStorage.setItem("products", JSON.stringify(existingProducts));
