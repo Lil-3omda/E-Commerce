@@ -21,5 +21,17 @@
             1003
         ],
         "address": "456 Oak Avenue, CA"
+    },
+
+    {
+        "id": 3,
+        "name": "john doe",
+        "email": "john@example.com",
+        "password": "password780",
+        "role": "customer",
+        "order_history": [
+            
+        ],
+        "address": "123 Elm Street, NY"
     }
 ]
