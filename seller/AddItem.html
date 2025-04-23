@@ -58,11 +58,11 @@
     <form class="row g-3">
         <div class="col-md-6">
         <label for="ProductName" class="form-label">Name</label>
-        <input type="text" class="form-control" id="ProductName">
+        <input type="text" class="form-control" id="ProductName" required>
         </div>
         <div class="col-md-6">
         <label for="imgPath" class="form-label">Image Path</label>
-        <input type="text" class="form-control" id="imgPath" placeholder="./imgs/smartphones/######">
+        <input type="text" class="form-control" id="imgPath" placeholder="./imgs/smartphones/######" required>
         </div>
         <div class="col-12">
         <label for="description" class="form-label">Description</label>
@@ -70,19 +70,19 @@
         </div>
         <div class="col-md-6">
         <label for="price" class="form-label">Price</label>
-        <input type="text" class="form-control" id="price" placeholder="Price">
+        <input type="number" class="form-control" id="price" placeholder="Price" required>
         </div>
         <div class="col-md-6">
         <label for="brand" class="form-label">Brand</label>
-        <input type="text" class="form-control" id="brand">
+        <input type="text" class="form-control" id="brand" required>
         </div>
         <div class="col-md-6">
             <label for="numberOfPieces" class="form-label">Number Of Items</label>
-            <input type="text" class="form-control" id="numberOfPieces">
-            </div>
+            <input type="number" class="form-control" id="numberOfPieces" required>
+        </div>
         <div class="col-md-4">
-        <label for="category" class="form-label">Category</label>
-        <select id="category" class="form-select">
+        <label for="category" class="form-label" required>Category</label>
+        <select id="category" class="form-select" required>
             <option selected>Choose...</option>
             <option>smartphones</option>
             <option>laptops</option>
@@ -90,16 +90,63 @@
         </select>
         </div>
         <div class="col-md-2">
-        <label for="inputZip" class="form-label">Zip</label>
-        <input type="text" class="form-control" id="inputZip">
+        <label for="sellerId" class="form-label">Seller ID</label>
+        <input type="text" class="form-control" id="sellerId">
         </div>
     
         <div class="col-12">
-        <button type="submit" class="btn btn-primary">Add Product</button>
+        <button type="submit" class="btn btn-primary" id="submit-btn">Add Product</button>
         </div>
     </form>
 </div>
 
+<script>
+    const submitAction = document.getElementById('submit-btn');
+    submitAction.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        
+        const name = document.getElementById('ProductName').value.trim();
+        const image = document.getElementById('imgPath').value.trim();
+        const description = document.getElementById('description').value.trim();
+        const price = parseFloat(document.getElementById('price').value);
+        const brand = document.getElementById('brand').value.trim();
+        const numberOfPieces = parseInt(document.getElementById('numberOfPieces').value);
+        const category = document.getElementById('category').value;
+
+        if (!name || !image || !price || !brand || !numberOfPieces || category === "Choose...") {
+            alert("Please fill all required fields properly.");
+            return;
+        }
+        const existingProducts = JSON.parse(localStorage.getItem("products"));
+        function getFormattedDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        const storedProducts = JSON.parse(localStorage.getItem("products"));
+        const lastValidProduct = [...storedProducts].reverse().find(p => typeof p.id === "number");
+        const lastProductId = lastValidProduct.id;
+        const newProduct = {
+            id: lastProductId+1,
+            name,
+            image,
+            description,
+            price,
+            brand,
+            numberOfPieces,
+            category,
+            sellerId,
+            added: getFormattedDate(),
+        };
+        existingProducts.push(newProduct);
+        localStorage.setItem("products", JSON.stringify(existingProducts));
+        alert("Product added successfully!");
+        document.querySelector("form").reset();
+    });
+
+</script>
     <div id="footer"></div>
     <script>
         fetch('/include/footer.html')

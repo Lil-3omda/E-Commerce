@@ -3,7 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <style>
+        :root{
+            --dark-color: #19283f;
+            --green-color: #33d1cc;
+            --red-color: #ff3150;
+            --yellow-color: #ffc400;
+            --section-color: #eff7fa;
+            --navbar-color: #6e2cf5;
+            --test-color : #231709;
+            --footer-text-color: #9ca3af;
+        }
+    </style>
+    <title>Seller Home Page</title>
 </head>
 <body>
     <div id="navbar"></div>
@@ -34,14 +46,14 @@
     </script>
 
 
-    <!-- <div id="footer"></div>
+    <div id="footer"></div>
     <script>
         fetch('/include/footer.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('footer').innerHTML = data;
             });
-    </script> -->
+    </script>
     <script src="../layout/JS/all.min.js"></script>
     <script src="../layout/JS/bootstrap.bundle.min.js"></script>
 </body>
