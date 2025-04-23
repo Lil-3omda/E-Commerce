@@ -38,7 +38,6 @@ function setupPagination() {
     const pagination = document.getElementById("pagination");
     pagination.innerHTML = "";
 
-    // Previous Button
     const prev = document.createElement("li");
     prev.className = `page-item ${currentPage === 1 ? "disabled" : ""}`;
     prev.innerHTML = `<a class="page-link" href="#">Previous</a>`;
@@ -51,7 +50,6 @@ function setupPagination() {
     });
     pagination.appendChild(prev);
 
-    // Page Buttons
     for (let i = 1; i <= pageCount; i++) {
     const pageBtn = document.createElement("li");
     pageBtn.className = `page-item ${i === currentPage ? "active" : ""}`;
@@ -64,7 +62,6 @@ function setupPagination() {
     pagination.appendChild(pageBtn);
     }
 
-    // Next Button
     const next = document.createElement("li");
     next.className = `page-item ${currentPage === pageCount ? "disabled" : ""}`;
     next.innerHTML = `<a class="page-link" href="#">Next</a>`;
