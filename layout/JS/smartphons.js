@@ -30,7 +30,7 @@ items.innerHTML = paginatedProducts.map(product =>
             <p class="card-description">${product.category}</p>
             <p class="card-description">${product.price}$</p>
             <button
-             class="btn btn-primary add-to-cart-btn">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
+            class="btn btn-primary add-to-cart-btn">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
         </div>
     </div>
 `
@@ -47,9 +47,7 @@ cartButtons.forEach(button => {
             category: e.target.dataset.category,
             description: e.target.dataset.description
         };
-        console.log(`Add to Cart clicked for product ID: ${product.id}`);
-       
-        
+        console.log(`Add to Cart clicked for product ID: ${product.id}`);  
     });
   });
 }
