@@ -207,3 +207,4 @@ function setupPagination() {
   pagination.appendChild(next);
 }
 fetchProducts();
+//
