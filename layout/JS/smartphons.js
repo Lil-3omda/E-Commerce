@@ -23,17 +23,43 @@ function displayProducts(page) {
     const paginatedProducts = products.slice(start, end);
 
 const items = document.getElementById("filterable-cards");
-items.innerHTML = paginatedProducts.map(product => `
+items.innerHTML = paginatedProducts.map(product => 
+    `
     <div class="card item p-2 m-4 mt-0">
         <img src="${product.img}" alt="">
         <div class="card-body">
             <h6 class="card-title fs-5">${product.name}</h6>
             <p class="card-description">${product.category}</p>
             <p class="card-description">${product.price}$</p>
-            <button class="btn btn-primary">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
+            <button
+                data-id="${product.id}"
+                data-name="${product.name}"
+                data-price="${product.price}"
+                data-img="${product.img}"
+                data-category="${product.category}"
+                data-description="${product.description}"
+             class="btn btn-primary add-to-cart-btn">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
         </div>
     </div>
-`).join("");
+`
+ 
+).join("");
+const cartButtons = document.querySelectorAll(".add-to-cart-btn");
+cartButtons.forEach(button => {
+    button.addEventListener("click", (e) => {
+        const product = {
+            id: e.target.dataset.id,
+            name: e.target.dataset.name,
+            price: e.target.dataset.price,
+            img: e.target.dataset.img,
+            category: e.target.dataset.category,
+            description: e.target.dataset.description
+        };
+        console.log(`Add to Cart clicked for product ID: ${product.id}`);
+       
+        
+    });
+})
 }
 
 function setupPagination() {
@@ -80,4 +106,12 @@ function setupPagination() {
     });
     pagination.appendChild(next);
 }
+// const buttons = document.querySelectorAll("button");
+// console.log(buttons);
+// buttons.forEach(button => {
+//     button.addEventListener("click", () => {
+//         // Your logic here
+//         console.log("Button clicked:", button.textContent);
+//     });
+// });
 fetchProducts();
