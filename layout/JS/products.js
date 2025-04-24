@@ -20,18 +20,33 @@ function displayProducts(page) {
     const paginatedProducts = products.slice(start, end);
 
 const items = document.getElementById("filterable-cards");
-items.innerHTML = paginatedProducts.map(product => `
-    <div class="card item p-2 m-4 mt-0">
-        <img src="${product.img}" alt="">
+items.innerHTML = paginatedProducts.map(product => 
+    `
+    <div class="card item p-2 m-4 mt-0" >
+        <img src="${product.img}" alt="" class="product-card"
+             data-id="${product.id}"
+        >
         <div class="card-body">
             <h6 class="card-title fs-5">${product.name}</h6>
             <p class="card-description">${product.category}</p>
             <p class="card-description">${product.price}$</p>
-            <button class="btn btn-primary">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
+            <button
+             class="btn btn-primary add-to-cart-btn">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
         </div>
     </div>
-`).join("");
+`
+ 
+).join("");
+const cartButtons = document.querySelectorAll(".product-card");
+cartButtons.forEach(button => {
+    button.addEventListener("click", (e) => {
+        console.log(`Add to Cart clicked for product ID: ${e.target.dataset.id}`);
+        window.location.href = `productDetails.html?productId=${e.target.dataset.id}`;
+        
+    });
+})
 }
+
 
 function setupPagination() {
     const pageCount = Math.ceil(products.length / productsPerPage);
