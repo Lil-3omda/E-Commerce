@@ -32,6 +32,7 @@ function displayProducts(page) {
 
     const filterableCards = document.getElementById("filterable-cards");
 
+    // all products filter
     filterableCards.innerHTML = products
       .filter((product) => {
         return product;
