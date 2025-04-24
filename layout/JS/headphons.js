@@ -32,7 +32,6 @@ function displayProducts(page) {
 
     const filterableCards = document.getElementById("filterable-cards");
 
-    // all products filter
     filterableCards.innerHTML = products
       .filter((product) => {
         return product;
@@ -148,35 +147,19 @@ function displayProducts(page) {
   const items = document.getElementById("filterable-cards");
   items.innerHTML = paginatedProducts
     .map(
-      (product) =>
-        `
+      (product) => `
     <div class="card item p-2 m-4 mt-0">
         <img src="${product.img}" alt="">
         <div class="card-body">
             <h6 class="card-title fs-5">${product.name}</h6>
             <p class="card-description">${product.category}</p>
             <p class="card-description">${product.price}$</p>
-            <button
-            class="btn btn-primary add-to-cart-btn">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
+            <button class="btn btn-primary">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
         </div>
     </div>
 `
     )
     .join("");
-  const cartButtons = document.querySelectorAll(".add-to-cart-btn");
-  cartButtons.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const product = {
-        id: e.target.dataset.id,
-        name: e.target.dataset.name,
-        price: e.target.dataset.price,
-        img: e.target.dataset.img,
-        category: e.target.dataset.category,
-        description: e.target.dataset.description,
-      };
-      console.log(`Add to Cart clicked for product ID: ${product.id}`);
-    });
-  });
 }
 
 function setupPagination() {
@@ -224,4 +207,3 @@ function setupPagination() {
   pagination.appendChild(next);
 }
 fetchProducts();
-//

@@ -32,7 +32,6 @@ function displayProducts(page) {
 
     const filterableCards = document.getElementById("filterable-cards");
 
-    // all products filter
     filterableCards.innerHTML = products
       .filter((product) => {
         return product;
@@ -66,7 +65,7 @@ function displayProducts(page) {
 
     filterableCards.innerHTML = products
       .filter((product) => {
-        return product.sold >= 7;
+        return product.sold >= 50;
       })
       .map(
         (product) => `
@@ -97,7 +96,7 @@ function displayProducts(page) {
 
     filterableCards.innerHTML = products
       .filter((product) => {
-        return product.price >= 10000;
+        return product.price >= 40000;
       })
       .map(
         (product) => `
@@ -127,7 +126,7 @@ function displayProducts(page) {
 
     filterableCards.innerHTML = products
       .filter((product) => {
-        return product.price <= 1000;
+        return product.price <= 20000;
       })
       .map(
         (product) => `
@@ -157,7 +156,13 @@ function displayProducts(page) {
             <p class="card-description">${product.category}</p>
             <p class="card-description">${product.price}$</p>
             <button
-            class="btn btn-primary add-to-cart-btn">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
+                data-id="${product.id}"
+                data-name="${product.name}"
+                data-price="${product.price}"
+                data-img="${product.img}"
+                data-category="${product.category}"
+                data-description="${product.description}"
+             class="btn btn-primary add-to-cart-btn">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
         </div>
     </div>
 `

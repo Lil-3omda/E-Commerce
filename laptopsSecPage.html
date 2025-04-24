@@ -10,32 +10,12 @@
 <body>
     <div id="navbar"></div>
     <script>
-        //comment out the script tag below to use the navbar from the include folder
         fetch('/include/navbar.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('navbar').innerHTML = data;
-                const searchIcon = document.getElementById('searchIcon');
-                const navItems = document.getElementById('navItems');
-                const searchForm = document.getElementById('searchForm');
-                const closeSearch = document.getElementById('closeSearch');
-                const links = document.querySelectorAll('a.nav-link');
                 const homeLink = Array.from(links).find(link => link.textContent.trim() === 'Home');
                 const ProductsLink = Array.from(links).find(link => link.textContent.trim() === 'Products');
-                homeLink.classList.remove('active');
-                ProductsLink.classList.add('active');
-                if (searchIcon && closeSearch) {
-                searchIcon.addEventListener('click', () => {
-                navItems.classList.add('d-none');
-                searchForm.classList.remove('d-none');
-                searchIcon.classList.add('d-none');
-                });
-                closeSearch.addEventListener('click', () => {
-                navItems.classList.remove('d-none');
-                searchForm.classList.add('d-none');
-                searchIcon.classList.remove('d-none');
-                });
-            }
         })
         .catch(error => console.error('Error loading navbar:', error));
     </script>
