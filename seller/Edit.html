@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root{
+            --dark-color: #19283f;
+            --green-color: #33d1cc;
+            --red-color: #ff3150;
+            --yellow-color: #ffc400;
+            --section-color: #eff7fa;
+            --navbar-color: #6e2cf5;
+            --test-color : #231709;
+            --footer-text-color: #9ca3af;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        body{
+            min-height: 100vh;
+        }
+    </style>
+    <title>Add Products</title>
+</head>
+<body>
+    <div id="navbar"></div>
+    <script>
+        fetch('/include/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+                const navList = document.querySelector('.navbar-nav');
+                const newLi1 = document.createElement('li');
+                newLi1.className = 'nav-item';
+                const newLink1 = document.createElement('a');
+                newLink1.className = 'nav-link btn btn-outline-success mx-1';
+                newLink1.textContent = 'My Products';
+                newLink1.href = '#';
+                newLi1.appendChild(newLink1);
+                navList.appendChild(newLi1);
+                const newLi2 = document.createElement('li');
+                newLi2.className = 'nav-item';
+                const newLink2 = document.createElement('a');
+                newLink2.className = 'nav-link btn btn-outline-success mx-1';
+                newLink2.textContent = 'Add Products';
+                newLink2.href = '/seller/AddItem.html';
+                newLi2.appendChild(newLink2);
+                navList.appendChild(newLi2);
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    </script>
+    <h1 class="col-xs-12 d-flex justify-content-center mt-4 mb-4">Add Product </h1>
+    <div class="container p-4">
+    <form class="row g-3">
+        <div class="col-md-6">
+        <label for="ProductName" class="form-label">Name</label>
+        <input type="text" class="form-control" id="ProductName" required>
+        </div>
+        <div class="col-md-6">
+        <label for="imgPath" class="form-label">Image Path</label>
+        <input type="text" class="form-control" id="imgPath" placeholder="./imgs/smartphones/######" required>
+        </div>
+        <div class="col-12">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" placeholder="Description">
+        </div>
+        <div class="col-md-6">
+        <label for="price" class="form-label">Price</label>
+        <input type="number" class="form-control" id="price" placeholder="Price" required>
+        </div>
+        <div class="col-md-6">
+        <label for="brand" class="form-label">Brand</label>
+        <input type="text" class="form-control" id="brand" required>
+        </div>
+        <div class="col-md-6">
+            <label for="numberOfPieces" class="form-label">Number Of Items</label>
+            <input type="number" class="form-control" id="numberOfPieces" required>
+        </div>
+        <div class="col-md-4">
+        <label for="category" class="form-label" required>Category</label>
+        <select id="category" class="form-select" required>
+            <option selected>Choose...</option>
+            <option>smartphones</option>
+            <option>laptops</option>
+            <option>headphones</option>
+        </select>
+        </div>
+        <div class="col-md-2">
+        <label for="AdditionalDetails" class="form-label">Additional details</label>
+        <input type="text" class="form-control" id="AdditionalDetails">
+        </div>
+    
+        <div class="col-12">
+        <button type="submit" class="btn btn-primary" id="edit-btn">Edit Product</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const editAction = document.getElementById('edit-btn');
+    submitAction.addEventListener('click', (e) => {
+        e.preventDefault();  
+        const name = document.getElementById('ProductName').value.trim();
+        const image = document.getElementById('imgPath').value.trim();
+        const description = document.getElementById('description').value.trim();
+        const price = parseFloat(document.getElementById('price').value);
+        const brand = document.getElementById('brand').value.trim();
+        const numberOfPieces = parseInt(document.getElementById('numberOfPieces').value);
+        const category = document.getElementById('category').value;
+        const additionalDetails = document.getElementById('AdditionalDetails').value.trim();
+
+    });
+
+</script>
+    <div id="footer"></div>
+    <script>
+        fetch('/include/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            });
+    </script>
+
+<script src="/layout/JS/all.min.js"></script>
+<script src="/layout/JS/bootstrap.bundle.min.js"></script>
+</body>
+</html>
