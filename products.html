@@ -14,15 +14,16 @@
             fetch('/include/navbar.html')
             .then(response => response.text())
             .then(data => {
-                document.getElementById('navbar').innerHTML = data;  
+                document.getElementById('navbar').innerHTML = data; 
+                const links = document.querySelectorAll('a.nav-link');
+                const homeLink = Array.from(links).find(link => link.textContent.trim() === 'Home');
+                const ProductsLink = Array.from(links).find(link => link.textContent.trim() === 'All Products');
+                homeLink.classList.remove('active');
+                ProductsLink.classList.add('active'); 
             })
             .catch(error => console.error('Error loading navbar:', error));
         });
-        const links = document.querySelectorAll('a.nav-link');
-        const homeLink = Array.from(links).find(link => link.textContent.trim() === 'Home');
-        const ProductsLink = Array.from(links).find(link => link.textContent.trim() === 'All Products');
-        homeLink.classList.remove('active');
-        ProductsLink.classList.add('active');
+        
     </script>
     <h1 class="col-xs-12 d-flex justify-content-center mt-4 mb-4">Product List</h1>
     <div class="product-container mb-5">
