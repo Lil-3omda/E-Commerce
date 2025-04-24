@@ -15,152 +15,70 @@ async function fetchProducts() {
 }
 
 function displayProducts(page) {
+  if (!products || !Array.isArray(products) || products.length === 0) return;
+  if (typeof productsPerPage !== "number" || productsPerPage <= 0) return;
+
+  const filterableCards = document.getElementById("filterable-cards");
+
   const start = (page - 1) * productsPerPage;
   const end = start + productsPerPage;
   const paginatedProducts = products.slice(start, end);
 
-  // all products filter
-  const all = document.getElementById("all");
-
-  all.addEventListener("click", function () {
-    // active state of the zuraar
-    all.classList.add("active");
-    document.getElementById("premium").classList.remove("active");
-    document.getElementById("economic").classList.remove("active");
-    document.getElementById("best-seller").classList.remove("active");
-
-    const filterableCards = document.getElementById("filterable-cards");
-
-    filterableCards.innerHTML = products
-      .filter((product) => {
-        return product;
-      })
+  // Helper: render product cards
+  function renderProducts(productList) {
+    filterableCards.innerHTML = productList
       .map(
         (product) => `
-      <div class="card item p-2 m-4 mt-0">
-        <img src="${product.img}" alt="">
-        <div class="card-body">
-            <h6 class="card-title fs-5">${product.name}</h6>
-            <p class="card-description">${product.category}</p>
-            <p class="card-description">${product.price}$</p>
-            <button class="btn btn-primary">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
+        <div class="card item p-2 m-4 mt-0">
+          <img src="${product.img}" alt="" class="product-card" data-id="${product.id}">
+          <div class="card-body">
+              <h6 class="card-title fs-5">${product.name}</h6>
+              <p class="card-description">${product.category}</p>
+              <p class="card-description">${product.price}$</p>
+              <button class="btn btn-primary">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
+          </div>
         </div>
-    </div>
-    `
+      `
       )
       .join("");
+  }
+
+  // Helper: set active filter button
+  function setActiveFilter(activeId) {
+    ["all", "best-seller", "premium", "economic"].forEach((id) => {
+      document.getElementById(id).classList.toggle("active", id === activeId);
+    });
+  }
+
+  // Filter functions
+  const filters = {
+    "all": () => products,
+    "best-seller": () => products.filter((product) => product.sold >= 50),
+    "premium": () => products.filter((product) => product.price >= 60000),
+    "economic": () => products.filter((product) => product.price <= 800),
+  };
+
+  // Attach event listeners for filters
+  Object.keys(filters).forEach((filterId) => {
+    const element = document.getElementById(filterId);
+    element.addEventListener("click", () => {
+      setActiveFilter(filterId);
+      renderProducts(filters[filterId]());
+    });
   });
 
-  // best sellers filter
-  const betsSeller = document.getElementById("best-seller");
+  // Initial render with pagination
+  renderProducts(paginatedProducts);
 
-  betsSeller.addEventListener("click", function () {
-    betsSeller.classList.add("active");
-    document.getElementById("all").classList.remove("active");
-    document.getElementById("premium").classList.remove("active");
-    document.getElementById("economic").classList.remove("active");
-
-    const filterableCards = document.getElementById("filterable-cards");
-
-    filterableCards.innerHTML = products
-      .filter((product) => {
-        return product.sold >= 50;
-      })
-      .map(
-        (product) => `
-      <div class="card item p-2 m-4 mt-0">
-        <img src="${product.img}" alt="">
-        <div class="card-body">
-            <h6 class="card-title fs-5">${product.name}</h6>
-            <p class="card-description">${product.category}</p>
-            <p class="card-description">${product.price}$</p>
-            <button class="btn btn-primary">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
-        </div>
-    </div>
-    `
-      )
-      .join("");
+  // Optional: click event for navigating to product detail
+  filterableCards.addEventListener("click", (e) => {
+    if (e.target.classList.contains("product-card")) {
+      const productId = e.target.dataset.id;
+      window.location.href = `productDetails.html?productId=${productId}`;
+    }
   });
-
-  // premium filter
-
-  const premium = document.getElementById("premium");
-  premium.addEventListener("click", function () {
-    premium.classList.add("active");
-    document.getElementById("all").classList.remove("active");
-    document.getElementById("best-seller").classList.remove("active");
-    document.getElementById("economic").classList.remove("active");
-
-    const filterableCards = document.getElementById("filterable-cards");
-
-    filterableCards.innerHTML = products
-      .filter((product) => {
-        return product.price >=60000;
-      })
-      .map(
-        (product) => `
-      <div class="card item p-2 m-4 mt-0">
-        <img src="${product.img}" alt="">
-        <div class="card-body">
-            <h6 class="card-title fs-5">${product.name}</h6>
-            <p class="card-description">${product.category}</p>
-            <p class="card-description">${product.price}$</p>
-            <button class="btn btn-primary">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
-        </div>
-    </div>
-    `
-      )
-      .join("");
-  }); 
-
-  // economic filter
-  const economic = document.getElementById("economic");
-  economic.addEventListener("click", function () {
-    economic.classList.add("active");
-    document.getElementById("all").classList.remove("active");
-    document.getElementById("best-seller").classList.remove("active");
-    document.getElementById("premium").classList.remove("active");
-
-    const filterableCards = document.getElementById("filterable-cards");
-
-    filterableCards.innerHTML = products
-      .filter((product) => {
-        return product.price <= 800;
-      })
-      .map(
-        (product) => `
-      <div class="card item p-2 m-4 mt-0">
-        <img src="${product.img}" alt="">
-        <div class="card-body">
-            <h6 class="card-title fs-5">${product.name}</h6>
-            <p class="card-description">${product.category}</p>
-            <p class="card-description">${product.price}$</p>
-            <button class="btn btn-primary">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
-        </div>
-    </div>
-    `
-      )
-      .join("");
-  });
-
-
-  const items = document.getElementById("filterable-cards");
-  items.innerHTML = paginatedProducts
-    .map(
-      (product) => `
-    <div class="card item p-2 m-4 mt-0">
-        <img src="${product.img}" alt="">
-        <div class="card-body">
-            <h6 class="card-title fs-5">${product.name}</h6>
-            <p class="card-description">${product.category}</p>
-            <p class="card-description">${product.price}$</p>
-            <button class="btn btn-primary">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
-        </div>
-    </div>
-`
-    )
-    .join("");
 }
+
 
 function setupPagination() {
   const pageCount = Math.ceil(products.length / productsPerPage);
