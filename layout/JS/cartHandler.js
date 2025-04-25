@@ -1,23 +1,15 @@
 const getCartKey = (userId) => `cart_${userId}`;
 
-export function saveCart(userId = 0, cartItems) {
-  const cartKey = getCartKey(userId);
-  localStorage.setItem(cartKey, JSON.stringify(cartItems));
-}
-
 export function addToCart(userId = 0, item) {
   const cartKey = getCartKey(userId);
   let cart = localStorage.getItem(cartKey);
   cart = cart ? JSON.parse(cart) : []; 
   const existingIndex = cart.findIndex(cartItem => JSON.parse(cartItem.productData).id === JSON.parse(item).id);
-  console.log("Existing index:", existingIndex);  
-
   if (existingIndex !== -1) {
     cart[existingIndex].quantity += 1;
   } else {
     cart.push({ productData: item, quantity: 1 });
   }
-
   localStorage.setItem(cartKey, JSON.stringify(cart));
   console.log("Updated cart:", cart);
 }
