@@ -33,9 +33,26 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById('navbar').innerHTML = data;
+                const searchbar = document.getElementsByClassName("search-wrapper")[0];
+                const iconbar = document.getElementsByClassName("icon-bar")[0];
+                const bottomNavLinks = document.querySelectorAll(".bottom-nav .nav-link");
+                searchbar.classList.add('d-none');
+                iconbar.classList.add('d-none');
+                bottomNavLinks.forEach(link => {
+                    link.classList.add('d-none');
+                });
                 const navList = document.querySelector('.navbar-nav');
+                const Dashboard = document.createElement('p');
+                Dashboard.classList = 'nav-item mt-0';
+                const DashboardLink = document.createElement('a');
+                DashboardLink.className = 'nav-link fs-3 mx-1';
+                DashboardLink.style.color = 'black';
+                DashboardLink.textContent = "Seller Dashboard";
+                DashboardLink.href = '/seller/homePage.html';
+                Dashboard.append(DashboardLink);
+                navList.append(Dashboard);                
                 const newLi1 = document.createElement('li');
-                newLi1.className = 'nav-item';
+                newLi1.className = 'nav-item mt-2';
                 const newLink1 = document.createElement('a');
                 newLink1.className = 'nav-link btn btn-outline-success mx-1';
                 newLink1.textContent = 'My Products';
@@ -43,7 +60,7 @@
                 newLi1.appendChild(newLink1);
                 navList.appendChild(newLi1);
                 const newLi2 = document.createElement('li');
-                newLi2.className = 'nav-item';
+                newLi2.className = 'nav-item mt-2';
                 const newLink2 = document.createElement('a');
                 newLink2.className = 'nav-link btn btn-outline-success mx-1';
                 newLink2.textContent = 'Add Products';
