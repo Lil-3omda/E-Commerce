@@ -23,11 +23,31 @@
         body{
             min-height: 100vh;
         }
+        label{
+            font-size: 1.2rem;
+            font-weight: 530;
+            color: var(--test-color);
+        }
+        .success-message{
+            position: fixed;
+            top:20;
+            right: 20px;
+            background-color: var(--green-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: none;
+        }
     </style>
     <title>Add Products</title>
 </head>
 <body>
     <div id="navbar"></div>
+    <div id="successMessage" class="success-message">
+        Product added successfully!
+    </div>
     <script>
         fetch('/include/navbar.html')
             .then(response => response.text())
@@ -56,7 +76,7 @@
                 const newLink1 = document.createElement('a');
                 newLink1.className = 'nav-link btn btn-outline-success mx-1';
                 newLink1.textContent = 'My Products';
-                newLink1.href = '#';
+                newLink1.href = '/seller/homePage.html';
                 newLi1.appendChild(newLink1);
                 navList.appendChild(newLi1);
                 const newLi2 = document.createElement('li');
@@ -118,6 +138,13 @@
 </div>
 
 <script>
+    function showSuccessMessage() {
+        const successMsg = document.getElementById('successMessage');
+        successMsg.style.display = 'block';
+        setTimeout(() => {
+            successMsg.style.display = 'none';
+        }, 3000);
+    }
     const submitAction = document.getElementById('submit-btn');
     submitAction.addEventListener('click', (e) => {
         e.preventDefault(); 
@@ -127,11 +154,11 @@
         const description = document.getElementById('description').value.trim();
         const price = parseFloat(document.getElementById('price').value);
         const brand = document.getElementById('brand').value.trim();
-        const numberOfPieces = parseInt(document.getElementById('numberOfPieces').value);
+        const availible = parseInt(document.getElementById('numberOfPieces').value);
         const category = document.getElementById('category').value;
         const additionalDetails = document.getElementById('AdditionalDetails').value.trim();
 
-        if (!name || !image || !price || !brand || !numberOfPieces || category === "Choose...") {
+        if (!name || !image || !price || !brand || !availible || category === "Choose...") {
             alert("Please fill all required fields properly.");
             return;
         }
@@ -153,7 +180,7 @@
             description,
             price,
             brand,
-            numberOfPieces,
+            availible,
             category,
             sellerId : 201,
             added: getFormattedDate(),
@@ -161,9 +188,11 @@
         };
         existingProducts.push(newProduct);
         localStorage.setItem("products", JSON.stringify(existingProducts));
-        alert("Product added successfully!");
-        document.querySelector("form").reset();
-    });
+        showSuccessMessage();
+            setTimeout(() => {
+                window.location.href = document.referrer || '/seller/products.html';
+            }, 1500);
+        });
 
 </script>
     <div id="footer"></div>
