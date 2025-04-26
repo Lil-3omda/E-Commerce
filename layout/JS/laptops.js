@@ -1,3 +1,4 @@
+import { addToCart, getCart } from "./cartHandler.js"; // Adjust the import path as necessary
 let products = [];
 const productsPerPage = 16;
 let currentPage = 1;
@@ -36,7 +37,7 @@ function displayProducts(page) {
           <h6 class="card-title fs-5">${product.name}</h6>
           <p class="card-description">${product.category}</p>
           <p class="card-description">${product.price}$</p>
-          <button class="btn btn-primary">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
+          <button data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' class="btn btn-primary cartBtn">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
         </div>
       </div>
     `
@@ -76,7 +77,16 @@ function displayProducts(page) {
   filterableCards.addEventListener("click", (e) => {
     if (e.target.classList.contains("product-card")) {
       const productId = e.target.dataset.id;
+      console.log(e.target.classList);
       window.location.href = `productDetails.html?productId=${productId}`;
+    }
+  });
+  filterableCards.addEventListener("click", (e) => {
+    if (e.target.classList.contains("cartBtn")) {
+      addToCart(0,e.target.dataset.product);
+      
+      
+      
     }
   });
 }
