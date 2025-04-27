@@ -75,7 +75,7 @@
                 const newLink1 = document.createElement('a');
                 newLink1.className = 'nav-link btn btn-outline-success mx-1';
                 newLink1.textContent = 'My Products';
-                newLink1.href = '#';
+                newLink1.href = '/seller/homePage.html';
                 newLi1.appendChild(newLink1);
                 navList.appendChild(newLi1);
                 const newLi2 = document.createElement('li');
@@ -98,7 +98,7 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="text-xs fw-bold text-primary text-uppercase mb-1">Total Products</div>
-                                <div class="h5 mb-0 fw-bold" id="totalProducts">42</div>
+                                <div class="h5 mb-0 fw-bold" id="totalProducts"></div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-box fa-2x text-primary-emphasis"></i>
@@ -310,55 +310,81 @@
         }
         function renderProducts() {
             const productsList = document.getElementById('productsList');
+            productsList.innerHTML = '';
+            
             const products = JSON.parse(localStorage.getItem("products"));
+            
+            document.getElementById('totalProducts').textContent = products.length;
+            
             products.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.className = 'col-md-4 col-lg-3 mb-4';
-                productCard.innerHTML = `
-                    <div class="card h-100">
-                        <img src="../${product.img}" class="card-img-top product-image" alt="${product.name}">
-                        <div class="card-body">
-                            <h5 class="card-title">${product.name}</h5>
-                            <p class="card-text">
-                                <span class="badge bg-primary me-2">$${product.price}</span>
-                                <span class="badge ${product.availible > 10 ? 'bg-success' : 'bg-warning'}">${product.availible} in stock</span>
-                            </p>
-                            <p class="card-text"><small class="text-muted">Category: ${product.category}</small></p>
-                            <p class="card-text"><small class="text-muted">Sold: ${product.sold} units</small></p>
+                if (product.sellerId === 201) {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'col-md-4 col-lg-3 mb-4';
+                    productCard.innerHTML = `
+                        <div class="card h-100">
+                            <img src="../${product.img}" class="card-img-top product-image" alt="${product.name}">
+                            <div class="card-body">
+                                <h5 class="card-title">${product.name}</h5>
+                                <p class="card-text">
+                                    <span class="badge bg-primary me-2">$${product.price}</span>
+                                    <span class="badge ${product.availible > 10 ? 'bg-success' : 'bg-warning'}">${product.availible} in stock</span>
+                                </p>
+                                <p class="card-text"><small class="text-muted">Category: ${product.category}</small></p>
+                                <p class="card-text"><small class="text-muted">Brand: ${product.description.brand}</small></p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <button class="btn btn-sm btn-outline-primary" onclick="editProduct(${product.id})"><i class="fas fa-edit"></i> Edit</button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete(${product.id})"><i class="fas fa-trash"></i> Delete</button>
+                            </div>
                         </div>
-                        <div class="card-footer d-flex justify-content-between">
-                            <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i> Edit</button>
-                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i> Delete</button>
-                        </div>
+                    `;
+                    productsList.appendChild(productCard);
+                }
+            });
+
+            if (productsList.children.length === 0) {
+                productsList.innerHTML = `
+                    <div class="col-12 text-center">
+                        <p class="text-muted">No products found. Click "Add Product" to add your first product.</p>
                     </div>
                 `;
-                productsList.appendChild(productCard);
-            });
+            }
         }
-        renderProducts();
-        function renderRecentSales() {
-            const recentSalesTable = document.getElementById('recentSales');
-            
-            recentSalesData.forEach(sale => {
-                const statusClass = {
-                    'Delivered': 'success',
-                    'Shipped': 'info',
-                    'Processing': 'warning',
-                    'Cancelled': 'danger'
-                };
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${sale.id}</td>
-                    <td>${sale.product}</td>
-                    <td>${sale.customer}</td>
-                    <td>${sale.date}</td>
-                    <td>${sale.amount}</td>
-                    <td><span class="badge bg-${statusClass[sale.status] || 'secondary'}">${sale.status}</span></td>
-                `;
-                recentSalesTable.appendChild(row);
-            });
+
+        function confirmDelete(productId) {
+            if (confirm("Are you sure you want to delete this product? This action cannot be undone.")) {
+                deleteProduct(productId);
+            }
         }
+        function deleteProduct(productId) {
+            let products = JSON.parse(localStorage.getItem("products")) || [];
+            const productIndex = products.findIndex(product => product.id === productId);
+        
+        if (productIndex !== -1) {
+            products.splice(productIndex, 1);
+            localStorage.setItem("products", JSON.stringify(products));
+            alert("Product deleted successfully!");
+            renderProducts();
+            updateStatistics();
+            } else {
+                alert("Product not found!");
+            }
+        }
+
+        function editProduct(productId) {
+            window.location.href = `Edit.html?productID=${productId}`;
+        }
+
+        function updateStatistics() {
+            const products = JSON.parse(localStorage.getItem("products"));
+            const sellerProducts = products.filter(product => product.sellerId === 201);
+            document.getElementById('totalProducts').textContent = sellerProducts.length;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+            updateStatistics();
+        });
     </script>
 </body>
 </html>

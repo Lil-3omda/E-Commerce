@@ -23,27 +23,84 @@
         body{
             min-height: 100vh;
         }
+        label{
+            font-size: 1.2rem;
+            font-weight: 530;
+            color: var(--test-color);
+        }
+        .product-image-preview {
+            height: 400px;
+            width: 100%;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .product-image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .image-placeholder {
+            color: #6c757d;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        .success-message{
+            position: fixed;
+            top:20;
+            right: 20px;
+            background-color: var(--green-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: none;
+        }
     </style>
-    <title>Add Products</title>
+    <title>Edit Product</title>
 </head>
 <body>
     <div id="navbar"></div>
+    <div id="successMessage" class="success-message">
+        Product updated successfully!
+    </div>
     <script>
         fetch('/include/navbar.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('navbar').innerHTML = data;
+                const searchbar = document.getElementsByClassName("search-wrapper")[0];
+                const iconbar = document.getElementsByClassName("icon-bar")[0];
+                const bottomNavLinks = document.querySelectorAll(".bottom-nav .nav-link");
+                searchbar.classList.add('d-none');
+                iconbar.classList.add('d-none');
+                bottomNavLinks.forEach(link => {
+                    link.classList.add('d-none');
+                });
                 const navList = document.querySelector('.navbar-nav');
+                const Dashboard = document.createElement('p');
+                Dashboard.classList = 'nav-item mt-0';
+                const DashboardLink = document.createElement('a');
+                DashboardLink.className = 'nav-link fs-3 mx-1';
+                DashboardLink.style.color = 'black';
+                DashboardLink.textContent = "Seller Dashboard";
+                DashboardLink.href = '/seller/homePage.html';
+                Dashboard.append(DashboardLink);
+                navList.append(Dashboard);                
                 const newLi1 = document.createElement('li');
-                newLi1.className = 'nav-item';
+                newLi1.className = 'nav-item mt-2';
                 const newLink1 = document.createElement('a');
                 newLink1.className = 'nav-link btn btn-outline-success mx-1';
                 newLink1.textContent = 'My Products';
-                newLink1.href = '#';
+                newLink1.href = '/seller/homePage.html';
                 newLi1.appendChild(newLink1);
                 navList.appendChild(newLi1);
                 const newLi2 = document.createElement('li');
-                newLi2.className = 'nav-item';
+                newLi2.className = 'nav-item mt-2';
                 const newLink2 = document.createElement('a');
                 newLink2.className = 'nav-link btn btn-outline-success mx-1';
                 newLink2.textContent = 'Add Products';
@@ -53,69 +110,168 @@
             })
             .catch(error => console.error('Error loading navbar:', error));
     </script>
-    <h1 class="col-xs-12 d-flex justify-content-center mt-4 mb-4">Add Product </h1>
-    <div class="container p-4">
-    <form class="row g-3">
-        <div class="col-md-6">
-        <label for="ProductName" class="form-label">Name</label>
-        <input type="text" class="form-control" id="ProductName" required>
-        </div>
-        <div class="col-md-6">
-        <label for="imgPath" class="form-label">Image Path</label>
-        <input type="text" class="form-control" id="imgPath" placeholder="./imgs/smartphones/######" required>
-        </div>
-        <div class="col-12">
-        <label for="description" class="form-label">Description</label>
-        <input type="text" class="form-control" id="description" placeholder="Description">
-        </div>
-        <div class="col-md-6">
-        <label for="price" class="form-label">Price</label>
-        <input type="number" class="form-control" id="price" placeholder="Price" required>
-        </div>
-        <div class="col-md-6">
-        <label for="brand" class="form-label">Brand</label>
-        <input type="text" class="form-control" id="brand" required>
-        </div>
-        <div class="col-md-6">
-            <label for="numberOfPieces" class="form-label">Number Of Items</label>
-            <input type="number" class="form-control" id="numberOfPieces" required>
-        </div>
-        <div class="col-md-4">
-        <label for="category" class="form-label" required>Category</label>
-        <select id="category" class="form-select" required>
-            <option selected>Choose...</option>
-            <option>smartphones</option>
-            <option>laptops</option>
-            <option>headphones</option>
-        </select>
-        </div>
-        <div class="col-md-2">
-        <label for="AdditionalDetails" class="form-label">Additional details</label>
-        <input type="text" class="form-control" id="AdditionalDetails">
-        </div>
     
-        <div class="col-12">
-        <button type="submit" class="btn btn-primary" id="edit-btn">Edit Product</button>
+    <h1 class="col-xs-12 d-flex justify-content-center mt-4 mb-4">Edit Product</h1>
+    
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="product-image-preview mb-3" id="imagePreviewContainer">
+                    <div class="image-placeholder"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="imgPath" class="form-label" >Image Path</label>
+                    <input type="text" class="form-control" id="imgPath" placeholder="../imgs/folder/######" required>
+                </div>
+            </div>
+            
+            <div class="col-md-7">
+                <form class="row g-3">
+                    <div class="col-md-6">
+                        <label for="ProductName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="ProductName" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="brand" class="form-label">Brand</label>
+                        <input type="text" class="form-control" id="brand" required>
+                    </div>
+                    <div class="col-12">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" placeholder="Description" rows="3"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="price" placeholder="Price" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="numberOfPieces" class="form-label">Number Of Items</label>
+                        <input type="number" class="form-control" id="numberOfPieces" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="category" class="form-label">Category</label>
+                        <select id="category" class="form-select" required>
+                            <option value="">Choose...</option>
+                            <option value="smartphones">smartphones</option>
+                            <option value="laptops">laptops</option>
+                            <option value="headphones">headphones</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="AdditionalDetails" class="form-label">Additional details</label>
+                        <input type="text" class="form-control" id="AdditionalDetails">
+                    </div>
+                
+                    <div class="col-12 mt-4">
+                        <button type="submit" class="btn btn-primary" id="edit-btn">Update Product</button>
+                        <a href="javascript:history.back()" class="btn btn-secondary ms-2">Cancel</a>
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
-</div>
+    </div>
 
-<script>
-    const editAction = document.getElementById('edit-btn');
-    submitAction.addEventListener('click', (e) => {
-        e.preventDefault();  
-        const name = document.getElementById('ProductName').value.trim();
-        const image = document.getElementById('imgPath').value.trim();
-        const description = document.getElementById('description').value.trim();
-        const price = parseFloat(document.getElementById('price').value);
-        const brand = document.getElementById('brand').value.trim();
-        const numberOfPieces = parseInt(document.getElementById('numberOfPieces').value);
-        const category = document.getElementById('category').value;
-        const additionalDetails = document.getElementById('AdditionalDetails').value.trim();
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productID = urlParams.get('productID');
+        const products = JSON.parse(localStorage.getItem('products'));
+        const product = products.find(p => p.id == productID);
+        
+        function showSuccessMessage() {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
+            
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+        }
+        function loadProductData(product) {
+            if (product) {
+                setTimeout(() => {
+                    const itemData = {
+                        name: product.name,
+                        image: product.img,
+                        description: product.description.content,
+                        price: product.price,
+                        brand: product.description.brand,
+                        numberOfPieces: product.availible,
+                        category: product.category,
+                        additionalDetails: ""
+                    };
+                    document.getElementById('ProductName').value = itemData.name;
+                    document.getElementById('imgPath').value = itemData.image;
+                    document.getElementById('description').value = itemData.description;
+                    document.getElementById('price').value = itemData.price;
+                    document.getElementById('brand').value = itemData.brand;
+                    document.getElementById('numberOfPieces').value = itemData.numberOfPieces;
+                    document.getElementById('category').value = itemData.category;
+                    document.getElementById('AdditionalDetails').value = itemData.additionalDetails;
+                    updateImagePreview(itemData.image);
+                }, 500);
+            }
+        }
+        function updateImagePreview(imagePath) {
+            const container = document.getElementById('imagePreviewContainer');
+            
+            if (imagePath && imagePath.trim() !== '') {
+                container.innerHTML = `<img src="../${imagePath}" alt="Product Preview">`;
+            } else {
+                container.innerHTML = `<div class="image-placeholder"><p>Product image will appear here</p></div>`;
+            }
+        }
+        document.getElementById('imgPath').addEventListener('input', function() {
+            updateImagePreview(this.value);
+        });
+        const editBtn = document.getElementById('edit-btn');
+        editBtn.addEventListener('click', (e) => {
+            e.preventDefault();  
+            const name = document.getElementById('ProductName').value.trim();
+            const image = document.getElementById('imgPath').value.trim();
+            const description = document.getElementById('description').value.trim();
+            const price = parseFloat(document.getElementById('price').value);
+            const brand = document.getElementById('brand').value.trim();
+            const numberOfPieces = parseInt(document.getElementById('numberOfPieces').value);
+            const category = document.getElementById('category').value;
+            const additionalDetails = document.getElementById('AdditionalDetails').value.trim();
 
-    });
+            if (!name || !image || !price || !brand || !numberOfPieces || !category || category === "Choose...") {
+                alert("Please fill in all required fields");
+                return;
+            }
+        });
 
-</script>
+        if (productID) {
+            loadProductData(product);
+        } else {
+            alert("No product ID provided!");
+            window.history.back();
+        }
+        document.getElementById('edit-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const updatedProduct = {
+                ...product,
+                name: document.getElementById('ProductName').value.trim(),
+                img: document.getElementById('imgPath').value.trim(),
+                price: parseFloat(document.getElementById('price').value),
+                availible: parseInt(document.getElementById('numberOfPieces').value),
+                category: document.getElementById('category').value,
+                description: {
+                    ...product.description,
+                    brand: document.getElementById('brand').value.trim(),
+                    content: document.getElementById('description').value.trim()
+                }
+            };
+
+            const updatedProducts = products.map(p => p.id == productID ? updatedProduct : p);
+            localStorage.setItem('products', JSON.stringify(updatedProducts));
+            showSuccessMessage();
+            setTimeout(() => {
+                window.location.href = document.referrer || '/seller/products.html';
+            }, 1500);
+
+        });
+    </script>
+    
     <div id="footer"></div>
     <script>
         fetch('/include/footer.html')
@@ -125,7 +281,7 @@
             });
     </script>
 
-<script src="/layout/JS/all.min.js"></script>
-<script src="/layout/JS/bootstrap.bundle.min.js"></script>
+    <script src="/layout/JS/all.min.js"></script>
+    <script src="/layout/JS/bootstrap.bundle.min.js"></script>
 </body>
 </html>
