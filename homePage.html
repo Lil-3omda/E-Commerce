@@ -124,7 +124,7 @@
                             <img src="${product.img}" class="card-img-top" alt="${product.name}">
                             <div class="card-body">
                                 <h6 class="card-title">${product.name}</h6>
-                                <p class="card-text text-danger">$${product.price || 100} <del class="text-muted">$${product.oldPrice || (product.price + 50)}</del></p>
+                                <p class="card-text text-danger">$${product.price || 100} <del class="text-muted">$${(product.price + 50)}</del></p>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Add to Cart</a>
                             </div>
                         </div>
@@ -144,23 +144,32 @@
                     </div>
                 `;
             }
-    
-            products.slice(0, 4).forEach(product => {
+            function getRandomInt(min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            x = getRandomInt(1,60);
+            y = getRandomInt(1,60);
+            z = getRandomInt(1,60);
+            n = getRandomInt(1,60);
+            m = getRandomInt(1,60);    
+            products.slice(x, x+4).forEach(product => {
                 newProductsContainer.innerHTML += createProductCard(product);
             });
     
-            products.slice(0, 4).forEach(product => {
+            products.slice(y, (y+4)).forEach(product => {
                 topSellingContainer.innerHTML += createProductCard(product);
             });
     
-            products.slice(0, 4).forEach(product => {
+            products.slice(z, (z+4)).forEach(product => {
                 topRatedContainer.innerHTML += createTopProductMini(product);
             });
     
-            products.slice(4, 8).forEach(product => {
+            products.slice(n, (n+4)).forEach(product => {
                 topViewContainer.innerHTML += createTopProductMini(product);
             });
-            products.slice(8, 12).forEach(product => {
+            products.slice(m, (m+4)).forEach(product => {
                 topselllingContainer.innerHTML += createTopProductMini(product);
             });
             
@@ -198,6 +207,7 @@
         }
         document.addEventListener('DOMContentLoaded', createLogoSlides);
     </script>    
+    <script src="/include/JsonFiles/data.js"></script>
     <script src="/layout/JS/all.min.js"></script>
     <script src="/layout/JS/bootstrap.bundle.min.js"></script>
 </body>
