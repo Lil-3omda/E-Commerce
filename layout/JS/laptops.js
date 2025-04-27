@@ -84,9 +84,6 @@ function displayProducts(page) {
   filterableCards.addEventListener("click", (e) => {
     if (e.target.classList.contains("cartBtn")) {
       addToCart(0,e.target.dataset.product);
-      
-      
-      
     }
   });
 }
