@@ -94,7 +94,10 @@
         </div>
     </div>
 
-
+    <div class="logo-carousel mb-4">
+        <div class="logo-container" id="logoContainer">
+        </div>
+    </div>
     
     <div id="footer"></div>
     <script>
@@ -162,6 +165,38 @@
             });
             
         });
+
+        const brands = [
+            { name: "Lenovo", logo: "/imgs/homePage/lenovo.png" },
+            { name: "Dell", logo: "/imgs/homePage/dell.jpg" },
+            { name: "HP", logo: "/imgs/homePage/HP-Logo.png" },
+            { name: "Apple", logo: "/imgs/homePage/Apple-Logosu.png" },
+            { name: "Samsung", logo: "/imgs/homePage/samsung-logo-png_seeklogo-536641.png" },
+            { name: "Sony", logo: "/imgs/homePage/Sony_logo.svg.png" },
+            { name: "Bose", logo: "/imgs/homePage/Bose_Corporation-Logo.wine.png" },
+            { name: "JBL", logo: "/imgs/homePage/JBL-Logo.png" },
+        ];
+        function createLogoSlides() {
+            const container = document.getElementById('logoContainer');            
+            brands.forEach(brand => {
+                const slide = document.createElement('div');
+                slide.className = 'logo-slide';
+                
+                const img = document.createElement('img');
+                img.src = brand.logo;
+                img.alt = brand.name + ' logo';
+                img.title = brand.name;
+                
+                slide.appendChild(img);
+                container.appendChild(slide);
+            });            
+            const slides = document.querySelectorAll('.logo-slide');
+            slides.forEach(slide => {
+                const clone = slide.cloneNode(true);
+                container.appendChild(clone);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', createLogoSlides);
     </script>    
     <script src="/layout/JS/all.min.js"></script>
     <script src="/layout/JS/bootstrap.bundle.min.js"></script>
