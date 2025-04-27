@@ -1,202 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/layout/CSS/all.min.css" />
-    <link rel="stylesheet" href="/layout/CSS/bootstrap.min.css" />
-    <link rel="stylesheet" href="style.css">
-    <title>Ecommerce | Admin</title>
-  </head>
-  <style>
-  
-  </style>
-  <body>
-    <body>
 
-        <!-- Mobile Navbar (Only visible on < md screens) -->
-        <nav class="navbar bg-light d-md-none mobile-navbar">
-          <div class="container-fluid">
-            <button class="btn btn-outline-primary border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
-              <i class="fas fa-bars"></i>
-            </button>
-            <span class="navbar-brand mb-0 h1">Admin Panel</span>
-          </div>
-        </nav>
-      
-        <!-- Main Layout Container -->
-        <div class="admin-layout">
-      
-          
-          <div class="offcanvas offcanvas-start offcanvas-md sidebar" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
-            <!-- Offcanvas Header (Visible on mobile only) -->
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="sidebarLabel">Menu</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
-            </div>
-      
-            <!-- Sidebar Header (Visible on desktop only) -->
-            <div class="sidebar-header d-none d-md-block">
-              <h4 class="text-primary"><i class="fas fa-store me-2"></i>Admin Panel</h4>
-            </div>
-      
-            <!-- Sidebar Navigation -->
-            <div class="offcanvas-body p-0">
-              <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="pill" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
-                  <i class="fas fa-home fa-fw"></i> Home
-                </button>
-                <button class="nav-link" id="customers-tab" data-bs-toggle="pill" data-bs-target="#customers" type="button" role="tab" aria-controls="customers" aria-selected="false">
-                  <i class="fas fa-users fa-fw"></i> Customers
-                </button>
-                <button class="nav-link" id="sellers-tab" data-bs-toggle="pill" data-bs-target="#sellers" type="button" role="tab" aria-controls="sellers" aria-selected="false">
-                  <i class="fas fa-store-alt fa-fw"></i> Sellers
-                </button>
-                 <!-- Add more links as needed -->
-                 <button class="nav-link" id="products-tab" data-bs-toggle="pill" data-bs-target="#products" type="button" role="tab" aria-controls="products" aria-selected="false">
-                   <i class="fas fa-box-open fa-fw"></i> Products
-                 </button>
-                 <button class="nav-link" id="settings-tab" data-bs-toggle="pill" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">
-                   <i class="fas fa-cog fa-fw"></i> Settings
-                 </button>
-              </div>
-            </div>
-          </div>
-      
-          
-          <div class="main-content tab-content" id="v-pills-tabContent">
-      
-            <!-- Home Tab -->
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-              <h2><i class="fas fa-tachometer-alt me-2"></i>Dashboard Home</h2>
-              <p class="lead">Welcome to the admin dashboard. Use the menu on the left to navigate.</p>
-              <hr class="my-4">
-              
-              <!-- Example Cards -->
-              <div class="row mt-4">
-                <div class="col-md-4 mb-3">
-                   <div class="card text-white bg-primary">
-                     <div class="card-body">
-                       <h5 class="card-title"><i class="fas fa-shopping-cart me-2"></i>New Orders</h5>
-                       <p class="card-text display-6">150</p>
-                     </div>
-                   </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                   <div class="card text-white bg-success">
-                     <div class="card-body">
-                       <h5 class="card-title"><i class="fas fa-chart-line me-2"></i>Revenue</h5>
-                       <p class="card-text display-6">$12,500</p>
-                     </div>
-                   </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                   <div class="card text-white bg-warning">
-                     <div class="card-body">
-                       <h5 class="card-title"><i class="fas fa-user-plus me-2"></i>New Users</h5>
-                       <p class="card-text display-6">85</p>
-                     </div>
-                   </div>
-                </div>
-              </div>
-            </div>
-      
-            <!-- Customers Tab -->
-            <div class="tab-pane fade" id="customers" role="tabpanel" aria-labelledby="customers-tab" tabindex="0">
-              <h2><i class="fas fa-users me-2"></i>Manage Customers</h2>
-              <p>View and manage your customer base.</p>
-               <div class="card mt-4">
-                 <div class="card-header">
-                   Recent Customers
-                 </div>
-                 <div class="list-group list-group-flush">
-                   <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                     Alice Johnson <span class="badge bg-primary rounded-pill">View</span>
-                   </a>
-                   <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                     Bob Smith <span class="badge bg-primary rounded-pill">View</span>
-                   </a>
-                   <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                     Clara Lee <span class="badge bg-primary rounded-pill">View</span>
-                   </a>
-                   <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                     David Chen <span class="badge bg-secondary rounded-pill">Inactive</span>
-                   </a>
-                 </div>
-               </div>
-            </div>
-      
-            <!-- Sellers Tab -->
-            <div class="tab-pane fade" id="sellers" role="tabpanel" aria-labelledby="sellers-tab" tabindex="0">
-              <h2><i class="fas fa-store-alt me-2"></i>Manage Sellers</h2>
-              <p>Overview of seller accounts and performance.</p>
-              <div class="row mt-4">
-                <div class="col-lg-6 mb-4">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">Seller A</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Joined: 2023-01-15</h6>
-                      <p class="card-text">Recent Activity: 5 new listings, 25 sales.</p>
-                      <p class="card-text">Performance: <span class="badge bg-success">Excellent</span></p>
-                      <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">Seller B</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Joined: 2023-03-22</h6>
-                      <p class="card-text">Recent Activity: 2 new listings, 10 sales.</p>
-                      <p class="card-text">Performance: <span class="badge bg-info">Good</span></p>
-                      <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">Seller C</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Joined: 2023-06-01</h6>
-                      <p class="card-text">Recent Activity: 1 new listing, 3 sales.</p>
-                      <p class="card-text">Performance: <span class="badge bg-warning">Average</span></p>
-                      <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-                    </div>
-                  </div>
-                </div>
-                 <div class="col-lg-6 mb-4">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">Seller D</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Joined: 2023-08-10</h6>
-                      <p class="card-text">No recent activity.</p>
-                      <p class="card-text">Performance: <span class="badge bg-secondary">Needs Review</span></p>
-                      <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-      
-             <!-- Add Placeholder for Products -->
-            <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab" tabindex="0">
-               <h2><i class="fas fa-box-open me-2"></i>Manage Products</h2>
-               <p>Add, edit, and manage product inventory.</p>
-               <div class="alert alert-info">Product management section coming soon!</div>
-             </div>
-      
-             <!-- Add Placeholder Settings -->
-            <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab" tabindex="0">
-               <h2><i class="fas fa-cog me-2"></i>Settings</h2>
-               <p>Configure administrative settings.</p>
-               <div class="alert alert-warning">Settings configuration section coming soon!</div>
-             </div>
-      
-          </div> 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/layout/CSS/all.min.css" />
+  <link rel="stylesheet" href="/layout/CSS/bootstrap.min.css" />
+  <link rel="stylesheet" href="style.css">
+  <title>Ecommerce | Admin</title>
+</head>
+
+
+
+<body>
+
+  <nav class="navbar bg-light d-md-none mobile-navbar">
+    <div class="container-fluid">
+      <button class="btn btn-outline-primary border-0" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#sidebar" aria-controls="sidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+      <span class="navbar-brand mb-0 h1">Admin Panel</span>
+    </div>
+  </nav>
+
+  <!-- Main Layout Container -->
+  <div class="admin-layout">
+
+    <!-- Sidebar -->
+    <div class="offcanvas offcanvas-start offcanvas-md sidebar" tabindex="-1" id="sidebar"
+      aria-labelledby="sidebarLabel">
+      <!-- Offcanvas Header (Visible on mobile only) -->
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sidebarLabel">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebar"
+          aria-label="Close"></button>
+      </div>
+
+      <!-- Sidebar Header (Visible on desktop only) -->
+      <div class="sidebar-header d-none d-md-block">
+        <h4 class="text-primary"><i class="fas fa-user-shield me-2"></i>Admin Panel</h4>
+      </div>
+
+      <!-- Sidebar Navigation -->
+      <div class="offcanvas-body p-0">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="pill" data-bs-target="#home" type="button"
+            role="tab" aria-controls="home" aria-selected="true">
+            <i class="fas fa-tachometer-alt fa-fw me-2"></i> Dashboard
+          </button>
+          <button class="nav-link" id="customers-tab" data-bs-toggle="pill" data-bs-target="#customers" type="button"
+            role="tab" aria-controls="customers" aria-selected="false">
+            <i class="fas fa-users fa-fw me-2"></i> Customers
+          </button>
+          <button class="nav-link" id="sellers-tab" data-bs-toggle="pill" data-bs-target="#sellers" type="button"
+            role="tab" aria-controls="sellers" aria-selected="false">
+            <i class="fas fa-store-alt fa-fw me-2"></i> Sellers
+          </button>
+          <button class="nav-link" id="products-tab" data-bs-toggle="pill" data-bs-target="#products" type="button"
+            role="tab" aria-controls="products" aria-selected="false">
+            <i class="fas fa-box-open fa-fw me-2"></i> Products
+          </button>
+          <button class="nav-link" id="settings-tab" data-bs-toggle="pill" data-bs-target="#settings" type="button"
+            role="tab" aria-controls="settings" aria-selected="false">
+            <i class="fas fa-cog fa-fw me-2"></i> Settings
+          </button>
+          <a href="../index.html" class="nav-link mt-auto mb-3 mx-3 btn btn-outline-secondary">
+            <i class="fas fa-sign-out-alt fa-fw me-2"></i> Back to Site
+          </a>
         </div>
+      </div>
+    </div>
 
+    <!-- Main Content Area -->
+    <div class="main-content tab-content" id="v-pills-tabContent">
 
-    <script src="../layout/JS/all.min.js"></script>
-    <script src="../layout/JS/bootstrap.bundle.min.js"></script>
-  </body>
+      <!-- Home Tab / Dashboard -->
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <h2><i class="fas fa-tachometer-alt me-2"></i>Dashboard Overview</h2>
+        <p class="lead">Summary of site activity.</p>
+        <hr class="my-4">
+
+        <div class="row mt-4">
+          <div class="col-md-4 mb-3">
+            <div class="card text-white bg-primary">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                  <h5 class="card-title mb-0">Total Users</h5>
+                  <p class="card-text display-6" id="total-users-count">0</p>
+                </div>
+                <i class="fas fa-users fa-3x opacity-50"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card text-white bg-info">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                  <h5 class="card-title mb-0">Total Products</h5>
+                  <p class="card-text display-6" id="total-products-count">0</p>
+                </div>
+                <i class="fas fa-boxes fa-3x opacity-50"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card text-white bg-success">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                  <h5 class="card-title mb-0">Active Sellers</h5>
+                  <p class="card-text display-6" id="total-sellers-count">0</p>
+                </div>
+                <i class="fas fa-store-alt fa-3x opacity-50"></i>
+              </div>
+            </div>
+          </div>
+          <!-- Add more cards if needed (e.g., Orders, Revenue - requires order data) -->
+        </div>
+        <div class="mt-4">
+          <h4>Quick Links</h4>
+          <button class="btn btn-outline-secondary me-2"
+            onclick="document.getElementById('customers-tab').click();">Manage Customers</button>
+          <button class="btn btn-outline-secondary me-2"
+            onclick="document.getElementById('sellers-tab').click();">Manage Sellers</button>
+          <button class="btn btn-outline-secondary" onclick="document.getElementById('products-tab').click();">Manage
+            Products</button>
+        </div>
+      </div>
+
+      <!-- Customers Tab -->
+      <div class="tab-pane fade" id="customers" role="tabpanel" aria-labelledby="customers-tab" tabindex="0">
+        <h2><i class="fas fa-users me-2"></i>Manage Customers</h2>
+        <p>View and manage customer accounts.</p>
+        <div class="table-responsive mt-4">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Joined</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="customer-list">
+              <!-- Customer rows will be inserted here by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sellers Tab -->
+      <div class="tab-pane fade" id="sellers" role="tabpanel" aria-labelledby="sellers-tab" tabindex="0">
+        <h2><i class="fas fa-store-alt me-2"></i>Manage Sellers</h2>
+        <p>View and manage seller accounts.</p>
+        <div class="table-responsive mt-4">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Joined</th>
+                <th>Performance</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="seller-list">
+              <!-- Seller rows will be inserted here by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Products Tab -->
+      <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab" tabindex="0">
+        <h2><i class="fas fa-box-open me-2"></i>Manage Products</h2>
+        <p>Review and manage product listings.</p>
+        <div class="table-responsive mt-4">
+          <table class="table table-striped table-hover align-middle">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Seller ID</th>
+                <th>Stock</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="product-list">
+              <!-- Product rows will be inserted here by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Settings Tab -->
+      <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab" tabindex="0">
+        <h2><i class="fas fa-cog me-2"></i>Settings</h2>
+        <p>Configure administrative settings.</p>
+        <div class="alert alert-warning mt-4">Settings configuration section is not yet implemented.</div>
+        <!-- Add forms or options for settings here -->
+      </div>
+
+    </div> <!-- End Main Content -->
+  </div> <!-- End Admin Layout -->
+
+  <!-- Generic Modal for Details -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detailsModalLabel">Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="detailsModalBody">
+          <!-- Details will be loaded here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal for Deletion -->
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="confirmDeleteModalBody">
+          Are you sure you want to delete this item? This action cannot be undone.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+  <script src="../include/JsonFiles/data.js"></script>
+  <script src="../layout/JS/all.min.js"></script>
+  <script src="../layout/JS/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>
