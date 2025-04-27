@@ -62,19 +62,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     repeat_password_input.value,
                     terms_checkbox ? terms_checkbox.checked : true
                 );
+                if (errors.length > 0) {
+                    error_message.classList.remove('d-none');
+                    error_message.innerText = errors.join(". ");
+                } else {
+                    error_message.classList.add('d-none');
+    
+                }
             } else {
                 errors = getLoginFormErrors(
                     email_input.value,
                     password_input.value
                 );
-            }
-            
-            if (errors.length > 0) {
-                error_message.classList.remove('d-none');
-                error_message.innerText = errors.join(". ");
-            } else {
-                error_message.classList.add('d-none');
-
+                if (errors.length > 0) {
+                    error_message.classList.remove('d-none');
+                    error_message.innerText = errors.join(". ");
+                } else {
+                    error_message.classList.add('d-none');
+    
+                }
+                if(errors.length == 0){
+                    checkUserRole(email_input.value,password_input.value);
+                }
             }
         });
     }
@@ -210,4 +219,32 @@ document.addEventListener('DOMContentLoaded', function() {
             error_message.classList.add('d-none');
         }
     }
+    function checkUserRole(email, password) {
+        const users = JSON.parse(localStorage.getItem('userData'));
+        if (!users.admin || !Array.isArray(users.admin) || !users.sellers || !Array.isArray(users.sellers) || !users.customers || !Array.isArray(users.customers)) {
+            error_message.classList.remove('d-none');
+            error_message.innerText = 'Invalid user data format.';
+            return;
+        }
+        const allUsers = [...users.admin, ...users.sellers, ...users.customers];
+        const user = allUsers.find(u => u.email === email);
+        if (!user) {
+            error_message.classList.remove('d-none');
+            error_message.innerText = 'Email or Password is Wrong';
+            return;
+        }    
+        if (user.password !== password) {
+            error_message.classList.remove('d-none');
+            error_message.innerText = 'Email Or Password is Wrong';
+            return;
+        }
+        if (user.role === 'admin') {
+            window.location.href = 'http://127.0.0.1:5500/admin/admin.html';
+        } else if (user.role === 'seller') {
+            window.location.href = 'http://127.0.0.1:5500/seller/homePage.html';
+        } else {
+            window.location.href = 'http://127.0.0.1:5500/homePage.html'; 
+        }
+    }
+    
 });
