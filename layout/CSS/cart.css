@@ -1,3 +1,13 @@
+:root{
+    --dark-color: #19283f;
+    --green-color: #33d1cc;
+    --red-color: #ff3150;
+    --yellow-color: #ffc400;
+    --section-color: #eff7fa;
+    --navbar-color: #6e2cf5;
+    --test-color : #231709;
+    --footer-text-color: #9ca3af;
+}
 .cart-item img {
     max-width: 100px;
     height: auto;
