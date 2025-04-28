@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../layout/CSS/homePage.css">
     <title>Document</title>
-    <style></style>
 </head>
 <body>
     <div id="navbar"></div>
@@ -206,41 +205,47 @@
                 container.appendChild(clone);
             });
         }
-        document.addEventListener('DOMContentLoaded', createLogoSlides);
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginBtn = document.getElementById('loginBtn');
-            const loggedInUserId = sessionStorage.getItem('loggedInUserId');
-            const loggedInUserRole = sessionStorage.getItem('loggedInUserRole');
-            const users = JSON.parse(localStorage.getItem('userData'));
-            const allUsers = [...users.admin, ...users.sellers, ...users.customers];
-            const user = allUsers.find(u => u.id == loggedInUserId);
-            if (loggedInUserId && loggedInUserRole && loginBtn) {
+        function updateLoginButton() {
+        const loginBtn = document.getElementById('loginBtn');
+        const loggedInUserId = sessionStorage.getItem('loggedInUserId');
+        const loggedInUserRole = sessionStorage.getItem('loggedInUserRole');
+
+        if (loginBtn) {
+            if (loggedInUserId && loggedInUserRole) {
                 const userDropdownHTML = `
                     <div class="dropdown">
-                        <a href="#" class="btn btn-light rounded-pill dropdown-toggle d-flex align-items-center gap-2" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-circle-user fs-5"></i>
-                            <div class="small d-none d-md-inline">${user.name}</div>
+                        <a href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 45px; height: 45px;">
+                            <i class="fa-solid fa-circle-user text-white display-6"></i>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end rounded-3 mt-2" aria-labelledby="userDropdown" style="min-width: 120px;">
+                            <li><a class="dropdown-item small" href="/profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
+                            <li><a class="dropdown-item small text-danger" href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
                         </ul>
                     </div>
-                `;        
-                loginBtn.outerHTML = userDropdownHTML;        
-                const logoutBtn = document.getElementById('logoutBtn');
-                logoutBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    sessionStorage.removeItem('loggedInUserId');
-                    sessionStorage.removeItem('loggedInUserRole');
-                    window.location.href = '/signUpdate/login.html';
-                });
+                `;
+                loginBtn.outerHTML = userDropdownHTML;
+                setTimeout(() => {
+                    const logoutBtn = document.getElementById('logoutBtn');
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            sessionStorage.removeItem('loggedInUserId');
+                            sessionStorage.removeItem('loggedInUserRole');
+                            window.location.href = '/homePage.html';
+                        });
+                    }
+                }, 50);
             }
-        });
-        </script>            
+        } else {
+            setTimeout(updateLoginButton, 50);
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        createLogoSlides();
+        updateLoginButton();
+    });
+    </script>      
     <script src="/include/JsonFiles/data.js"></script>
     <script src="/layout/JS/all.min.js"></script>
     <script src="/layout/JS/bootstrap.bundle.min.js"></script>

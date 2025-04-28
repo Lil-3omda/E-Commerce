@@ -1643,7 +1643,7 @@ const userData = {
   ],
   sellers: [
       {
-          id: 1,
+          id: 2,
           name: "ElectroWorld",
           email: "contact@electroworld.com",
           password: "sellerpass1",
@@ -1651,7 +1651,7 @@ const userData = {
           products: [201, 202]
       },
       {
-          id: 2,
+          id: 3,
           name: "FashionFiesta",
           email: "hello@fashionfiesta.com",
           password: "sellerpass2",
@@ -1661,7 +1661,7 @@ const userData = {
   ],
   customers: [
       {
-          id: 1,
+          id: 4,
           name: "Alice Johnson",
           email: "alice@example.com",
           password: "password123",
@@ -1670,7 +1670,7 @@ const userData = {
           address: "123 Elm Street, NY"
       },
       {
-          id: 2,
+          id: 5,
           name: "Bob Smith",
           email: "bob@example.com",
           password: "password456",
@@ -1679,7 +1679,7 @@ const userData = {
           address: "456 Oak Avenue, CA"
       },
       {
-          id: 3,
+          id: 6,
           name: "john doe",
           email: "john@example.com",
           password: "password780",
@@ -1695,13 +1695,9 @@ function loadToLocalStorage() {
 }
 
 function initializeData() {
-if (!localStorage.getItem("products")) {
-  localStorage.setItem("products", JSON.stringify(initialProducts));
-}
-
-if (!localStorage.getItem("users")) {
-  localStorage.setItem("users", JSON.stringify(users));
-}
+  if (!localStorage.getItem("products")) {
+    localStorage.setItem("products", JSON.stringify(initialProducts));
+  }
 }
 
 initializeData();
