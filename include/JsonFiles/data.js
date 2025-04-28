@@ -1631,104 +1631,78 @@ const initialProducts = [
   },
 ];
 
-const users = [
-  {
-    id: 1,
-    name: "Alice Johnson",
-    email: "alice@example.com",
-    password: "password123",
-    role: "customer",
-    order_history: [1001, 1002],
-    address: "123 Elm Street, NY",
-  },
-  {
-    id: 2,
-    name: "Bob Smith",
-    email: "bob@example.com",
-    password: "password456",
-    role: "customer",
-    order_history: [1003],
-    address: "456 Oak Avenue, CA",
-  },
+const userData = {
+  admin: [
+      {
+          id: 1,
+          name: "Admin User",
+          email: "admin@shop.com",
+          password: "admin123",
+          role: "admin"
+      }
+  ],
+  sellers: [
+      {
+          id: 1,
+          name: "ElectroWorld",
+          email: "contact@electroworld.com",
+          password: "sellerpass1",
+          role: "seller",
+          products: [201, 202]
+      },
+      {
+          id: 2,
+          name: "FashionFiesta",
+          email: "hello@fashionfiesta.com",
+          password: "sellerpass2",
+          role: "seller",
+          products: [203, 204]
+      }
+  ],
+  customers: [
+      {
+          id: 1,
+          name: "Alice Johnson",
+          email: "alice@example.com",
+          password: "password123",
+          role: "customer",
+          order_history: [1001, 1002],
+          address: "123 Elm Street, NY"
+      },
+      {
+          id: 2,
+          name: "Bob Smith",
+          email: "bob@example.com",
+          password: "password456",
+          role: "customer",
+          order_history: [1003],
+          address: "456 Oak Avenue, CA"
+      },
+      {
+          id: 3,
+          name: "john doe",
+          email: "john@example.com",
+          password: "password780",
+          role: "customer",
+          order_history: [],
+          address: "123 Elm Street, NY"
+      }
+  ]
+};
 
-  {
-    id: 3,
-    name: "john doe",
-    email: "john@example.com",
-    password: "password780",
-    role: "customer",
-    order_history: [],
-    address: "123 Elm Street, NY",
-  },
-  {
-    id: 101,
-    name: "Gadget Galaxy",
-    email: "seller101@example.com",
-    password: "sellerPassword1",
-    role: "seller",
-    products_listed: [201],
-    address: "1 Seller Plaza, Suite 100",
-    joined: "2023-11-01",
-    performance: "Good",
-  },
-  {
-    id: 102,
-    name: "Tech Trove",
-    email: "seller102@example.com",
-    password: "sellerPassword2",
-    role: "seller",
-    products_listed: [202, 203, 204, 205],
-    address: "2 Innovation Drive",
-    joined: "2023-12-05",
-    performance: "Excellent",
-  },
-  {
-    id: 201,
-    name: "Laptop Land",
-    email: "seller201@example.com",
-    password: "sellerPassword3",
-    role: "seller",
-    products_listed: [
-      301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312,
-    ],
-    address: "3 Component Corner",
-    joined: "2023-10-15",
-    performance: "Average",
-  },
-  {
-    id: 303,
-    name: "Audio Attic",
-    email: "seller303@example.com",
-    password: "sellerPassword4",
-    role: "seller",
-    products_listed: [
-      401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415,
-      416, 417, 418, 419, 420, 421, 422, 423, 424, 425,
-    ],
-    address: "4 Sound Street",
-    joined: "2024-01-20",
-    performance: "Good",
-  },
-  // Admin
-  {
-    id: 999,
-    name: "Admin User",
-    email: "admin@example.com",
-    password: "adminPassword",
-    role: "admin",
-    address: "1 Admin Tower",
-    joined: "2023-01-01",
-  },
-];
+function loadToLocalStorage() {
+  localStorage.setItem('userData', JSON.stringify(userData));
+}
 
 function initializeData() {
-  if (!localStorage.getItem("products")) {
-    localStorage.setItem("products", JSON.stringify(initialProducts));
-  }
+if (!localStorage.getItem("products")) {
+  localStorage.setItem("products", JSON.stringify(initialProducts));
+}
 
-  if (!localStorage.getItem("users")) {
-    localStorage.setItem("users", JSON.stringify(users));
-  }
+if (!localStorage.getItem("users")) {
+  localStorage.setItem("users", JSON.stringify(users));
+}
 }
 
 initializeData();
+loadToLocalStorage();
