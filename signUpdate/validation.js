@@ -235,6 +235,8 @@ document.addEventListener('DOMContentLoaded', function() {
             error_message.innerText = 'Email Or Password is Wrong';
             return;
         }
+        sessionStorage.setItem('loggedInUserId', user.id);
+        sessionStorage.setItem('loggedInUserRole', user.role);
         if (user.role === 'admin') {
             window.location.href = 'http://127.0.0.1:5500/admin/admin.html';
         } else if (user.role === 'seller') {
