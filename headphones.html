@@ -43,6 +43,43 @@
             .then(data => {
                 document.getElementById('footer').innerHTML = data;
             });
+            function updateLoginButton() {
+            const loginBtn = document.getElementById('loginBtn');
+            const loggedInUserId = sessionStorage.getItem('loggedInUserId');
+            const loggedInUserRole = sessionStorage.getItem('loggedInUserRole');
+
+            if (loginBtn) {
+                if (loggedInUserId && loggedInUserRole) {
+                    const userDropdownHTML = `
+                        <div class="dropdown">
+                        <a href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 45px; height: 45px;">
+                            <i class="fa-solid fa-circle-user text-white display-6"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end rounded-3 mt-2" aria-labelledby="userDropdown" style="min-width: 120px;">
+                            <li><a class="dropdown-item small" href="/profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item small text-danger" href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                    `;
+                    loginBtn.outerHTML = userDropdownHTML;
+                    setTimeout(() => {
+                        const logoutBtn = document.getElementById('logoutBtn');
+                        if (logoutBtn) {
+                            logoutBtn.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                sessionStorage.removeItem('loggedInUserId');
+                                sessionStorage.removeItem('loggedInUserRole');
+                                window.location.href = '/signUpdate/login.html';
+                            });
+                        }
+                    }, 50);
+                }
+            } else {
+                setTimeout(updateLoginButton, 50);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', updateLoginButton);
     </script>
     <script src="/layout/JS/headphons.js" type="module"></script>
     <script src="../layout/JS/all.min.js"></script>
