@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     error_message.innerText = errors.join(". ");
                 } else {
                     error_message.classList.add('d-none');
-    
+                    addUser(firstname_input.value, email_input.value, password_input.value);
                 }
             } else {
                 errors = getLoginFormErrors(
@@ -79,11 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     error_message.innerText = errors.join(". ");
                 } else {
                     error_message.classList.add('d-none');
-    
-                }
-                if(errors.length == 0){
                     checkUserRole(email_input.value,password_input.value);
-                }
+                }            
             }
         });
     }
@@ -116,8 +113,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!firstname || !firstname.trim()) {
             errors.push('Name is required');
             firstname_input.classList.add('is-invalid');
-        } else if (firstname.trim().length < 2) {
-            errors.push('Name must be at least 2 characters');
+        } else if (firstname.trim().length < 3) {
+            errors.push('Name must be at least 3 characters');
             firstname_input.classList.add('is-invalid');
         }
         
@@ -246,5 +243,25 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'http://127.0.0.1:5500/homePage.html'; 
         }
     }
+    function addUser(fullname, email, password) {
+        let userData = JSON.parse(localStorage.getItem('userData')) || {admin: [], customers: [], sellers: []};
     
+        let customers = userData.customers || [];
+    
+        let newCustomer = {
+            id: customers.length > 0 ? customers[customers.length - 1].id + 1 : 1,
+            name: fullname,
+            email: email,
+            password: password,
+            role: "customer",
+            address: "",          
+            order_history: []     
+        };
+    
+        customers.push(newCustomer);
+        userData.customers = customers;
+        localStorage.setItem('userData', JSON.stringify(userData));
+        console.log("User added successfully!");
+        window.location.href = "login.html";
+    }
 });
