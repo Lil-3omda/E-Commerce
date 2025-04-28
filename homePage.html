@@ -207,7 +207,40 @@
             });
         }
         document.addEventListener('DOMContentLoaded', createLogoSlides);
-    </script>    
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginBtn = document.getElementById('loginBtn');
+            const loggedInUserId = sessionStorage.getItem('loggedInUserId');
+            const loggedInUserRole = sessionStorage.getItem('loggedInUserRole');
+            const users = JSON.parse(localStorage.getItem('userData'));
+            const allUsers = [...users.admin, ...users.sellers, ...users.customers];
+            const user = allUsers.find(u => u.id == loggedInUserId);
+            if (loggedInUserId && loggedInUserRole && loginBtn) {
+                const userDropdownHTML = `
+                    <div class="dropdown">
+                        <a href="#" class="btn btn-light rounded-pill dropdown-toggle d-flex align-items-center gap-2" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-circle-user fs-5"></i>
+                            <div class="small d-none d-md-inline">${user.name}</div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="/profile.html">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
+                        </ul>
+                    </div>
+                `;        
+                loginBtn.outerHTML = userDropdownHTML;        
+                const logoutBtn = document.getElementById('logoutBtn');
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    sessionStorage.removeItem('loggedInUserId');
+                    sessionStorage.removeItem('loggedInUserRole');
+                    window.location.href = '/signUpdate/login.html';
+                });
+            }
+        });
+        </script>            
     <script src="/include/JsonFiles/data.js"></script>
     <script src="/layout/JS/all.min.js"></script>
     <script src="/layout/JS/bootstrap.bundle.min.js"></script>
