@@ -16,6 +16,7 @@
             })
             .catch(error => console.error('Error loading navbar:', error));
     </script>
+
     <div class="landing">
         <div class="container-fluid">
             <div class="row">
@@ -23,18 +24,18 @@
                 <div class="landing-content">
                     <h1>Discover the Future of Tech</h1>
                     <p>Explore smart devices, electronics & more</p>
-                    <a href="#topSelling" class="btn btn-primary rounded-pill">Shop Now<i class="fa-solid fa-arrow-down ms-2"></i></a>
+                    <a href="#topSelling" class="btn text-white rounded-pill">Shop Now<i class="fa-solid fa-arrow-right ms-2"></i></a>
                 </div>
             </div>
         </div>
     </div>
     <div class="container py-4">
-        <div class="row text-center mb-4">
+        <div class="row text-center mb-4 ">
             <div class="col-md-4">
                 <div class="category-banner">
                     <img src="imgs/homePage/laptopSection.jpg" alt="Laptop Collection">
                     <div class="category-overlay">
-                        <h5>Laptop </h5>
+                        <h5>Laptop</h5>
                         <a href="#">SHOP NOW ➜</a>
                     </div>
                 </div>
@@ -43,7 +44,7 @@
                 <div class="category-banner">
                     <img src="imgs/homePage/0015384_headphones.jpeg" alt="Accessories Collection">
                     <div class="category-overlay">
-                        <h5>Headphons </h5>
+                        <h5>Headphons</h5>
                         <a href="#">SHOP NOW ➜</a>
                     </div>
                 </div>
@@ -58,36 +59,35 @@
                 </div>
             </div>
         </div>
+        <h4 class="mb-3 new-products-titel">New Products</h4>
+        <div class="row new-products">
+        </div>
+
 
         
-        <h4 class="mb-3">New Products</h4>
-        <div class="row new-products"></div>
-
-
-        
-        <div class="hot-deal my-4">
+        <!-- <div class="hot-deal my-4">
             <h3>Hot Deal This Week</h3>
             <p>New Collection up to 50% Off!</p>
             <a href="#" class="btn btn-danger">Shop Now</a>
-        </div>
+        </div> -->
 
         
-        <h4 class="mb-3" id="topSelling">Top Selling</h4>
+        <h4 class="mb-3 new-products-titel" id="topSelling">Top Selling</h4>
         <div class="row top-selling" ></div>
 
-        <div class="row text-center">
+        <div class="row text-center ">
             <div class="col-md-4 top-rated">
-                <h5>Top Rated</h5>
+                <h5 class="mb-3 new-products-titel">Top Rated</h5>
                 <div class="products-list"></div>
             </div>
             
             <div class="col-md-4 top-view">
-                <h5>Top View</h5>
+                <h5 class="mb-3 new-products-titel">Top View</h5>
                 <div class="products-list"></div>
             </div>
             
             <div class="col-md-4 top-selling-mini">
-                <h5>Top Selling</h5>
+                <h5 class="mb-3 new-products-titel">Top Selling</h5>
                 <div class="products-list"></div>
             </div>
             
@@ -107,7 +107,16 @@
                 document.getElementById('footer').innerHTML = data;
             });
     </script>
+    
+    <script type="module">
+        import {addActiveToLinkes} from './layout/JS/navBar.js';
+        addActiveToLinkes();
+
+
+    </script>
+
     <script>
+       
         document.addEventListener('DOMContentLoaded', () => {
             const products = JSON.parse(localStorage.getItem('products')) || [];
     
@@ -124,7 +133,9 @@
                             <img src="${product.img}" class="card-img-top" alt="${product.name}">
                             <div class="card-body">
                                 <h6 class="card-title">${product.name}</h6>
-                                <p class="card-text text-danger">$${product.price || 100} <del class="text-muted">$${(product.price + 50)}</del></p>
+                                <p class="card-text text-danger"><del class="text-muted">EGP ${(product.price + 50)}</del>
+                                    EGP ${product.price || 100}
+                                     </p>
                                 <a href="#" class="btn btn-outline-primary btn-sm">Add to Cart</a>
                             </div>
                         </div>
@@ -134,12 +145,11 @@
     
             function createTopProductMini(product) {
                 return `
-                    <div class="top-selling-product d-flex align-items-center mb-2">
-                        <img src="${product.img}" alt="${product.name}" style="width: 60px; height: 60px; object-fit: cover;">
-                        <div class="ms-2">
-                            <small>Category</small>
+                    <div class="top-selling-product d-flex align-items-center mb-2 ">
+                        <img src="${product.img}" alt="${product.name}" style="width:100%;height: 60px;">
+                        <div class="ms-2 contant_text">
                             <h6>${product.name}</h6>
-                            <span class="price">$${product.price || 100}</span>
+                            <span class="price">EGP ${product.price || 100}</span>
                         </div>
                     </div>
                 `;
@@ -246,8 +256,19 @@
         updateLoginButton();
     });
     </script>      
+    
     <script src="/include/JsonFiles/data.js"></script>
     <script src="/layout/JS/all.min.js"></script>
     <script src="/layout/JS/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
