@@ -1691,7 +1691,9 @@ const userData = {
 };
 
 function loadToLocalStorage() {
-  localStorage.setItem('userData', JSON.stringify(userData));
+  if (!localStorage.getItem("userData")) {
+    localStorage.setItem('userData', JSON.stringify(userData));
+  }
 }
 
 function initializeData() {
