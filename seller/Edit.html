@@ -60,6 +60,18 @@
             z-index: 100;
             display: none;
         }
+        .error-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--red-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: none;
+        }
     </style>
         <script> 
             (function() {
@@ -76,8 +88,8 @@
                             window.location.href = '/admin/admin.html';
                         }
                     } else if (loggedInUserRole === 'seller') {
-                        if (window.location.pathname !== '/seller/homePage.html') {
-                            window.location.href = '/seller/homePage.html';
+                        if (window.location.pathname !== '/seller/Edit.html') {
+                            window.location.href = '/seller/Edit.html';
                         }
                     } else if (loggedInUserRole === 'customer') {
                         if (window.location.pathname !== '/homePage.html') {
@@ -101,6 +113,7 @@
     <div id="successMessage" class="success-message">
         Product updated successfully!
     </div>
+    <div id="errorMessage" class="error-message"></div>
     <script>
         fetch('/include/navbar.html')
             .then(response => response.text())
@@ -174,11 +187,11 @@
                     </div>
                     <div class="col-md-6">
                         <label for="price" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="price" placeholder="Price" required>
+                        <input type="number" class="form-control" id="price" placeholder="Price" min="1" required>
                     </div>
                     <div class="col-md-6">
                         <label for="numberOfPieces" class="form-label">Number Of Items</label>
-                        <input type="number" class="form-control" id="numberOfPieces" required>
+                        <input type="number" class="form-control" id="numberOfPieces" min="1" required>
                     </div>
                     <div class="col-md-6">
                         <label for="category" class="form-label">Category</label>
@@ -212,9 +225,16 @@
         function showSuccessMessage() {
             const successMsg = document.getElementById('successMessage');
             successMsg.style.display = 'block';
-            
             setTimeout(() => {
                 successMsg.style.display = 'none';
+            }, 3000);
+        }
+        function showErrorMessage(message) {
+            const errorMsg = document.getElementById('errorMessage');
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            setTimeout(() => {
+                errorMsg.style.display = 'none';
             }, 3000);
         }
         function loadProductData(product) {
@@ -256,7 +276,8 @@
         });
         const editBtn = document.getElementById('edit-btn');
         editBtn.addEventListener('click', (e) => {
-            e.preventDefault();  
+            e.preventDefault();
+
             const name = document.getElementById('ProductName').value.trim();
             const image = document.getElementById('imgPath').value.trim();
             const description = document.getElementById('description').value.trim();
@@ -266,10 +287,29 @@
             const category = document.getElementById('category').value;
             const additionalDetails = document.getElementById('AdditionalDetails').value.trim();
 
-            if (!name || !image || !price || !brand || !numberOfPieces || !category || category === "Choose...") {
-                alert("Please fill in all required fields");
+            if (!name || !image || isNaN(price) || price <= 0 || !brand || isNaN(numberOfPieces) || numberOfPieces <= 0 || category === "Choose...") {
+                showErrorMessage("Please fill all required fields properly with correct information.");
                 return;
             }
+            const updatedProduct = {
+                ...product,
+                name: name,
+                img: image,
+                price: price,
+                availible: numberOfPieces,
+                category: category,
+                description: {
+                    ...product.description,
+                    brand: brand,
+                    content: description
+                }
+            };
+            const updatedProducts = products.map(p => p.id == productID ? updatedProduct : p);
+            localStorage.setItem('products', JSON.stringify(updatedProducts));
+            showSuccessMessage();
+            setTimeout(() => {
+                window.location.href = document.referrer || '/seller/products.html';
+            }, 1500);
         });
 
         if (productID) {
@@ -278,33 +318,7 @@
             alert("No product ID provided!");
             window.history.back();
         }
-        document.getElementById('edit-btn').addEventListener('click', (e) => {
-            e.preventDefault();
-
-            const updatedProduct = {
-                ...product,
-                name: document.getElementById('ProductName').value.trim(),
-                img: document.getElementById('imgPath').value.trim(),
-                price: parseFloat(document.getElementById('price').value),
-                availible: parseInt(document.getElementById('numberOfPieces').value),
-                category: document.getElementById('category').value,
-                description: {
-                    ...product.description,
-                    brand: document.getElementById('brand').value.trim(),
-                    content: document.getElementById('description').value.trim()
-                }
-            };
-
-            const updatedProducts = products.map(p => p.id == productID ? updatedProduct : p);
-            localStorage.setItem('products', JSON.stringify(updatedProducts));
-            showSuccessMessage();
-            setTimeout(() => {
-                window.location.href = document.referrer || '/seller/products.html';
-            }, 1500);
-
-        });
     </script>
-    
     <div id="footer"></div>
     <script>
         fetch('/include/footer.html')
