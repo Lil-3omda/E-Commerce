@@ -1,13 +1,17 @@
-import { addToCart, getCart } from "./cartHandler.js"; // Adjust the import path as necessary
+import { addToCart, getCart } from "./cartHandler.js"; 
+import { searchBar } from "./navBar.js";
 let products = [];
+let allProducts = [];
 const productsPerPage = 16;
 let currentPage = 1;
+
+
 
 async function fetchProducts() {
   const productsData = localStorage.getItem("products");
   if (productsData) {
-    products = JSON.parse(productsData);
-    products = products.filter((product) => product.category === "laptops");
+    allProducts = JSON.parse(productsData).filter(p => p.category === "laptops");
+    products = [...allProducts];
   } else {
     console.error("No product founded");
     products = [];
@@ -15,6 +19,14 @@ async function fetchProducts() {
   displayProducts(currentPage);
   setupPagination();
 }
+// Search bar functionality
+searchBar.addEventListener("input", e => {
+  const query = e.target.value.toLowerCase();
+  products = allProducts.filter(product => product.name.toLowerCase().includes(query));
+  currentPage = 1;
+  displayProducts(currentPage);
+  setupPagination();
+});
 
 function displayProducts(page) {
   if (!products || !Array.isArray(products) || products.length === 0) return;
@@ -36,7 +48,7 @@ function displayProducts(page) {
         <div class="card-body">
           <h6 class="card-title fs-5">${product.name}</h6>
           <p class="card-description">${product.category}</p>
-          <p class="card-description">${product.price}$</p>
+          <p class="card-description">${product.price}EGP</p>
           <button data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' class="btn btn-primary cartBtn">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
         </div>
       </div>

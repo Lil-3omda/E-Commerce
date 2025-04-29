@@ -35,7 +35,7 @@ if (products.length > 0) {
                 <h2>${product.name}</h2>
                 ${specList}
                 ${highlights}
-                <p><strong>Price:</strong> $${product.price}</p>
+                <p><strong>Price:</strong> EGP${product.price}</p>
                 <button class="btn" id="addToCartBtn">Add to Cart</button>
             </div>
         </div>
