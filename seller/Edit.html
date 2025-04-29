@@ -61,6 +61,39 @@
             display: none;
         }
     </style>
+        <script> 
+            (function() {
+            const loggedInUserId = sessionStorage.getItem('loggedInUserId');
+            const loggedInUserRole = sessionStorage.getItem('loggedInUserRole');
+            if (loggedInUserId) {
+                const users = JSON.parse(localStorage.getItem('userData'));
+                const allUsers = [...users.admin, ...users.sellers, ...users.customers];
+                const user = allUsers.find(u => u.id == loggedInUserId);
+        
+                if (user) {
+                    if (loggedInUserRole === 'admin') {
+                        if (window.location.pathname !== '/admin/admin.html') {
+                            window.location.href = '/admin/admin.html';
+                        }
+                    } else if (loggedInUserRole === 'seller') {
+                        if (window.location.pathname !== '/seller/homePage.html') {
+                            window.location.href = '/seller/homePage.html';
+                        }
+                    } else if (loggedInUserRole === 'customer') {
+                        if (window.location.pathname !== '/homePage.html') {
+                            window.location.href = '/homePage.html';
+                        }
+                    } else {
+                        window.location.href = '/login.html';
+                    }
+                } else {
+                    window.location.href = '/login.html';
+                }
+            } else {
+                window.location.href = '/homePage.html';
+            }
+        })();
+    </script>
     <title>Edit Product</title>
 </head>
 <body>

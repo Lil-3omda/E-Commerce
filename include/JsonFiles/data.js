@@ -1631,45 +1631,76 @@ const initialProducts = [
   },
 ];
 
-const users = [
-  {
-    id: 1,
-    name: "Alice Johnson",
-    email: "alice@example.com",
-    password: "password123",
-    role: "customer",
-    order_history: [1001, 1002],
-    address: "123 Elm Street, NY",
-  },
-  {
-    id: 2,
-    name: "Bob Smith",
-    email: "bob@example.com",
-    password: "password456",
-    role: "customer",
-    order_history: [1003],
-    address: "456 Oak Avenue, CA",
-  },
+const userData = {
+  admin: [
+      {
+          id: 1,
+          name: "Admin User",
+          email: "admin@shop.com",
+          password: "admin123",
+          role: "admin"
+      }
+  ],
+  sellers: [
+      {
+          id: 2,
+          name: "ElectroWorld",
+          email: "contact@electroworld.com",
+          password: "sellerpass1",
+          role: "seller",
+          products: [201, 202]
+      },
+      {
+          id: 3,
+          name: "FashionFiesta",
+          email: "hello@fashionfiesta.com",
+          password: "sellerpass2",
+          role: "seller",
+          products: [203, 204]
+      }
+  ],
+  customers: [
+      {
+          id: 4,
+          name: "Alice Johnson",
+          email: "alice@example.com",
+          password: "password123",
+          role: "customer",
+          order_history: [1001, 1002],
+          address: "123 Elm Street, NY"
+      },
+      {
+          id: 5,
+          name: "Bob Smith",
+          email: "bob@example.com",
+          password: "password456",
+          role: "customer",
+          order_history: [1003],
+          address: "456 Oak Avenue, CA"
+      },
+      {
+          id: 6,
+          name: "john doe",
+          email: "john@example.com",
+          password: "password780",
+          role: "customer",
+          order_history: [],
+          address: "123 Elm Street, NY"
+      }
+  ]
+};
 
-  {
-    id: 3,
-    name: "john doe",
-    email: "john@example.com",
-    password: "password780",
-    role: "customer",
-    order_history: [],
-    address: "123 Elm Street, NY",
-  },
-];
+function loadToLocalStorage() {
+  if (!localStorage.getItem("userData")) {
+    localStorage.setItem('userData', JSON.stringify(userData));
+  }
+}
 
 function initializeData() {
   if (!localStorage.getItem("products")) {
     localStorage.setItem("products", JSON.stringify(initialProducts));
   }
-
-  if (!localStorage.getItem("users")) {
-    localStorage.setItem("users", JSON.stringify(users));
-  }
 }
 
 initializeData();
+loadToLocalStorage();

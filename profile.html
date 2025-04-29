@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/layout/CSS/all.min.css">
+    <link rel="stylesheet" href="/layout/CSS/bootstrap.min.css">
+    <title>User Profile</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .profile-role {
+            background-color: #e7f1ff;
+            color: #0d6efd;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .section-heading {
+            color: #0d6efd;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 16px;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        .order-item {
+            background-color: #f1f8ff;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+    <script>
+        fetch('/include/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+                const search = document.getElementsByClassName('search-wrapper')[0];
+                const iconbar = document.getElementsByClassName('icon-bar')[0];
+                search.classList.add('d-none');
+                iconbar.classList.add('ms-auto')
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    </script>
+    <div class="container py-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1 class="mb-0 text-primary">My Profile</h1>
+                    <span class="profile-role" id="userRole">Customer</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="alertContainer" class="alert d-none"></div>
+        
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <div class="mb-4">
+                    <h2 class="section-heading">Personal Information</h2>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="info-label">Name</div>
+                            <div id="userName">Loading...</div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="info-label">Email</div>
+                            <div id="userEmail">Loading...</div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="info-label">ID</div>
+                            <div id="userId">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h2 class="section-heading">Address Information</h2>
+                    <div class="mb-3">
+                        <div class="info-label">Current Address</div>
+                        <div id="userAddress">Not specified</div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <form id="addressForm">
+                            <div class="mb-3">
+                                <label for="addressInput" class="form-label">Update Address</label>
+                                <textarea id="addressInput" class="form-control" rows="3" placeholder="Enter your full address"></textarea>
+                            </div>
+                            <button type="submit" id="saveAddressBtn" class="btn btn-primary">Save Address</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div id="orderHistorySection">
+                    <h2 class="section-heading">Order History</h2>
+                    <ul class="list-group" id="orderHistory">
+                        <li class="list-group-item">Loading orders...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/layout/JS/all.min.js"></script>
+    <script src="/layout/JS/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userName = document.getElementById('userName');
+            const userEmail = document.getElementById('userEmail');
+            const userId = document.getElementById('userId');
+            const userRole = document.getElementById('userRole');
+            const userAddress = document.getElementById('userAddress');
+            const addressInput = document.getElementById('addressInput');
+            const addressForm = document.getElementById('addressForm');
+            const orderHistory = document.getElementById('orderHistory');
+            const orderHistorySection = document.getElementById('orderHistorySection');
+            const alertContainer = document.getElementById('alertContainer');
+            const currentUserId = parseInt(sessionStorage.getItem('loggedInUserId'));
+            
+            function loadUserData() {
+                try {
+                    const storeData = JSON.parse(localStorage.getItem('userData'));
+                    let currentUser = null;
+                    if (storeData.customers && Array.isArray(storeData.customers)) {
+                        currentUser = storeData.customers.find(customer => customer.id === currentUserId);
+                    }
+                    if (!currentUser && storeData.admin && Array.isArray(storeData.admin)) {
+                        currentUser = storeData.admin.find(admin => admin.id === currentUserId);
+                    }                    
+                    if (!currentUser && storeData.sellers && Array.isArray(storeData.sellers)) {
+                        currentUser = storeData.sellers.find(seller => seller.id === currentUserId);
+                    }
+                    if (!currentUser) {
+                        showAlert(`User with ID ${currentUserId} not found.`, 'danger');
+                        return;
+                    }                    
+                    displayUserData(currentUser);
+                    
+                } catch (error) {
+                    showAlert('Error loading user data: ' + error.message, 'danger');
+                }
+            }
+            function displayUserData(user) {
+                userName.textContent = user.name;
+                userEmail.textContent = user.email;
+                userId.textContent = user.id;
+                userRole.textContent = user.role;                
+                if (user.address) {
+                    userAddress.textContent = user.address;
+                    addressInput.value = user.address;
+                } else {
+                    userAddress.textContent = 'Not specified';
+                    addressInput.value = '';
+                }
+                if (user.order_history && Array.isArray(user.order_history) && user.order_history.length > 0) {
+                    orderHistory.innerHTML = '';
+                    user.order_history.forEach(orderId => {
+                        const orderItem = document.createElement('li');
+                        orderItem.className = 'list-group-item order-item';
+                        orderItem.textContent = `Order #${orderId}`;
+                        orderHistory.appendChild(orderItem);
+                    });
+                } else {
+                    orderHistorySection.style.display = 'none';
+                }
+            }
+            function saveAddress(newAddress) {
+                try {
+                    const storeData = JSON.parse(localStorage.getItem('userData'));
+                    if (!storeData) {
+                        showAlert('No data found in localStorage.', 'danger');
+                        return false;
+                    }  
+                    let userUpdated = false;
+                    if (storeData.customers && Array.isArray(storeData.customers)) {
+                        const customerIndex = storeData.customers.findIndex(customer => customer.id === currentUserId);
+                        if (customerIndex !== -1) {
+                            storeData.customers[customerIndex].address = newAddress;
+                            userUpdated = true;
+                        }
+                    }                    
+                    if (!userUpdated && storeData.admin && Array.isArray(storeData.admin)) {
+                        const adminIndex = storeData.admin.findIndex(admin => admin.id === currentUserId);
+                        if (adminIndex !== -1) {
+                            storeData.admin[adminIndex].address = newAddress;
+                            userUpdated = true;
+                        }
+                    }
+                    if (!userUpdated && storeData.sellers && Array.isArray(storeData.sellers)) {
+                        const sellerIndex = storeData.sellers.findIndex(seller => seller.id === currentUserId);
+                        if (sellerIndex !== -1) {
+                            storeData.sellers[sellerIndex].address = newAddress;
+                            userUpdated = true;
+                        }
+                    }
+                    if (!userUpdated) {
+                        showAlert(`User with ID ${currentUserId} not found.`, 'danger');
+                        return false;
+                    }
+                    localStorage.setItem('userData', JSON.stringify(storeData));
+                    return true;
+                    
+                } catch (error) {
+                    showAlert('Error saving address: ' + error.message, 'danger');
+                    return false;
+                }
+            }
+            function showAlert(message, type = 'success') {
+                alertContainer.className = `alert alert-${type}`;
+                alertContainer.textContent = message;
+                alertContainer.classList.remove('d-none');
+                setTimeout(() => {
+                    alertContainer.classList.add('d-none');
+                }, 5000);
+            }
+            addressForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const newAddress = addressInput.value.trim();                
+                if (!newAddress) {
+                    showAlert('Please enter a valid address.', 'danger');
+                    return;
+                }  
+                const success = saveAddress(newAddress);
+                if (success) {
+                    userAddress.textContent = newAddress;
+                    showAlert('Address updated successfully!');
+                }
+            });
+            loadUserData();
+        });
+    </script>
+</body>
+</html>

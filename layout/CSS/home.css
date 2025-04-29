@@ -53,6 +53,7 @@ body {
 
 
 /* featured */
+
 .card-img-top {
     height: 200px; /* Or any height you want */
     object-fit: contain;

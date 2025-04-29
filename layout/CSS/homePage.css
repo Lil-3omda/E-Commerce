@@ -51,7 +51,7 @@
 .category-banner img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
 }
 .category-overlay {
     position: absolute;
@@ -278,8 +278,11 @@
     background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('/imgs/homePage/laptopSection.jpg');
     background-size: cover;
     background-position: center;
+    transition: background-image 2s ease;
 }
-
+.hot-deal:hover {
+    background-image: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('/imgs/homePage/laptopSection.jpg');
+}
 .hot-deal h3 {
     color: #343a40;
     font-weight: 700;
@@ -326,7 +329,7 @@
     }
 }
 .logo-carousel {
-    background-color: #f8f9fa;
+    background-color: #f0f0f1;
     padding: 20px 0;
     overflow: hidden;
     position: relative;
