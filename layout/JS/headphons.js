@@ -1,4 +1,4 @@
-import { addToCart, getCart } from "./cartHandler.js";
+import { addToCart} from "./cartHandler.js";
 import { searchBar } from "./navBar.js";
 let products = [];
 let allProducts = [];
@@ -103,7 +103,7 @@ function displayProducts(page) {
   });
   filterableCards.addEventListener("click", (e) => {
       if (e.target.classList.contains("cartBtn")) {
-        addToCart(0,e.target.dataset.product);
+        addToCart(e.target.dataset.product);
       }
     });
 }

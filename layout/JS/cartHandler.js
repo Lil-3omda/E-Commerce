@@ -1,6 +1,8 @@
+const userId = sessionStorage.getItem("loggedInUserId") || "0";
 const getCartKey = (userId) => `cart_${userId}`;
 
-export function addToCart(userId = 0, item) {
+export function addToCart(item) {
+  const userId = sessionStorage.getItem("loggedInUserId") || "0";
   const cartKey = getCartKey(userId);
   let cart = localStorage.getItem(cartKey);
   cart = cart ? JSON.parse(cart) : []; 
@@ -16,7 +18,8 @@ export function addToCart(userId = 0, item) {
 
 
 
-export function removeFromCart(userId = 0, itemId) {
+export function removeFromCart(itemId) {
+  const userId = sessionStorage.getItem("loggedInUserId") || "0";
   const cartKey = getCartKey(userId);
   let cart = localStorage.getItem(cartKey);
   cart = cart ? JSON.parse(cart) : [];
@@ -31,8 +34,10 @@ export function removeFromCart(userId = 0, itemId) {
   console.log("Updated cart:", cart);
 }
 
-export function increaseQuantity(userId,itemId){
+export function increaseQuantity(itemId){
+  const userId = sessionStorage.getItem("loggedInUserId") || "0";
   const cartKey= getCartKey(userId);
+  console.log(cartKey)
   let cart=localStorage.getItem(cartKey);
   cart=cart?JSON.parse(cart):[];
   const existingIndex=cart.findIndex(cartItem=>JSON.parse(cartItem.productData).id===itemId);
@@ -46,7 +51,8 @@ export function increaseQuantity(userId,itemId){
   localStorage.setItem(cartKey, JSON.stringify(cart));
   console.log("Updated cart:", cart);
 }
-export function decreaseQuantity(userId,itemId){
+export function decreaseQuantity(itemId){
+  const userId = sessionStorage.getItem("loggedInUserId") || "0";
   const cartKey= getCartKey(userId);
   let cart=localStorage.getItem(cartKey);
   cart=cart?JSON.parse(cart):[];
@@ -66,7 +72,7 @@ export function decreaseQuantity(userId,itemId){
   localStorage.setItem(cartKey, JSON.stringify(cart));
   console.log("Updated cart:", cart);
 }
-export function getCart(userId = 0) {
+export function getCart(userId) {
   const cartKey = getCartKey(userId);
   const cart = localStorage.getItem(cartKey);
   return cart ? JSON.parse(cart) : null;

@@ -1,4 +1,4 @@
-import { decreaseQuantity, getCart, increaseQuantity, removeFromCart } from "./cartHandler.js";
+import { decreaseQuantity, getCart, increaseQuantity, removeFromCart, addToCart } from "./cartHandler.js";
 function displayData(){
     const main_body= document.querySelector(".main");
     const cart_body = document.querySelector("#cart-body");
@@ -6,8 +6,14 @@ function displayData(){
     const subTotal = document.querySelector("#Subtotal");
     let total = 30;
     let subtotal = 0;
-    cart_body.innerHTML = ""; // Clear previous content
-    let products=getCart(0);
+    cart_body.innerHTML = "";
+    const userId = sessionStorage.getItem("loggedInUserId") || "0";
+    if (userId !== "0") {
+        (getCart(0) || []).forEach(item => addToCart(item.productData));
+    }
+    let products = getCart(userId) || [];
+
+
     if(products && products.length>0){
         products.forEach((item) => {
             const productData = JSON.parse(item.productData);
@@ -58,8 +64,8 @@ function displayData(){
     deleteButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
         const productId = JSON.parse(e.target.dataset.product).id;
-        removeFromCart(0, productId);
-        displayData(); // Refresh the cart display after removing an itemd 
+        removeFromCart(productId);
+        displayData();
     });
     });
 
@@ -69,7 +75,7 @@ increaseButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
         console.log("Increase button clicked");
         const productId = JSON.parse(e.target.dataset.product).id;
-        increaseQuantity(0, productId);
+        increaseQuantity(productId);
         displayData(); 
     });})
     const decreaseButtons = document.querySelectorAll(".decreaseButton");
@@ -77,7 +83,7 @@ increaseButtons.forEach((button) => {
         button.addEventListener("click", (e) => {
             console.log("decrease button clicked");
             const productId = JSON.parse(e.target.dataset.product).id;
-            decreaseQuantity(0, productId);
+            decreaseQuantity(productId);
            
             displayData(); // Refresh the cart display after increasing quantity
     });})
