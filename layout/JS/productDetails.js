@@ -1,3 +1,4 @@
+import { addToCart, getCart } from "./cartHandler.js";
 const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get('productId');
 const productsData = localStorage.getItem("products");
@@ -34,7 +35,7 @@ if (products.length > 0) {
                 <h2>${product.name}</h2>
                 ${specList}
                 ${highlights}
-                <p><strong>Price:</strong> $${product.price}</p>
+                <p><strong>Price:</strong> EGP${product.price}</p>
                 <button class="btn" id="addToCartBtn">Add to Cart</button>
             </div>
         </div>
