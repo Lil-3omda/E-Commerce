@@ -36,7 +36,7 @@
                     <img src="imgs/homePage/laptopSection.jpg" alt="Laptop Collection">
                     <div class="category-overlay">
                         <h5>Laptop</h5>
-                        <a href="#">SHOP NOW ➜</a>
+                        <a href="laptopsSecPage.html">SHOP NOW ➜</a>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                     <img src="imgs/homePage/0015384_headphones.jpeg" alt="Accessories Collection">
                     <div class="category-overlay">
                         <h5>Headphons</h5>
-                        <a href="#">SHOP NOW ➜</a>
+                        <a href="headphones.html">SHOP NOW ➜</a>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     <img src="imgs/homePage/news-1682434257257-9a4b9.jpg" alt="Camera Collection">
                     <div class="category-overlay">
                         <h5>Samrtphons </h5>
-                        <a href="#">SHOP NOW ➜</a>
+                        <a href="smartphones.html">SHOP NOW ➜</a>
                     </div>
                 </div>
             </div>
@@ -121,6 +121,8 @@
             const products = JSON.parse(localStorage.getItem('products')) || [];
     
             const newProductsContainer = document.querySelector('.row.new-products');
+             
+            const productCard = document.querySelector('.product-card');
             const topSellingContainer = document.querySelector('.row.top-selling');
             const topRatedContainer = document.querySelector('.col-md-4.top-rated .products-list');
             const topViewContainer = document.querySelector('.col-md-4.top-view .products-list');
@@ -128,9 +130,10 @@
     
             function createProductCard(product) {
                 return `
-                    <div class="col-md-3 mb-4">
+                    <div class="col-md-3 mb-4 ">
                         <div class="card product-card">
-                            <img src="${product.img}" class="card-img-top" alt="${product.name}">
+                            <img src="${product.img}" class="card-img-top product-card-img" alt="${product.name}"
+                             data-id="${product.id}">
                             <div class="card-body">
                                 <h6 class="card-title">${product.name}</h6>
                                 <p class="card-text text-danger"><del class="text-muted">EGP ${(product.price + 50)}</del>
@@ -145,7 +148,8 @@
     
             function createTopProductMini(product) {
                 return `
-                    <div class="top-selling-product d-flex align-items-center mb-2 ">
+                    <div class="top-selling-product d-flex align-items-center mb-2 product-card-container"
+                    data-id="${product.id}" >
                         <img src="${product.img}" alt="${product.name}" style="width:100%;height: 60px;">
                         <div class="ms-2 contant_text">
                             <h6>${product.name}</h6>
@@ -166,8 +170,9 @@
             m = getRandomInt(1,60);    
             products.slice(x, x+4).forEach(product => {
                 newProductsContainer.innerHTML += createProductCard(product);
+                
             });
-    
+            
             products.slice(y, (y+4)).forEach(product => {
                 topSellingContainer.innerHTML += createProductCard(product);
             });
@@ -182,7 +187,21 @@
             products.slice(m, (m+4)).forEach(product => {
                 topselllingContainer.innerHTML += createTopProductMini(product);
             });
-            
+            const productCardImg = document.querySelectorAll('.product-card-img');
+            productCardContainer=document.querySelectorAll('.product-card-container');
+            productCardImg.forEach(e => {
+                e.addEventListener('click', function() {
+                    const productId = e.getAttribute('data-id');
+                    window.location.href = `productDetails.html?productId=${productId}`;
+                    
+                });
+            });
+            productCardContainer.forEach(e => {
+                e.addEventListener('click', function() {
+                    const productId = e.getAttribute('data-id');
+                    window.location.href = `productDetails.html?productId=${productId}`;
+                });
+            });
         });
 
         const brands = [

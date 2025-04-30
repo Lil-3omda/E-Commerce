@@ -6,6 +6,9 @@ const productsPerPage = 16;
 let currentPage = 1;
 
 addActiveToLinkes();
+window.addEventListener('popstate', function(event) {
+  window.location.reload();
+  });
 
 async function fetchProducts() {
   const productsData = localStorage.getItem("products");
@@ -21,15 +24,22 @@ async function fetchProducts() {
   setupPagination();
 }
 // Search bar functionality
-searchBar.addEventListener("input", (e) => {
-  const query = e.target.value.toLowerCase();
-  products = allProducts.filter((product) =>
-    product.name.toLowerCase().includes(query)
-  );
-  currentPage = 1;
-  displayProducts(currentPage);
-  setupPagination();
-})
+try {
+  searchBar.addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase();
+    products = allProducts.filter((product) =>
+      product.name.toLowerCase().includes(query)
+    );
+    currentPage = 1;
+    displayProducts(currentPage);
+    setupPagination();
+  });
+}
+catch (error) {
+  window.location.reload();
+ 
+}
+
 
 function displayProducts(page) {
   if (!products || !Array.isArray(products) || products.length === 0) return;
