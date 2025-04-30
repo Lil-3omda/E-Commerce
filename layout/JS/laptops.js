@@ -1,5 +1,4 @@
-import { addToCart } from "./cartHandler.js"; 
-import { searchBar } from "./navBar.js";
+
 let products = [];
 let allProducts = [];
 const productsPerPage = 16;
