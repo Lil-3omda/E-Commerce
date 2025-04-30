@@ -94,8 +94,9 @@ function displayProducts(page) {
     }
   });
   filterableCards.addEventListener("click", (e) => {
+    const userId = sessionStorage.getItem("loggedInUserId") || "0";
     if (e.target.classList.contains("cartBtn")) {
-      addToCart(0,e.target.dataset.product);
+      addToCart(e.target.dataset.product);
     }
   });
 }

@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>${product.category}</td>
                     <td>₱${product.price.toLocaleString()}</td>
                     <td>${product.sellerId}</td>
-                    <td>${product.availible}</td>
+                    <td>${product.available}</td>
                     <td>
                         <button class="btn btn-sm btn-info view-details-btn" title="View Details">
                              <i class="fas fa-eye"></i>
@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
                      <p><strong>Seller ID:</strong> ${product.sellerId}</p>
                      <p><strong>Added:</strong> ${product.added || "N/A"}</p>
                      <p><strong>Stock Available:</strong> ${
-                       product.availible
+                       product.available
                      }</p>
                      <p><strong>Units Sold:</strong> ${product.sold}</p>
                      <hr>

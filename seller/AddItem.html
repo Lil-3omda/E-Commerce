@@ -40,6 +40,18 @@
             z-index: 100;
             display: none;
         }
+        .error-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--red-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: none;
+        }
     </style>
     <script> 
         (function() {
@@ -56,8 +68,8 @@
                         window.location.href = '/admin/admin.html';
                     }
                 } else if (loggedInUserRole === 'seller') {
-                    if (window.location.pathname !== '/seller/homePage.html') {
-                        window.location.href = '/seller/homePage.html';
+                    if (window.location.pathname !== '/seller/addItem.html') {
+                        window.location.href = '/seller/addItem.html';
                     }
                 } else if (loggedInUserRole === 'customer') {
                     if (window.location.pathname !== '/homePage.html') {
@@ -81,6 +93,7 @@
     <div id="successMessage" class="success-message">
         Product added successfully!
     </div>
+    <div id="errorMessage" class="error-message"></div>
     <script>
         fetch('/include/navbar.html')
             .then(response => response.text())
@@ -140,7 +153,7 @@
         </div>
         <div class="col-md-6">
         <label for="price" class="form-label">Price</label>
-        <input type="number" class="form-control" id="price" placeholder="Price" required>
+        <input type="number" class="form-control" id="price" placeholder="Price" min="1" required>
         </div>
         <div class="col-md-6">
         <label for="brand" class="form-label">Brand</label>
@@ -148,7 +161,7 @@
         </div>
         <div class="col-md-6">
             <label for="numberOfPieces" class="form-label">Number Of Items</label>
-            <input type="number" class="form-control" id="numberOfPieces" required>
+            <input type="number" class="form-control" id="numberOfPieces" min="1" required>
         </div>
         <div class="col-md-4">
         <label for="category" class="form-label" required>Category</label>
@@ -178,6 +191,14 @@
             successMsg.style.display = 'none';
         }, 3000);
     }
+    function showErrorMessage(message) {
+        const errorMsg = document.getElementById('errorMessage');
+        errorMsg.textContent = message;
+        errorMsg.style.display = 'block';
+        setTimeout(() => {
+            errorMsg.style.display = 'none';
+        }, 3000);
+    }
     const submitAction = document.getElementById('submit-btn');
     submitAction.addEventListener('click', (e) => {
         e.preventDefault(); 
@@ -187,12 +208,12 @@
         const description = document.getElementById('description').value.trim();
         const price = parseFloat(document.getElementById('price').value);
         const brand = document.getElementById('brand').value.trim();
-        const availible = parseInt(document.getElementById('numberOfPieces').value);
+        const available = parseInt(document.getElementById('numberOfPieces').value);
         const category = document.getElementById('category').value;
         const additionalDetails = document.getElementById('AdditionalDetails').value.trim();
 
-        if (!name || !image || !price || !brand || !availible || category === "Choose...") {
-            alert("Please fill all required fields properly.");
+        if (!name || !image || isNaN(price) || price <= 0 || !brand || isNaN(available) || available <= 0 || category === "Choose...") {
+            showErrorMessage("Please fill all required fields properly with correct Information.");
             return;
         }
         const existingProducts = JSON.parse(localStorage.getItem("products"));
@@ -213,7 +234,7 @@
             description,
             price,
             brand,
-            availible,
+            available,
             category,
             sellerId : 201,
             added: getFormattedDate(),

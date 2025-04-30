@@ -1,4 +1,4 @@
-import { addToCart, getCart } from "./cartHandler.js";
+import { addToCart } from "./cartHandler.js";
 const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get('productId');
 const productsData = localStorage.getItem("products");
