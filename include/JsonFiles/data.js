@@ -1682,263 +1682,177 @@ const userData = {
   ],
 };
 
-const initialOrders = [
+const orders = [
   {
-    orderId: 1001,
-    customerId: 4,
-    orderDate: "2024-05-10T10:30:00Z",
-    items: [
-      {
-        productId: 202,
-        productName: "Samsung Galaxy A55 5G",
-        quantity: 1,
-        price: 19999,
-      },
-      {
-        productId: 404,
-        productName: "Sony WH-CH520",
-        quantity: 1,
-        price: 2520,
-      },
-    ],
-    totalAmount: 22519,
-    shippingAddress: "123 Elm Street, NY",
-    status: "Delivered",
+      id: "order_1001", 
+      userId: 4,         
+      items: [
+          { productId: 202, productName: "Samsung Galaxy A55 5G", quantity: 1, price: 19999, total: 19999 },
+          { productId: 404, productName: "Sony WH-CH520", quantity: 1, price: 2520, total: 2520 }           
+      ],
+      totalAmount: 22519,
+      status: "Delivered",
+      date: new Date("2024-05-10T10:30:00Z").toLocaleString() 
+      
   },
+  
   {
-    orderId: 1002,
-    customerId: 4,
-    orderDate: "2024-06-15T14:00:00Z",
-    items: [
-      {
-        productId: 301,
-        productName: "Dell Vostro 3520",
-        quantity: 1,
-        price: 24852,
-      },
-    ],
-    totalAmount: 24852,
-    shippingAddress: "123 Elm Street, NY",
-    status: "Shipped",
+      id: "order_1002",
+      userId: 4,
+      items: [
+          { productId: 301, productName: "Dell Vostro 3520", quantity: 1, price: 24852, total: 24852 }
+      ],
+      totalAmount: 24852,
+      status: "Shipped",
+      date: new Date("2024-06-15T14:00:00Z").toLocaleString()
   },
+  
   {
-    orderId: 1003,
-    customerId: 5,
-    orderDate: "2024-07-01T09:15:00Z",
-    items: [
-      {
-        productId: 206,
-        productName: "Apple iPhone 13",
-        quantity: 1,
-        price: 35450,
-      },
-    ],
-    totalAmount: 35450,
-    shippingAddress: "456 Oak Avenue, CA",
-    status: "Processing",
+      id: "order_1003",
+      userId: 5,
+      items: [
+          { productId: 206, productName: "Apple iPhone 13", quantity: 1, price: 35450, total: 35450 }
+      ],
+      totalAmount: 35450,
+      status: "Processing",
+      date: new Date("2024-07-01T09:15:00Z").toLocaleString()
   },
+  
   {
-    orderId: 1004,
-    customerId: 6,
-    orderDate: "2024-07-03T11:00:00Z",
-    items: [
-      {
-        productId: 412,
-        productName: "P9 Wireless Bluetooth Headset",
-        quantity: 2,
-        price: 238,
-      },
-      {
-        productId: 224,
-        productName: "Infinix Smart 8",
-        quantity: 1,
-        price: 3777,
-      },
-    ],
-    totalAmount: 4253,
-    shippingAddress: "123 Elm Street, NY",
-    status: "Pending",
+      id: "order_1004",
+      userId: 6,
+      items: [
+          { productId: 412, productName: "P9 Wireless Bluetooth Headset", quantity: 2, price: 238, total: 476 }, 
+          { productId: 224, productName: "Infinix Smart 8", quantity: 1, price: 3777, total: 3777 }
+      ],
+      totalAmount: 4253, 
+      status: "Pending",
+      date: new Date("2024-07-03T11:00:00Z").toLocaleString()
   },
+  
   {
-    orderId: 1005,
-    customerId: 5,
-    orderDate: "2024-07-04T16:45:00Z",
-    items: [
-      {
-        productId: 303,
-        productName: "Apple Macbook Air 2020 Model",
-        quantity: 1,
-        price: 36072,
-      },
-    ],
-    totalAmount: 36072,
-    shippingAddress: "456 Oak Avenue, CA",
-    status: "Pending",
+      id: "order_1005",
+      userId: 5,
+      items: [
+          { productId: 303, productName: "Apple Macbook Air 2020 Model", quantity: 1, price: 36072, total: 36072 }
+      ],
+      totalAmount: 36072,
+      status: "Pending",
+      date: new Date("2024-07-04T16:45:00Z").toLocaleString()
   },
+  
   {
-    orderId: 1006,
-    customerId: 4,
-    orderDate: "2024-07-05T08:00:00Z",
-    items: [
-      {
-        productId: 210,
-        productName: "Xiaomi Redmi 13",
-        quantity: 1,
-        price: 7390,
-      },
-    ],
-    totalAmount: 7390,
-    shippingAddress: "123 Elm Street, NY",
-    status: "Processing",
+      id: "order_1006",
+      userId: 4,
+      items: [
+          { productId: 210, productName: "Xiaomi Redmi 13", quantity: 1, price: 7390, total: 7390 }
+      ],
+      totalAmount: 7390,
+      status: "Processing",
+      date: new Date("2024-07-05T08:00:00Z").toLocaleString()
   },
+  
   {
-    orderId: 1007,
-    customerId: 6,
-    orderDate: "2024-07-06T12:20:00Z",
-    items: [
-      {
-        productId: 401,
-        productName: "Sennheiser Consumer Audio Momentum 4",
-        quantity: 1,
-        price: 19999,
-      },
-      {
-        productId: 417,
-        productName: "Headphone SD-1101",
-        quantity: 1,
-        price: 369,
-      },
-    ],
-    totalAmount: 20368,
-    shippingAddress: "789 Pine Lane, TX",
-    status: "Shipped",
+      id: "order_1007",
+      userId: 6,
+      items: [
+          { productId: 401, productName: "Sennheiser Consumer Audio Momentum 4", quantity: 1, price: 19999, total: 19999 },
+          { productId: 417, productName: "Headphone SD-1101", quantity: 1, price: 369, total: 369 }
+      ],
+      totalAmount: 20368,
+      status: "Shipped",
+      date: new Date("2024-07-06T12:20:00Z").toLocaleString()
   },
+  
   {
-    orderId: 1008,
-    customerId: 5,
-    orderDate: "2024-07-07T15:00:00Z",
-    items: [
-      {
-        productId: 310,
-        productName: "ASUS TUF Gaming F15",
-        quantity: 1,
-        price: 59500,
-      },
-    ],
-    totalAmount: 59500,
-    shippingAddress: "456 Oak Avenue, CA",
-    status: "Delivered",
+      id: "order_1008",
+      userId: 5,
+      items: [
+          { productId: 310, productName: "ASUS TUF Gaming F15", quantity: 1, price: 59500, total: 59500 }
+      ],
+      totalAmount: 59500,
+      status: "Delivered",
+      date: new Date("2024-07-07T15:00:00Z").toLocaleString()
   },
+  
   {
-    orderId: 1009,
-    customerId: 4,
-    orderDate: "2024-07-08T10:00:00Z",
-    items: [
-      { productId: 215, productName: "Honor X7c", quantity: 1, price: 8199 },
-      { productId: 216, productName: "Honor X5b", quantity: 2, price: 4399 },
-    ],
-    totalAmount: 16997,
-    shippingAddress: "123 Elm Street, NY",
-    status: "Delivered",
+      id: "order_1009",
+      userId: 4,
+      items: [
+          { productId: 215, productName: "Honor X7c", quantity: 1, price: 8199, total: 8199 },
+          { productId: 216, productName: "Honor X5b", quantity: 2, price: 4399, total: 8798 } 
+      ],
+      totalAmount: 16997, 
+      status: "Delivered",
+      date: new Date("2024-07-08T10:00:00Z").toLocaleString()
   },
+ 
   {
-    orderId: 1010,
-    customerId: 6,
-    orderDate: "2024-07-09T11:30:00Z",
-    items: [
-      {
-        productId: 425,
-        productName: "Anker soundcore H30i A3012H91",
-        quantity: 1,
-        price: 1765,
-      },
-    ],
-    totalAmount: 1765,
-    shippingAddress: "789 Pine Lane, TX",
-    status: "Pending",
+      id: "order_1010",
+      userId: 6,
+      items: [
+          { productId: 425, productName: "Anker soundcore H30i A3012H91", quantity: 1, price: 1765, total: 1765 }
+      ],
+      totalAmount: 1765,
+      status: "Pending",
+      date: new Date("2024-07-09T11:30:00Z").toLocaleString()
   },
+  
   {
-    orderId: 1011,
-    customerId: 5,
-    orderDate: "2024-07-10T13:15:00Z",
-    items: [
-      {
-        productId: 305,
-        productName: "Lenovo Legion 5",
-        quantity: 1,
-        price: 58301,
-      },
-    ],
-    totalAmount: 58301,
-    shippingAddress: "456 Oak Avenue, CA",
-    status: "Shipped",
+      id: "order_1011",
+      userId: 5,
+      items: [
+          { productId: 305, productName: "Lenovo Legion 5", quantity: 1, price: 58301, total: 58301 }
+      ],
+      totalAmount: 58301,
+      status: "Shipped",
+      date: new Date("2024-07-10T13:15:00Z").toLocaleString()
   },
+  
   {
-    orderId: 1012,
-    customerId: 4,
-    orderDate: "2024-07-11T09:45:00Z",
-    items: [
-      {
-        productId: 201,
-        productName: "Samsung Galaxy A16 LTE",
-        quantity: 1,
-        price: 7790,
-      },
-    ],
-    totalAmount: 7790,
-    shippingAddress: "123 Elm Street, NY",
-    status: "Processing",
+      id: "order_1012",
+      userId: 4,
+      items: [
+          { productId: 201, productName: "Samsung Galaxy A16 LTE", quantity: 1, price: 7790, total: 7790 }
+      ],
+      totalAmount: 7790,
+      status: "Processing",
+      date: new Date("2024-07-11T09:45:00Z").toLocaleString()
   },
+  
   {
-    orderId: 1013,
-    customerId: 6,
-    orderDate: "2024-07-11T16:00:00Z",
-    items: [
-      {
-        productId: 409,
-        productName: "JBL Tune 520BT",
-        quantity: 3,
-        price: 1400,
-      },
-    ],
-    totalAmount: 4200,
-    shippingAddress: "789 Pine Lane, TX",
-    status: "Cancelled",
+      id: "order_1013",
+      userId: 6,
+      items: [
+          { productId: 409, productName: "JBL Tune 520BT", quantity: 3, price: 1400, total: 4200 } // 3 * 1400
+      ],
+      totalAmount: 4200,
+      status: "Cancelled",
+      date: new Date("2024-07-11T16:00:00Z").toLocaleString()
   },
+  
   {
-    orderId: 1014,
-    customerId: 5,
-    orderDate: "2024-07-12T10:10:00Z",
-    items: [
-      {
-        productId: 220,
-        productName: "realme Note 50",
-        quantity: 1,
-        price: 4975,
-      },
-    ],
-    totalAmount: 4975,
-    shippingAddress: "456 Oak Avenue, CA",
-    status: "Delivered",
+      id: "order_1014",
+      userId: 5,
+      items: [
+          { productId: 220, productName: "realme Note 50", quantity: 1, price: 4975, total: 4975 }
+      ],
+      totalAmount: 4975,
+      status: "Delivered",
+      date: new Date("2024-07-12T10:10:00Z").toLocaleString()
   },
+  
   {
-    orderId: 1015,
-    customerId: 4,
-    orderDate: "2024-07-12T14:20:00Z",
-    items: [
-      {
-        productId: 308,
-        productName: "Lenovo LOQ 15IRX9 Gaming",
-        quantity: 1,
-        price: 51999,
-      },
-    ],
-    totalAmount: 51999,
-    shippingAddress: "123 Elm Street, NY",
-    status: "Pending",
-  },
+      id: "order_1015",
+      userId: 4,
+      items: [
+          { productId: 308, productName: "Lenovo LOQ 15IRX9 Gaming", quantity: 1, price: 51999, total: 51999 }
+      ],
+      totalAmount: 51999,
+      status: "Pending",
+      date: new Date("2024-07-12T14:20:00Z").toLocaleString()
+  }
 ];
-
 function initializeData() {
   if (!localStorage.getItem("products")) {
     localStorage.setItem("products", JSON.stringify(initialProducts));
@@ -1946,8 +1860,8 @@ function initializeData() {
   if (!localStorage.getItem("userData")) {
     localStorage.setItem("userData", JSON.stringify(userData));
   }
-  if (!localStorage.getItem("initialOrders")) {
-    localStorage.setItem("initialOrders", JSON.stringify(userData));
+  if (!localStorage.getItem("orders")) {
+    localStorage.setItem("orders", JSON.stringify(userData));
   }
 }
 
