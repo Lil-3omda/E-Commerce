@@ -1,4 +1,3 @@
-
 let products = [];
 let allProducts = [];
 const productsPerPage = 16;
