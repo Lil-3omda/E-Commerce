@@ -1903,7 +1903,7 @@ const initialOrders = [
     ],
     totalAmount: 4200,
     shippingAddress: "789 Pine Lane, TX",
-    status: "Cancelled", //
+    status: "Cancelled",
   },
   {
     orderId: 1014,
@@ -1938,7 +1938,6 @@ const initialOrders = [
     status: "Pending",
   },
 ];
-
 
 function initializeData() {
   if (!localStorage.getItem("products")) {
