@@ -109,8 +109,21 @@
     </script>
     
     <script type="module">
-        import {addActiveToLinkes} from './layout/JS/navBar.js';
+        import {addActiveToLinkes, searchBar} from './layout/JS/navBar.js';
         addActiveToLinkes();
+        try {
+            searchBar.addEventListener("keydown", (e) => {
+                if (event.key === 'Enter'){
+                    window.location.href = `searchResult.html?query=${searchBar.value}`;
+                }
+                
+                
+            });
+            }
+            catch (error) {
+            window.location.reload();
+            
+            }
 
 
     </script>
