@@ -28,7 +28,7 @@ const initialProducts = [
     sellerId: 101,
     added: "2024-10-15",
     sold: 21,
-    availible: 47,
+    available: 47,
   },
 
   {
@@ -59,7 +59,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-03-15",
     sold: 26,
-    availible: 22,
+    available: 22,
   },
 
   {
@@ -91,7 +91,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-08-16",
     sold: 18,
-    availible: 88,
+    available: 88,
   },
 
   {
@@ -123,7 +123,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-09-26",
     sold: 57,
-    availible: 94,
+    available: 94,
   },
 
   {
@@ -158,7 +158,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-09-09",
     sold: 20,
-    availible: 23,
+    available: 23,
   },
 
   {
@@ -189,7 +189,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2021-09-14",
     sold: 93,
-    availible: 84,
+    available: 84,
   },
 
   {
@@ -220,7 +220,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2025-01-10",
     sold: 53,
-    availible: 31,
+    available: 31,
   },
   {
     id: 208,
@@ -250,7 +250,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-08-30",
     sold: 29,
-    availible: 27,
+    available: 27,
   },
 
   {
@@ -281,7 +281,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2025-02-04",
     sold: 29,
-    availible: 27,
+    available: 27,
   },
 
   {
@@ -312,7 +312,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-08-23",
     sold: 87,
-    availible: 33,
+    available: 33,
   },
 
   {
@@ -343,7 +343,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2023-08-16",
     sold: 88,
-    availible: 10,
+    available: 10,
   },
 
   {
@@ -375,7 +375,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2022-10-16",
     sold: 18,
-    availible: 51,
+    available: 51,
   },
 
   {
@@ -405,7 +405,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2022-10-16",
     sold: 16,
-    availible: 47,
+    available: 47,
   },
 
   {
@@ -434,7 +434,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-12-01",
     sold: 61,
-    availible: 89,
+    available: 89,
   },
 
   {
@@ -463,7 +463,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-10-31",
     sold: 60,
-    availible: 62,
+    available: 62,
   },
 
   {
@@ -490,7 +490,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-12-18",
     sold: 85,
-    availible: 15,
+    available: 15,
   },
 
   {
@@ -521,7 +521,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-09-27",
     sold: 63,
-    availible: 61,
+    available: 61,
   },
   {
     id: 218,
@@ -551,7 +551,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2025-02-25",
     sold: 92,
-    availible: 88,
+    available: 88,
   },
   {
     id: 219,
@@ -575,7 +575,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-06-30",
     sold: 16,
-    availible: 35,
+    available: 35,
   },
 
   {
@@ -600,7 +600,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-05-16",
     sold: 85,
-    availible: 69,
+    available: 69,
   },
 
   {
@@ -631,7 +631,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2025-02-12",
     sold: 88,
-    availible: 19,
+    available: 19,
   },
 
   {
@@ -662,7 +662,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-11-04",
     sold: 36,
-    availible: 58,
+    available: 58,
   },
 
   {
@@ -691,7 +691,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-10-06",
     sold: 20,
-    availible: 60,
+    available: 60,
   },
   {
     id: 224,
@@ -721,7 +721,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-10-05",
     sold: 65,
-    availible: 80,
+    available: 80,
   },
   {
     id: 225,
@@ -751,7 +751,7 @@ const initialProducts = [
     sellerId: 102,
     added: "2024-10-23",
     sold: 93,
-    availible: 12,
+    available: 12,
   },
 
   // laptops
@@ -779,7 +779,7 @@ const initialProducts = [
     sellerId: 201,
     added: "2023-12-16",
     sold: 37,
-    availible: 28,
+    available: 28,
   },
 
   {
@@ -806,7 +806,7 @@ const initialProducts = [
     sellerId: 201,
     added: "2024-04-04",
     sold: 17,
-    availible: 26,
+    available: 26,
   },
 
   {
@@ -834,7 +834,7 @@ const initialProducts = [
     sellerId: 201,
     added: "2020-11-09",
     sold: 37,
-    availible: 23,
+    available: 23,
   },
   {
     id: 304,
@@ -857,7 +857,7 @@ const initialProducts = [
     sellerId: 201,
     added: "2023-11-26",
     sold: 35,
-    availible: 27,
+    available: 27,
   },
 
   {
@@ -887,7 +887,7 @@ const initialProducts = [
     sellerId: 201,
     added: "2022-05-30",
     sold: 18,
-    availible: 30,
+    available: 30,
   },
 
   {
@@ -915,7 +915,7 @@ const initialProducts = [
     sellerId: 201,
     added: "2024-04-19",
     sold: 38,
-    availible: 20,
+    available: 20,
   },
 
   {
@@ -943,7 +943,7 @@ const initialProducts = [
     sellerId: 201,
     added: "2024-11-05",
     sold: 5,
-    availible: 31,
+    available: 31,
   },
 
   {
@@ -971,7 +971,7 @@ const initialProducts = [
     sellerId: 201,
     added: "2024-03-19",
     sold: 16,
-    availible: 45,
+    available: 45,
   },
 
   {
@@ -999,7 +999,7 @@ const initialProducts = [
     sellerId: 201,
     added: "2024-09-26",
     sold: 7,
-    availible: 29,
+    available: 29,
   },
 
   {
@@ -1027,7 +1027,7 @@ const initialProducts = [
     sellerId: 201,
     added: "2024-04-19",
     sold: 30,
-    availible: 33,
+    available: 33,
   },
 
   {
@@ -1051,7 +1051,7 @@ const initialProducts = [
     sellerId: 201,
     added: "2023-02-21",
     sold: 2,
-    availible: 42,
+    available: 42,
   },
 
   {
@@ -1075,7 +1075,7 @@ const initialProducts = [
     sellerId: 201,
     added: "2023-02-21",
     sold: 2,
-    availible: 42,
+    available: 42,
   },
 
   {
@@ -1103,7 +1103,7 @@ const initialProducts = [
     sellerId: 201,
     added: "2024-12-26",
     sold: 15,
-    availible: 9,
+    available: 9,
   },
 
   // Accessories (20 products)
@@ -1126,7 +1126,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2024-07-04",
     sold: 4,
-    availible: 9,
+    available: 9,
   },
   {
     id: 402,
@@ -1146,7 +1146,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2024-01-27",
     sold: 12,
-    availible: 5,
+    available: 5,
   },
   {
     id: 403,
@@ -1166,7 +1166,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2023-08-20",
     sold: 1,
-    availible: 10,
+    available: 10,
   },
   {
     id: 404,
@@ -1186,7 +1186,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2023-03-10",
     sold: 12,
-    availible: 3,
+    available: 3,
   },
   {
     id: 405,
@@ -1206,7 +1206,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2023-04-01",
     sold: 6,
-    availible: 7,
+    available: 7,
   },
   {
     id: 406,
@@ -1226,7 +1226,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2023-05-09",
     sold: 0,
-    availible: 11,
+    available: 11,
   },
   {
     id: 407,
@@ -1246,7 +1246,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2025-02-15",
     sold: 4,
-    availible: 9,
+    available: 9,
   },
   {
     id: 408,
@@ -1267,7 +1267,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2023-09-04",
     sold: 6,
-    availible: 6,
+    available: 6,
   },
   {
     id: 409,
@@ -1287,7 +1287,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2023-09-07",
     sold: 5,
-    availible: 13,
+    available: 13,
   },
   {
     id: 410,
@@ -1307,7 +1307,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2025-04-11",
     sold: 2,
-    availible: 9,
+    available: 9,
   },
   {
     id: 411,
@@ -1327,7 +1327,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2019-07-01",
     sold: 8,
-    availible: 4,
+    available: 4,
   },
   {
     id: 412,
@@ -1347,7 +1347,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2023-05-09",
     sold: 9,
-    availible: 2,
+    available: 2,
   },
   {
     id: 413,
@@ -1367,7 +1367,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2024-05-13",
     sold: 3,
-    availible: 7,
+    available: 7,
   },
   {
     id: 414,
@@ -1387,7 +1387,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2024-12-22",
     sold: 6,
-    availible: 7,
+    available: 7,
   },
   {
     id: 415,
@@ -1407,7 +1407,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2021-09-25",
     sold: 4,
-    availible: 6,
+    available: 6,
   },
   {
     id: 416,
@@ -1427,7 +1427,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2024-02-12",
     sold: 8,
-    availible: 3,
+    available: 3,
   },
   {
     id: 417,
@@ -1447,7 +1447,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2024-06-12",
     sold: 11,
-    availible: 3,
+    available: 3,
   },
   {
     id: 418,
@@ -1467,7 +1467,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2025-02-25",
     sold: 5,
-    availible: 7,
+    available: 7,
   },
   {
     id: 419,
@@ -1487,7 +1487,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2025-02-24",
     sold: 3,
-    availible: 11,
+    available: 11,
   },
   {
     id: 420,
@@ -1507,7 +1507,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2024-11-05",
     sold: 9,
-    availible: 4,
+    available: 4,
   },
   {
     id: 421,
@@ -1527,7 +1527,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2024-05-12",
     sold: 6,
-    availible: 6,
+    available: 6,
   },
   {
     id: 421,
@@ -1547,7 +1547,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2024-05-12",
     sold: 2,
-    availible: 7,
+    available: 7,
   },
   {
     id: 422,
@@ -1567,7 +1567,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2024-09-24",
     sold: 5,
-    availible: 3,
+    available: 3,
   },
   {
     id: 423,
@@ -1587,7 +1587,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2024-12-22",
     sold: 4,
-    availible: 7,
+    available: 7,
   },
   {
     id: 424,
@@ -1607,7 +1607,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2024-06-23",
     sold: 8,
-    availible: 6,
+    available: 6,
   },
   {
     id: 425,
@@ -1627,7 +1627,7 @@ const initialProducts = [
     sellerId: 303,
     added: "2024-05-13",
     sold: 1,
-    availible: 8,
+    available: 8,
   },
 ];
 

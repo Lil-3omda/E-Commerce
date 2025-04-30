@@ -208,11 +208,11 @@
         const description = document.getElementById('description').value.trim();
         const price = parseFloat(document.getElementById('price').value);
         const brand = document.getElementById('brand').value.trim();
-        const availible = parseInt(document.getElementById('numberOfPieces').value);
+        const available = parseInt(document.getElementById('numberOfPieces').value);
         const category = document.getElementById('category').value;
         const additionalDetails = document.getElementById('AdditionalDetails').value.trim();
 
-        if (!name || !image || isNaN(price) || price <= 0 || !brand || isNaN(availible) || availible <= 0 || category === "Choose...") {
+        if (!name || !image || isNaN(price) || price <= 0 || !brand || isNaN(available) || available <= 0 || category === "Choose...") {
             showErrorMessage("Please fill all required fields properly with correct Information.");
             return;
         }
@@ -234,7 +234,7 @@
             description,
             price,
             brand,
-            availible,
+            available,
             category,
             sellerId : 201,
             added: getFormattedDate(),
