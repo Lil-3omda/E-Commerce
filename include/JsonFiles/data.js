@@ -1030,30 +1030,7 @@ const initialProducts = [
     available: 33,
   },
 
-  {
-    id: 311,
-    name: "Lenovo Legion 5 15ACH6 Gaming",
-    img: "./imgs/laptops/laptop11.jpg",
-    description: {
-      brand: "lenovo",
-      cpu: "amd Ryzen 5-5600H",
-      gpu: "NVIDIA GeForce RTX 3050 Ti",
-      ram: 16,
-      storage: 512,
-      res: "1920 x 1080",
-      refreshrate: 120,
-      content: [
-        `Lenovo Legion 5 15ACH6 Gaming Laptop - Ryzen 5 5600H 6-Cores, 16 GB RAM, 512 GB SSD, NVIDIA GeForce RTX 3050 Ti 4GB GDDR6 Graphics, 15.6" FHD (1920x1080) IPS 120Hz, Backlit Keyboard, Windows 11`,
-      ],
-    },
-    price: 39878,
-    category: "laptops",
-    sellerId: 201,
-    added: "2023-02-21",
-    sold: 2,
-    available: 42,
-  },
-
+ 
   {
     id: 311,
     name: "Lenovo Legion 5 15ACH6 Gaming",
