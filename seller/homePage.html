@@ -99,9 +99,13 @@
                 document.getElementById('navbar').innerHTML = data;
                 const searchbar = document.getElementsByClassName("search-wrapper")[0];
                 const iconbar = document.getElementsByClassName("icon-bar")[0];
+                const icon1 = document.getElementsByClassName('icon-badge')[0];
+                const icon2 = document.getElementsByClassName('icon-badge')[1];                
                 const bottomNavLinks = document.querySelectorAll(".bottom-nav .nav-link");
                 searchbar.classList.add('d-none');
-                iconbar.classList.add('d-none');
+                icon1.classList.add('d-none');
+                icon2.classList.add('d-none');
+                iconbar.classList.add('ms-auto');
                 bottomNavLinks.forEach(link => {
                     link.classList.add('d-none');
                 });
@@ -174,7 +178,7 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="text-xs fw-bold text-info text-uppercase mb-1">Total Earnings</div>
-                                <div class="h5 mb-0 fw-bold" id="totalEarnings">$30,000</div>
+                                <div class="h5 mb-0 fw-bold" id="totalEarnings"></div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-info-emphasis"></i>
@@ -286,7 +290,7 @@
         const monthlyData = {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
             datasets: [{
-                label: 'Sales ($)',
+                label: 'Sales (EGP)',
                 data: [3800, 5200, 4800, 5500],
                 backgroundColor: 'rgba(78, 115, 223, 0.2)',
                 borderColor: 'rgba(78, 115, 223, 1)',
@@ -373,7 +377,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">${product.name}</h5>
                                 <p class="card-text">
-                                    <span class="badge bg-primary me-2">$${product.price}</span>
+                                    <span class="badge bg-primary me-2">${product.price} EGP</span>
                                     <span class="badge ${product.available > 10 ? 'bg-success' : 'bg-warning'}">${product.available} in stock</span>
                                 </p>
                                 <p class="card-text"><small class="text-muted">Category: ${product.category}</small></p>
@@ -402,24 +406,35 @@
         function renderOrders() {
             const recentSales = document.getElementById('recentSales');
             recentSales.innerHTML = '';
-
             const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const products = JSON.parse(localStorage.getItem('products')) || [];
             const sellerId = sessionStorage.getItem('loggedInUserId');
-            
-            let sellerOrders = orders;
+            function getSellerIdByProductId(productId) {
+                const product = products.find(p => p.id === productId);
+                return product ? String(product.sellerId) : null;
+            }
+            let sellerOrders = [];
+            orders.forEach(order => {
+                const sellerItems = order.items.filter(item => {
+                    return getSellerIdByProductId(item.productId) === sellerId;
+                });
+                if (sellerItems.length > 0) {
+                    const sellerOrder = { ...order, items: sellerItems };
+                    sellerOrders.push(sellerOrder);
+                }
+            });
             const pendingCount = sellerOrders.filter(order => order.status === "Pending").length;
             document.getElementById('pendingOrders').textContent = pendingCount;
-            
             sellerOrders.forEach(order => {
                 const orderRow = document.createElement('tr');
                 const statusClass = getStatusClass(order.status);
-                
+                const sellerTotal = order.items.reduce((sum, item) => sum + item.total, 0);
                 orderRow.innerHTML = `
                     <td>${order.id}</td>
                     <td>${order.items.map(item => item.productName).join(', ')}</td>
                     <td>${order.userId}</td>
                     <td>${order.date}</td>
-                    <td>${order.totalAmount.toFixed(2)} EGP</td>
+                    <td>${sellerTotal.toFixed(2)} EGP</td>
                     <td class="${statusClass}">${order.status}</td>
                     <td>
                         <select class="form-select form-select-sm status-select" data-order-id="${order.id}">
@@ -430,11 +445,12 @@
                     </td>
                 `;
                 recentSales.appendChild(orderRow);
-            });            
+            });
             document.querySelectorAll('.status-select').forEach(select => {
                 select.addEventListener('change', updateOrderStatus);
             });
         }
+
         function getStatusClass(status) {
             switch(status) {
                 case 'Pending': return 'status-pending';
@@ -450,11 +466,9 @@
             
             let orders = JSON.parse(localStorage.getItem('orders')) || [];
             const orderIndex = orders.findIndex(order => order.id == orderId);
-            
             if (orderIndex !== -1) {
                 orders[orderIndex].status = newStatus;
-                localStorage.setItem('orders', JSON.stringify(orders));
-                
+                localStorage.setItem('orders', JSON.stringify(orders)); 
                 const statusCell = select.closest('tr').querySelector('td:nth-child(6)');
                 statusCell.textContent = newStatus;
                 statusCell.className = getStatusClass(newStatus);                
@@ -493,23 +507,65 @@
             const products = JSON.parse(localStorage.getItem("products")) || [];
             const orders = JSON.parse(localStorage.getItem("orders")) || [];
             const sellerId = sessionStorage.getItem('loggedInUserId');
-            
-            const sellerProducts = products.filter(product => (String(product.sellerId) === String(sellerId)));
-            document.getElementById('totalProducts').textContent = sellerProducts.length;            
+
+            const sellerProducts = products.filter(product => String(product.sellerId) === String(sellerId));
+            document.getElementById('totalProducts').textContent = sellerProducts.length;
+
             const completedOrders = orders.filter(order => order.status === "Completed");
             document.getElementById('totalSales').textContent = completedOrders.length;
-            
+
             let totalEarnings = 0;
             completedOrders.forEach(order => {
-                totalEarnings += order.totalAmount;
+                const sellerItems = order.items.filter(item => {
+                    return String(products.find(product => product.id === item.productId).sellerId) === String(sellerId);
+                });
+                sellerItems.forEach(item => {
+                    totalEarnings += item.total;
+                });
             });
-            document.getElementById('totalEarnings').textContent = `$${totalEarnings.toFixed(2)}`;
+            document.getElementById('totalEarnings').textContent = `${totalEarnings.toFixed(2)} EGP`;
         }
-        
+        function updateLoginButton() {
+            const loginBtn = document.getElementById('loginBtn');
+            const loggedInUserId = sessionStorage.getItem('loggedInUserId');
+            const loggedInUserRole = sessionStorage.getItem('loggedInUserRole');
+
+            if (loginBtn) {
+                if (loggedInUserId && loggedInUserRole) {
+                    const userDropdownHTML = `
+                        <div class="dropdown">
+                            <a href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 45px; height: 45px;">
+                                <i class="fa-solid fa-circle-user text-white display-6"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end rounded-3 mt-2" aria-labelledby="userDropdown" style="min-width: 120px;">
+                                <li><a class="dropdown-item small" href="/profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item small text-danger" href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+                            </ul>
+                        </div>
+                    `;
+                    loginBtn.outerHTML = userDropdownHTML;
+                    setTimeout(() => {
+                        const logoutBtn = document.getElementById('logoutBtn');
+                        if (logoutBtn) {
+                            logoutBtn.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                sessionStorage.removeItem('loggedInUserId');
+                                sessionStorage.removeItem('loggedInUserRole');
+                                window.location.href = '/homePage.html';
+                            });
+                        }
+                    }, 50);
+                }
+            } else {
+                setTimeout(updateLoginButton, 50);
+            }
+        }
         document.addEventListener('DOMContentLoaded', ()=> {
             initializeCharts();
             renderProducts();
             updateStatistics();
+            updateLoginButton();
         });
     </script>
 </body>

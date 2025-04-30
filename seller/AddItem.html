@@ -101,9 +101,13 @@
                 document.getElementById('navbar').innerHTML = data;
                 const searchbar = document.getElementsByClassName("search-wrapper")[0];
                 const iconbar = document.getElementsByClassName("icon-bar")[0];
+                const icon1 = document.getElementsByClassName('icon-badge')[0];
+                const icon2 = document.getElementsByClassName('icon-badge')[1];                
                 const bottomNavLinks = document.querySelectorAll(".bottom-nav .nav-link");
                 searchbar.classList.add('d-none');
-                iconbar.classList.add('d-none');
+                icon1.classList.add('d-none');
+                icon2.classList.add('d-none');
+                iconbar.classList.add('ms-auto');
                 bottomNavLinks.forEach(link => {
                     link.classList.add('d-none');
                 });
@@ -111,8 +115,9 @@
                 const Dashboard = document.createElement('p');
                 Dashboard.classList = 'nav-item mt-0';
                 const DashboardLink = document.createElement('a');
-                DashboardLink.className = 'nav-link fs-3 mx-1';
-                DashboardLink.style.color = 'black';
+                DashboardLink.className = 'nav-link fs-3 mx-1 mt-3';
+                DashboardLink.style.color = 'White';
+                DashboardLink.style.fontWeight = 600;
                 DashboardLink.textContent = "Seller Dashboard";
                 DashboardLink.href = '/seller/homePage.html';
                 Dashboard.append(DashboardLink);
@@ -247,8 +252,46 @@
                 window.location.href = document.referrer || '/seller/products.html';
             }, 1500);
         });
+        function updateLoginButton() {
+            const loginBtn = document.getElementById('loginBtn');
+            const loggedInUserId = sessionStorage.getItem('loggedInUserId');
+            const loggedInUserRole = sessionStorage.getItem('loggedInUserRole');
 
-</script>
+            if (loginBtn) {
+                if (loggedInUserId && loggedInUserRole) {
+                    const userDropdownHTML = `
+                        <div class="dropdown">
+                            <a href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 45px; height: 45px;">
+                                <i class="fa-solid fa-circle-user text-white display-6"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end rounded-3 mt-2" aria-labelledby="userDropdown" style="min-width: 120px;">
+                                <li><a class="dropdown-item small" href="/profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item small text-danger" href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+                            </ul>
+                        </div>
+                    `;
+                    loginBtn.outerHTML = userDropdownHTML;
+                    setTimeout(() => {
+                        const logoutBtn = document.getElementById('logoutBtn');
+                        if (logoutBtn) {
+                            logoutBtn.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                sessionStorage.removeItem('loggedInUserId');
+                                sessionStorage.removeItem('loggedInUserRole');
+                                window.location.href = '/homePage.html';
+                            });
+                        }
+                    }, 50);
+                }
+            } else {
+                setTimeout(updateLoginButton, 50);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLoginButton();
+        });
+    </script>
     <div id="footer"></div>
     <script>
         fetch('/include/footer.html')
