@@ -1643,21 +1643,37 @@ const userData = {
   ],
   sellers: [
       {
-          id: 2,
+          id: 101,
           name: "ElectroWorld",
-          email: "contact@electroworld.com",
+          email: "seller1@yaomix.com",
           password: "sellerpass1",
           role: "seller",
           products: [201, 202]
       },
       {
-          id: 3,
+          id: 102,
           name: "FashionFiesta",
-          email: "hello@fashionfiesta.com",
+          email: "seller2@yaomix.com",
           password: "sellerpass2",
           role: "seller",
           products: [203, 204]
-      }
+      },
+      {
+        id: 201,
+        name: "FashionFiesta",
+        email: "seller3@yaomix.com",
+        password: "sellerpass3",
+        role: "seller",
+        products: [203, 204]
+    },
+    {
+      id: 303,
+      name: "FashionFiesta",
+      email: "seller4@yaomix.com",
+      password: "sellerpass4",
+      role: "seller",
+      products: [203, 204]
+  }
   ],
   customers: [
       {

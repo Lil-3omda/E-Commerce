@@ -96,6 +96,7 @@ function checkout() {
     const cart = getCart(userId) || [];
     let allAvailable = true;
     let products = JSON.parse(localStorage.getItem("products")) || [];
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
 
     for (let item of cart) {
         const productInCart = JSON.parse(item.productData);
@@ -120,6 +121,23 @@ function checkout() {
                 products[productIndex].sold += quantity;
             }
         }
+        const newOrder = {
+            id: `order_${new Date().getTime()}`,
+            userId: userId,
+            items: cart.map(item => ({
+                productId: JSON.parse(item.productData).id,
+                productName: JSON.parse(item.productData).name,
+                quantity: item.quantity,
+                price: JSON.parse(item.productData).price,
+                total: item.quantity * JSON.parse(item.productData).price
+            })),
+            totalAmount: cart.reduce((total, item) => total + item.quantity * JSON.parse(item.productData).price, 0),
+            status: "Pending", 
+            date: new Date().toLocaleString()
+        };
+
+        orders.push(newOrder);
+        localStorage.setItem("orders", JSON.stringify(orders));
         localStorage.setItem("products", JSON.stringify(products));
         localStorage.removeItem(`cart_${userId}`);
         alert("Checkout successful!");

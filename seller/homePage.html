@@ -42,6 +42,18 @@
             height: 200px;
             object-fit: contain;
         }
+        .status-pending {
+            background-color: #ffeeba;
+            color: #856404;
+        }
+        .status-completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status-canceled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
     </style>
     <script> 
         (function() {
@@ -97,8 +109,9 @@
                 const Dashboard = document.createElement('p');
                 Dashboard.classList = 'nav-item mt-0';
                 const DashboardLink = document.createElement('a');
-                DashboardLink.className = 'nav-link fs-3 mx-1';
-                DashboardLink.style.color = 'black';
+                DashboardLink.className = 'nav-link fs-3 mx-1 mt-3';
+                DashboardLink.style.color = 'White';
+                DashboardLink.style.fontWeight = 600;
                 DashboardLink.textContent = "Seller Dashboard";
                 DashboardLink.href = '/seller/homePage.html';
                 Dashboard.append(DashboardLink);
@@ -231,7 +244,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header bg-warning text-dark">
-                        <h5 class="mb-0">Recent Sales</h5>
+                        <h5 class="mb-0">Recent Orders</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -240,10 +253,11 @@
                                     <tr>
                                         <th>Order ID</th>
                                         <th>Product</th>
-                                        <th>Customer</th>
+                                        <th>CustomerID</th>
                                         <th>Date</th>
                                         <th>Amount</th>
                                         <th>Status</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="recentSales">
@@ -345,12 +359,12 @@
             const productsList = document.getElementById('productsList');
             productsList.innerHTML = '';
             
-            const products = JSON.parse(localStorage.getItem("products"));
+            const products = JSON.parse(localStorage.getItem("products")) || [];
             
             document.getElementById('totalProducts').textContent = products.length;
-            
+            const sellerId = sessionStorage.getItem('loggedInUserId');
             products.forEach(product => {
-                if (product.sellerId === 201) {
+                if (String(product.sellerId) === String(sellerId)){
                     const productCard = document.createElement('div');
                     productCard.className = 'col-md-4 col-lg-3 mb-4';
                     productCard.innerHTML = `
@@ -382,6 +396,72 @@
                     </div>
                 `;
             }
+            
+            renderOrders();
+        }
+        function renderOrders() {
+            const recentSales = document.getElementById('recentSales');
+            recentSales.innerHTML = '';
+
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const sellerId = sessionStorage.getItem('loggedInUserId');
+            
+            let sellerOrders = orders;
+            const pendingCount = sellerOrders.filter(order => order.status === "Pending").length;
+            document.getElementById('pendingOrders').textContent = pendingCount;
+            
+            sellerOrders.forEach(order => {
+                const orderRow = document.createElement('tr');
+                const statusClass = getStatusClass(order.status);
+                
+                orderRow.innerHTML = `
+                    <td>${order.id}</td>
+                    <td>${order.items.map(item => item.productName).join(', ')}</td>
+                    <td>${order.userId}</td>
+                    <td>${order.date}</td>
+                    <td>${order.totalAmount.toFixed(2)} EGP</td>
+                    <td class="${statusClass}">${order.status}</td>
+                    <td>
+                        <select class="form-select form-select-sm status-select" data-order-id="${order.id}">
+                            <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                            <option value="Completed" ${order.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                            <option value="Canceled" ${order.status === 'Canceled' ? 'selected' : ''}>Canceled</option>
+                        </select>
+                    </td>
+                `;
+                recentSales.appendChild(orderRow);
+            });            
+            document.querySelectorAll('.status-select').forEach(select => {
+                select.addEventListener('change', updateOrderStatus);
+            });
+        }
+        function getStatusClass(status) {
+            switch(status) {
+                case 'Pending': return 'status-pending';
+                case 'Completed': return 'status-completed';
+                case 'Canceled': return 'status-canceled';
+                default: return '';
+            }
+        }  
+        function updateOrderStatus(event) {
+            const select = event.target;
+            const orderId = select.getAttribute('data-order-id');
+            const newStatus = select.value;
+            
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const orderIndex = orders.findIndex(order => order.id == orderId);
+            
+            if (orderIndex !== -1) {
+                orders[orderIndex].status = newStatus;
+                localStorage.setItem('orders', JSON.stringify(orders));
+                
+                const statusCell = select.closest('tr').querySelector('td:nth-child(6)');
+                statusCell.textContent = newStatus;
+                statusCell.className = getStatusClass(newStatus);                
+                const pendingCount = orders.filter(order => order.status === "Pending").length;
+                document.getElementById('pendingOrders').textContent = pendingCount;                
+                // alert(`Order #${orderId} status updated to ${newStatus}`);
+            }
         }
 
         function confirmDelete(productId) {
@@ -389,16 +469,17 @@
                 deleteProduct(productId);
             }
         }
+        
         function deleteProduct(productId) {
             let products = JSON.parse(localStorage.getItem("products")) || [];
             const productIndex = products.findIndex(product => product.id === productId);
         
-        if (productIndex !== -1) {
-            products.splice(productIndex, 1);
-            localStorage.setItem("products", JSON.stringify(products));
-            alert("Product deleted successfully!");
-            renderProducts();
-            updateStatistics();
+            if (productIndex !== -1) {
+                products.splice(productIndex, 1);
+                localStorage.setItem("products", JSON.stringify(products));
+                alert("Product deleted successfully!");
+                renderProducts();
+                updateStatistics();
             } else {
                 alert("Product not found!");
             }
@@ -409,12 +490,24 @@
         }
 
         function updateStatistics() {
-            const products = JSON.parse(localStorage.getItem("products"));
-            const sellerProducts = products.filter(product => product.sellerId === 201);
-            document.getElementById('totalProducts').textContent = sellerProducts.length;
+            const products = JSON.parse(localStorage.getItem("products")) || [];
+            const orders = JSON.parse(localStorage.getItem("orders")) || [];
+            const sellerId = sessionStorage.getItem('loggedInUserId');
+            
+            const sellerProducts = products.filter(product => (String(product.sellerId) === String(sellerId)));
+            document.getElementById('totalProducts').textContent = sellerProducts.length;            
+            const completedOrders = orders.filter(order => order.status === "Completed");
+            document.getElementById('totalSales').textContent = completedOrders.length;
+            
+            let totalEarnings = 0;
+            completedOrders.forEach(order => {
+                totalEarnings += order.totalAmount;
+            });
+            document.getElementById('totalEarnings').textContent = `$${totalEarnings.toFixed(2)}`;
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
+        
+        document.addEventListener('DOMContentLoaded', ()=> {
+            initializeCharts();
             renderProducts();
             updateStatistics();
         });
