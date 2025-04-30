@@ -5,27 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../layout/CSS/homePage.css">
     <title>Document</title>
-    <script>
-        const validRoutes = [
-          '/',
-          '/homePage.html',
-          '/products.html',
-          '/smartphones.html',
-          '/headphones.html',
-          '/laptopsSecPage.html',
-          '/cart.html',
-          '/profile.html',
-          '/productDetails.html',
-          '/404.html'
-        ];
-      
-        // Redirect to 404 if path is invalid
-        if (!validRoutes.includes(window.location.pathname) && window.location.pathname !== '/404.html') {
-            window.location.replace('/404.html');
-        }
-
-        
-      </script>
 </head>
 <body>
     <div id="navbar"></div>
@@ -137,6 +116,7 @@
     </script>
 
     <script>
+       
         document.addEventListener('DOMContentLoaded', () => {
             const products = JSON.parse(localStorage.getItem('products')) || [];
     
