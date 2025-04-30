@@ -117,6 +117,7 @@ function checkout() {
             const productIndex = products.findIndex(p => p.id === productInCart.id);
             if (productIndex !== -1) {
                 products[productIndex].available -= quantity;
+                products[productIndex].sold += quantity;
             }
         }
         localStorage.setItem("products", JSON.stringify(products));
