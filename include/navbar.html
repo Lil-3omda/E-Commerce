@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/layout/CSS/all.min.css">
   <link rel="stylesheet" href="/layout/CSS/bootstrap.min.css">
   <style>
+        
         body {
         margin: 0;
         padding: 0;
@@ -67,6 +68,37 @@
             justify-content: center;
         }
         }
+
+        .custom-nav {
+            background-color: #222222; /* Dark background */
+            border-top: 1px solid #fffefe;
+            padding: 0.75rem 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .custom-nav .nav-link {
+            color: #fcfbfb;
+            /* font-weight: 500; */
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-bottom: 2px solid transparent;
+        }
+
+        .custom-nav .nav-link:hover,
+        .custom-nav .nav-link:focus {
+            color: #bb0f0f;
+            border-bottom: 2px solid #bb0f0f; /* Bootstrap primary color */
+        }
+
+        .custom-nav .nav-link.active {
+            color: #bb0f0f;
+            border-bottom: 2px solid #bb0f0f;
+        }
+
+        .custom-nav .nav-item {
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -83,13 +115,8 @@
 
             <div class="col-12 col-md-6 search-wrapper mx-auto mt-1">
                 <div class="d-flex search-bar input-group">
-                    <!-- <select class="form-select rounded-start input-group-text" style="max-width: 150px;">
-                    <option>All Categories</option>
-                    <option>Laptops</option>
-                    <option>Phones</option>
-                    <option>HeadPhone</option>
-                    </select> -->
-                    <input type="text" class="form-control" placeholder="Search here" id="searchInput" aria-label="Search" aria-describedby="searchButton">
+                    <input type="text" class="form-control"
+                     placeholder="Search here" id="searchInput" aria-label="Search" aria-describedby="searchButton">
                     <button class="btn px-4">Search</button>
                 </div>
             </div>
@@ -119,43 +146,31 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-md bottom-nav d-none d-md-block">
-        <div class="container">
-        <ul class="navbar-nav mx-auto gap-3">
-            <li class="nav-item">
-            <a class="nav-link active" href="/homePage.html">Home</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/products.html">All Products</a>
-            </li>
-            <li class="nav-item">
+    <!-- Navbar HTML -->
+            <nav class="navbar navbar-expand-md bottom-nav d-none d-md-block custom-nav">
+            <div class="container">
+            <ul class="navbar-nav mx-auto gap-3">
+                <li class="nav-item">
+                <a class="nav-link" href="/homePage.html" aria-current="page">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/products.html">All Products</a>
+                </li>
+                <li class="nav-item">
                 <a class="nav-link" href="/laptopsSecPage.html">Laptops</a>
-            </li>
-            <li class="nav-item">
+                </li>
+                <li class="nav-item">
                 <a class="nav-link" href="/smartphones.html">Smartphones</a>
-            </li>
-            <li class="nav-item">
+                </li>
+                <li class="nav-item">
                 <a class="nav-link" href="/headphones.html">Headphones</a>
-            </li>        
-        </ul>
-        </div>
-    </nav>
-
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="sideMenu">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title">Menu</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+                </li>        
+            </ul>
             </div>
-            <div class="offcanvas-body">
-            <a href="#">Home</a>
-            <a href="#">Laptops</a>
-            <a href="#">Hot Deals</a>
-            <a href="#">Smartphones</a>
-            <a href="#">Cameras</a>
-            <a href="#">Accessories</a>
-        </div>
-    </div>
+        </nav>
 
+   
+      
     <script src="../layout/JS/navBar.js"></script>
     <script src="/layout/JS/all.min.js"></script>
     <script src="/layout/JS/bootstrap.bundle.min.js"></script>

@@ -5,7 +5,7 @@ let allProducts = [];
 const productsPerPage = 16;
 let currentPage = 1;
 
-
+addActiveToLinkes();
 
 async function fetchProducts() {
   const productsData = localStorage.getItem("products");
