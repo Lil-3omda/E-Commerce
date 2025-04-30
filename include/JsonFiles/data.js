@@ -1055,30 +1055,6 @@ const initialProducts = [
   },
 
   {
-    id: 311,
-    name: "Lenovo Legion 5 15ACH6 Gaming",
-    img: "./imgs/laptops/laptop11.jpg",
-    description: {
-      brand: "lenovo",
-      cpu: "amd Ryzen 5-5600H",
-      gpu: "NVIDIA GeForce RTX 3050 Ti",
-      ram: 16,
-      storage: 512,
-      res: "1920 x 1080",
-      refreshrate: 120,
-      content: [
-        `Lenovo Legion 5 15ACH6 Gaming Laptop - Ryzen 5 5600H 6-Cores, 16 GB RAM, 512 GB SSD, NVIDIA GeForce RTX 3050 Ti 4GB GDDR6 Graphics, 15.6" FHD (1920x1080) IPS 120Hz, Backlit Keyboard, Windows 11`,
-      ],
-    },
-    price: 39878,
-    category: "laptops",
-    sellerId: 201,
-    added: "2023-02-21",
-    sold: 2,
-    available: 42,
-  },
-
-  {
     id: 312,
     name: "Lenovo LOQ 15ARP9 Gaming",
     img: "./imgs/laptops/laptop12.jpg",
@@ -1633,38 +1609,38 @@ const initialProducts = [
 
 const userData = {
   admin: [
-      {
-          id: 1,
-          name: "Admin User",
-          email: "admin@shop.com",
-          password: "admin123",
-          role: "admin"
-      }
+    {
+      id: 1,
+      name: "Admin User",
+      email: "admin@shop.com",
+      password: "admin123",
+      role: "admin",
+    },
   ],
   sellers: [
-      {
-          id: 101,
-          name: "ElectroWorld",
-          email: "seller1@yaomix.com",
-          password: "sellerpass1",
-          role: "seller",
-          products: [201, 202]
-      },
-      {
-          id: 102,
-          name: "FashionFiesta",
-          email: "seller2@yaomix.com",
-          password: "sellerpass2",
-          role: "seller",
-          products: [203, 204]
-      },
-      {
-        id: 201,
-        name: "FashionFiesta",
-        email: "seller3@yaomix.com",
-        password: "sellerpass3",
-        role: "seller",
-        products: [203, 204]
+    {
+      id: 101,
+      name: "ElectroWorld",
+      email: "seller1@yaomix.com",
+      password: "sellerpass1",
+      role: "seller",
+      products: [201, 202],
+    },
+    {
+      id: 102,
+      name: "FashionFiesta",
+      email: "seller2@yaomix.com",
+      password: "sellerpass2",
+      role: "seller",
+      products: [203, 204],
+    },
+    {
+      id: 201,
+      name: "FashionFiesta",
+      email: "seller3@yaomix.com",
+      password: "sellerpass3",
+      role: "seller",
+      products: [203, 204],
     },
     {
       id: 303,
@@ -1672,51 +1648,221 @@ const userData = {
       email: "seller4@yaomix.com",
       password: "sellerpass4",
       role: "seller",
-      products: [203, 204]
-  }
+      products: [203, 204],
+    },
   ],
   customers: [
-      {
-          id: 4,
-          name: "Alice Johnson",
-          email: "alice@example.com",
-          password: "password123",
-          role: "customer",
-          order_history: [1001, 1002],
-          address: "123 Elm Street, NY"
-      },
-      {
-          id: 5,
-          name: "Bob Smith",
-          email: "bob@example.com",
-          password: "password456",
-          role: "customer",
-          order_history: [1003],
-          address: "456 Oak Avenue, CA"
-      },
-      {
-          id: 6,
-          name: "john doe",
-          email: "john@example.com",
-          password: "password780",
-          role: "customer",
-          order_history: [],
-          address: "123 Elm Street, NY"
-      }
-  ]
+    {
+      id: 4,
+      name: "Alice Johnson",
+      email: "alice@example.com",
+      password: "password123",
+      role: "customer",
+      order_history: [1001, 1002],
+      address: "123 Elm Street, NY",
+    },
+    {
+      id: 5,
+      name: "Bob Smith",
+      email: "bob@example.com",
+      password: "password456",
+      role: "customer",
+      order_history: [1003],
+      address: "456 Oak Avenue, CA",
+    },
+    {
+      id: 6,
+      name: "john doe",
+      email: "john@example.com",
+      password: "password780",
+      role: "customer",
+      order_history: [],
+      address: "123 Elm Street, NY",
+    },
+  ],
 };
 
-function loadToLocalStorage() {
-  if (!localStorage.getItem("userData")) {
-    localStorage.setItem('userData', JSON.stringify(userData));
+const orders = [
+  {
+      id: "order_1001", 
+      userId: 4,         
+      items: [
+          { productId: 202, productName: "Samsung Galaxy A55 5G", quantity: 1, price: 19999, total: 19999 },
+          { productId: 404, productName: "Sony WH-CH520", quantity: 1, price: 2520, total: 2520 }           
+      ],
+      totalAmount: 22519,
+      status: "Delivered",
+      date: new Date("2024-05-10T10:30:00Z").toLocaleString() 
+      
+  },
+  
+  {
+      id: "order_1002",
+      userId: 4,
+      items: [
+          { productId: 301, productName: "Dell Vostro 3520", quantity: 1, price: 24852, total: 24852 }
+      ],
+      totalAmount: 24852,
+      status: "Shipped",
+      date: new Date("2024-06-15T14:00:00Z").toLocaleString()
+  },
+  
+  {
+      id: "order_1003",
+      userId: 5,
+      items: [
+          { productId: 206, productName: "Apple iPhone 13", quantity: 1, price: 35450, total: 35450 }
+      ],
+      totalAmount: 35450,
+      status: "Processing",
+      date: new Date("2024-07-01T09:15:00Z").toLocaleString()
+  },
+  
+  {
+      id: "order_1004",
+      userId: 6,
+      items: [
+          { productId: 412, productName: "P9 Wireless Bluetooth Headset", quantity: 2, price: 238, total: 476 }, 
+          { productId: 224, productName: "Infinix Smart 8", quantity: 1, price: 3777, total: 3777 }
+      ],
+      totalAmount: 4253, 
+      status: "Pending",
+      date: new Date("2024-07-03T11:00:00Z").toLocaleString()
+  },
+  
+  {
+      id: "order_1005",
+      userId: 5,
+      items: [
+          { productId: 303, productName: "Apple Macbook Air 2020 Model", quantity: 1, price: 36072, total: 36072 }
+      ],
+      totalAmount: 36072,
+      status: "Pending",
+      date: new Date("2024-07-04T16:45:00Z").toLocaleString()
+  },
+  
+  {
+      id: "order_1006",
+      userId: 4,
+      items: [
+          { productId: 210, productName: "Xiaomi Redmi 13", quantity: 1, price: 7390, total: 7390 }
+      ],
+      totalAmount: 7390,
+      status: "Processing",
+      date: new Date("2024-07-05T08:00:00Z").toLocaleString()
+  },
+  
+  {
+      id: "order_1007",
+      userId: 6,
+      items: [
+          { productId: 401, productName: "Sennheiser Consumer Audio Momentum 4", quantity: 1, price: 19999, total: 19999 },
+          { productId: 417, productName: "Headphone SD-1101", quantity: 1, price: 369, total: 369 }
+      ],
+      totalAmount: 20368,
+      status: "Shipped",
+      date: new Date("2024-07-06T12:20:00Z").toLocaleString()
+  },
+  
+  {
+      id: "order_1008",
+      userId: 5,
+      items: [
+          { productId: 310, productName: "ASUS TUF Gaming F15", quantity: 1, price: 59500, total: 59500 }
+      ],
+      totalAmount: 59500,
+      status: "Delivered",
+      date: new Date("2024-07-07T15:00:00Z").toLocaleString()
+  },
+  
+  {
+      id: "order_1009",
+      userId: 4,
+      items: [
+          { productId: 215, productName: "Honor X7c", quantity: 1, price: 8199, total: 8199 },
+          { productId: 216, productName: "Honor X5b", quantity: 2, price: 4399, total: 8798 } 
+      ],
+      totalAmount: 16997, 
+      status: "Delivered",
+      date: new Date("2024-07-08T10:00:00Z").toLocaleString()
+  },
+ 
+  {
+      id: "order_1010",
+      userId: 6,
+      items: [
+          { productId: 425, productName: "Anker soundcore H30i A3012H91", quantity: 1, price: 1765, total: 1765 }
+      ],
+      totalAmount: 1765,
+      status: "Pending",
+      date: new Date("2024-07-09T11:30:00Z").toLocaleString()
+  },
+  
+  {
+      id: "order_1011",
+      userId: 5,
+      items: [
+          { productId: 305, productName: "Lenovo Legion 5", quantity: 1, price: 58301, total: 58301 }
+      ],
+      totalAmount: 58301,
+      status: "Shipped",
+      date: new Date("2024-07-10T13:15:00Z").toLocaleString()
+  },
+  
+  {
+      id: "order_1012",
+      userId: 4,
+      items: [
+          { productId: 201, productName: "Samsung Galaxy A16 LTE", quantity: 1, price: 7790, total: 7790 }
+      ],
+      totalAmount: 7790,
+      status: "Processing",
+      date: new Date("2024-07-11T09:45:00Z").toLocaleString()
+  },
+  
+  {
+      id: "order_1013",
+      userId: 6,
+      items: [
+          { productId: 409, productName: "JBL Tune 520BT", quantity: 3, price: 1400, total: 4200 } // 3 * 1400
+      ],
+      totalAmount: 4200,
+      status: "Cancelled",
+      date: new Date("2024-07-11T16:00:00Z").toLocaleString()
+  },
+  
+  {
+      id: "order_1014",
+      userId: 5,
+      items: [
+          { productId: 220, productName: "realme Note 50", quantity: 1, price: 4975, total: 4975 }
+      ],
+      totalAmount: 4975,
+      status: "Delivered",
+      date: new Date("2024-07-12T10:10:00Z").toLocaleString()
+  },
+  
+  {
+      id: "order_1015",
+      userId: 4,
+      items: [
+          { productId: 308, productName: "Lenovo LOQ 15IRX9 Gaming", quantity: 1, price: 51999, total: 51999 }
+      ],
+      totalAmount: 51999,
+      status: "Pending",
+      date: new Date("2024-07-12T14:20:00Z").toLocaleString()
   }
-}
-
+];
 function initializeData() {
   if (!localStorage.getItem("products")) {
     localStorage.setItem("products", JSON.stringify(initialProducts));
   }
+  if (!localStorage.getItem("userData")) {
+    localStorage.setItem("userData", JSON.stringify(userData));
+  }
+  if (!localStorage.getItem("orders")) {
+    localStorage.setItem("orders", JSON.stringify(userData));
+  }
 }
 
 initializeData();
-loadToLocalStorage();
