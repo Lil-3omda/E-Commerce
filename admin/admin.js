@@ -150,10 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const row = `
             <tr data-order-id="${order.id}"> 
-                <td>#${String(order.id).replace(
-                  "order_",
-                  ""
-                )}</td> 
+                <td>#${String(order.id).replace("order_", "")}</td> 
                 <td>${customerName}</td>
                 <td>${orderDateDisplay}</td> 
                 <td>₱${order.totalAmount.toLocaleString()}</td>
@@ -425,7 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
                      </div>
                      <span>Qty: ${
                        item.quantity
-                     } @ ₱${item.price.toLocaleString()} (Total: ₱${item.total.toLocaleString()})</span> {/* Show item total */}
+                     } @ ₱${item.price.toLocaleString()} (Total: ₱${item.total.toLocaleString()})</span> 
                   </li>`;
       });
     } else {
