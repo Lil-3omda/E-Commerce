@@ -238,11 +238,11 @@ document.addEventListener('DOMContentLoaded', function() {
         sessionStorage.setItem('loggedInUserId', user.id);
         sessionStorage.setItem('loggedInUserRole', user.role);
         if (user.role === 'admin') {
-            window.location.href = 'http://127.0.0.1:5500/admin/admin.html';
+            window.location.href = 'http://127.0.0.1:8080/admin/admin.html';
         } else if (user.role === 'seller') {
-            window.location.href = 'http://127.0.0.1:5500/seller/homePage.html';
+            window.location.href = 'http://127.0.0.1:8080/seller/homePage.html';
         } else {
-            window.location.href = 'http://127.0.0.1:5500/homePage.html'; 
+            window.location.href = 'http://127.0.0.1:8080/homePage.html'; 
         }
     }
     function addUser(fullname, email, password) {
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
             password: password,
             role: "customer",
             address: "",          
-            order_history: []     
+            order_history: [],
         };
     
         customers.push(newCustomer);
