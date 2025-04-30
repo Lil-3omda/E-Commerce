@@ -1,63 +1,152 @@
-:root{
+:root {
     --dark-color: #19283f;
     --green-color: #33d1cc;
-    --red-color: #ff3150;
+    --red-color: #b8001c;
     --yellow-color: #ffc400;
     --section-color: #eff7fa;
     --navbar-color: #6e2cf5;
-    --test-color : #231709;
+    --test-color: #231709;
     --footer-text-color: #9ca3af;
-}
-* {
+    --card-radius: 10px;
+    --transition: 0.3s ease-in-out;
+  }
+  
+  *,
+  *::before,
+  *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
-}
-body{
+  }
+  
+  body {
+    font-family: system-ui, sans-serif;
     min-height: 100vh;
-}
-.product-container{
-    position: relative;
+    background-color: #fff;
+    color: var(--dark-color);
+  }
+  
+  .product-container {
     max-width: 100vw;
     width: 100%;
-}
-.product-container .filter-buttons{
-    gap: 10px;
-    flex-wrap: wrap;
-}
-.product-container .filter-buttons button{
-    padding: 10px 20px;
-    background-color: rgb(235, 234, 234);
-    cursor: pointer;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-}
-.product-container .filter-buttons button.active{
-    background-color: blueviolet;
-    color: white;
-}
-.filterable-cards{
+    padding: 2rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .filter-buttons {
+    display: flex;
     flex-wrap: wrap;
-}
-.card{
-    flex-grow: 1;
-    flex-basis: 300px;
-    max-width: 300px;
-    border-radius: 10px !important; 
-}
-.card img{
+    gap: 0.75rem;
+    justify-content: center;
+  }
+  
+  .filter-buttons button {
+    padding: 0.75rem 1.5rem;
+    background-color: #ebebeb;
+    color: var(--dark-color);
+    border: none;
+    border-radius: var(--card-radius);
+    cursor: pointer;
+    transition: background-color var(--transition), color var(--transition);
+    font-size: 1rem;
+  }
+  
+  .filter-buttons button:hover,
+  .filter-buttons button:focus {
+    background-color: var(--red-color);
+    color: #fff;
+    outline: none;
+  }
+  
+  .filter-buttons button.active {
+    background-color: var(--red-color);
+    color: #fff;
+  }
+  
+  .filterable-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: var(--card-radius);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card img {
     width: 100%;
-    border-radius: 10px 10px 0 0;
     height: 200px;
     object-fit: contain;
-}
-.card-title{
+    background-color: #f9f9f9;
+  }
+  
+  .card-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .card-title {
+    height: 48px;
+    font-size: 1.2rem;
+    font-weight: 600;
     color: var(--dark-color);
-    font-weight: 500;
-}
-.card-description{
+  }
+  
+  .card-description {
+    font-size: 0.95rem;
     color: var(--dark-color);
+  }
+  
+  .card-body button {
+    width: 100%;
+    padding: 0.6rem 1.2rem;
+    background-color: var(--red-color);
+    color: #fff;
+    border: none;
+    border-radius: var(--card-radius);
+    cursor: pointer;
+    transition: background-color var(--transition);
+    align-self: start;
+  }
+  
+  .card-body button:hover {
+    background-color: #f3cad0;
+    color: var(--red-color);
+    
+  }
+
+  /* Active page */
+.pagination .page-item.active .page-link {
+  background-color: #b8001c;
+  border-color: #b8001c;
+  color: white;
 }
 
+/* Hover over other page links */
+.pagination .page-link:hover {
+  color: #b8001c;
+}
+
+/* All page links */
+.pagination .page-link {
+  color: black;
+  border: 1px solid #dee2e6;
+}
+
+  

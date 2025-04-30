@@ -32,17 +32,17 @@ function displayData(){
                 </div>
                 <div class="col-md-2">
                     <div class="input-group">
-                        <button class="btn btn-outline-secondary btn-sm decreaseButton" type="button" 
+                        <button class="btn btn-sm decreaseButton" type="button" 
                         data-product='${JSON.stringify(productData).replace(/'/g, "&apos;")}'>
                         -</button>
                         <input style="max-width:100px" type="text" class="form-control form-control-sm text-center quantity-input" value="${quantity}">
-                        <button class="btn btn-outline-secondary btn-sm increaseButton"
+                        <button class="btn btn-sm increaseButton"
                         type="button" data-product='${JSON.stringify(productData).replace(/'/g, "&apos;")}'>+</button>
                     </div>
                 </div>
                 <div class="col-md-2 text-end">
                     <p class="fw-bold">$${productData.price * quantity}</p>
-                    <button class="btn btn-sm btn-outline-danger deleteButton"
+                    <button class="btn btn-sm deleteButton"
                     data-product='${JSON.stringify(productData).replace(/'/g, "&apos;")}'>
                         <i class="fa fa-trash"></i>
                     </button>`
