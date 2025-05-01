@@ -1,43 +1,53 @@
-📱 E-commerce Front-End Project
-This project is a front-end e-commerce system designed to sell phones, laptops, and headphones, built using HTML, CSS, JavaScript, and Bootstrap. It supports three primary user roles — Customers, Sellers, and Admins — each with distinct functionalities and access permissions.
+# 📱 Yaomix - E-commerce Front-End Project
 
-🚀 Features
-🔐 User Authentication
-Role-based access for Customers, Sellers, and Admins.
+This project is a front-end e-commerce system designed to sell **phones, laptops, and headphones**, built using **HTML**, **CSS**, **JavaScript**, and **Bootstrap**. It supports three primary user roles — **Customers**, **Sellers**, and **Admins** — each with distinct functionalities and access permissions.
 
-🏠 Home Page
-Displays featured products and promotions with a responsive Bootstrap layout.
+---
 
-🛍 Product Catalog & Details
-List and search products with detailed product pages and images.
+## 🚀 Features
 
-🛒 Shopping Cart
-Add/remove items, view totals, and proceed to checkout.
+### 🔐 User Authentication
+- Role-based access for Customers, Sellers, and Admins.
 
-💳 Checkout Process
-Simple form for shipping and payment with order summary.
+### 🏠 Home Page
+- Displays featured products and promotions with a responsive Bootstrap layout.
 
-📊 Seller Dashboard
-Manage product listings, process orders, and view sales analytics.
+### 🛍 Product Catalog & Details
+- List and search products with detailed product pages and images.
 
-🛠 Admin Panel
-Manage users, moderate products, and handle customer support.
+### 🛒 Shopping Cart
+- Add/remove items, view totals, and proceed to checkout.
 
-📱 Responsive Design
-Fully responsive layout compatible with desktop, tablet, and mobile.
+### 💳 Checkout Process
+- Simple form for shipping and payment with order summary.
 
-🛠 Technical Details
-HTML: Structured layout for all pages (home, catalog, cart, etc.)
+### 📊 Seller Dashboard
+- Manage product listings, process orders, and view sales analytics.
 
-CSS & Bootstrap: Custom styling with Bootstrap’s responsive grid
+### 🛠 Admin Panel
+- Manage users, moderate products, and handle customer support.
 
-JavaScript: Dynamic functionality for interactivity and cart logic
+### 📱 Responsive Design
+- Fully responsive layout compatible with desktop, tablet, and mobile.
 
-LocalStorage: Mock storage for users, products, and orders
+---
 
-👥 User Roles
-Customers: Browse products, manage cart, complete purchases, and view order history.
+## 🛠 Technical Details
 
-Sellers: Add/edit/delete products, manage orders, view sales analytics.
+- **HTML:** Structured layout for all pages (home, catalog, cart, etc.)
+- **CSS & Bootstrap:** Custom styling with Bootstrap’s responsive grid
+- **JavaScript:** Dynamic functionality for interactivity and cart logic
+- **LocalStorage:** Mock storage for users, products, and orders
 
-Admins: Full system access, manage users, moderate listings, and provide support.
+---
+
+## 👥 User Roles
+
+- **Customers:**  
+  Browse products, manage cart, complete purchases, and view order history.
+
+- **Sellers:**  
+  Add/edit/delete products, manage orders, view sales analytics.
+
+- **Admins:**  
+  Full system access, manage users, moderate listings, and provide support.
