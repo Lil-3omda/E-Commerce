@@ -1761,7 +1761,7 @@ const orders = [
       },
     ],
     totalAmount: 4253,
-    status: "Pending",
+    status: "Processing",
     date: new Date("2024-07-03T11:00:00Z").toLocaleString(),
   },
 
@@ -1778,7 +1778,7 @@ const orders = [
       },
     ],
     totalAmount: 36072,
-    status: "Pending",
+    status: "Processing",
     date: new Date("2024-07-04T16:45:00Z").toLocaleString(),
   },
 
@@ -1877,7 +1877,7 @@ const orders = [
       },
     ],
     totalAmount: 1765,
-    status: "Pending",
+    status: "Processing",
     date: new Date("2024-07-09T11:30:00Z").toLocaleString(),
   },
 
@@ -1962,7 +1962,7 @@ const orders = [
       },
     ],
     totalAmount: 51999,
-    status: "Pending",
+    status: "Processing",
     date: new Date("2024-07-12T14:20:00Z").toLocaleString(),
   },
 ];
