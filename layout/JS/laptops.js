@@ -7,8 +7,6 @@ let currentPage = 1;
 
 addActiveToLinkes();
 
-
-
 async function fetchProducts() {
   const productsData = localStorage.getItem("products");
   if (productsData) {
@@ -21,7 +19,6 @@ async function fetchProducts() {
   displayProducts(currentPage);
   setupPagination();
 }
-// Search bar functionality
 try {
   searchBar.addEventListener("input", (e) => {
     const query = e.target.value.toLowerCase();
@@ -48,7 +45,6 @@ function displayProducts(page) {
   const end = start + productsPerPage;
   const paginatedProducts = products.slice(start, end);
 
-  // Helper: render product cards
   function renderProducts(productList) {
     filterableCards.innerHTML = productList
       .map(
@@ -67,17 +63,14 @@ function displayProducts(page) {
       .join("");
   }
 
-  // Helper: toggle active filter button
   function setActiveFilter(activeId) {
     ["all", "best-seller", "premium", "economic"].forEach((id) => {
       document.getElementById(id).classList.toggle("active", id === activeId);
     });
   }
 
-  // Initial load: paginated list
   renderProducts(paginatedProducts);
 
-  // Filter logic map
   const filters = {
     "all": () => products,
     "best-seller": () => products.filter(product => product.sold >= 30),
@@ -85,7 +78,6 @@ function displayProducts(page) {
     "economic": () => products.filter(product => product.price <= 35000)
   };
 
-  // Attach filter click listeners
   Object.keys(filters).forEach(filterId => {
     const element = document.getElementById(filterId);
     element.addEventListener("click", () => {
@@ -95,7 +87,6 @@ function displayProducts(page) {
     });
   });
 
-  // Navigation to product detail page via image click
   filterableCards.addEventListener("click", (e) => {
     if (e.target.classList.contains("product-card")) {
       const productId = e.target.dataset.id;
@@ -117,7 +108,6 @@ function setupPagination() {
   const pagination = document.getElementById("pagination");
   pagination.innerHTML = "";
 
-  // Previous Button
   const prev = document.createElement("li");
   prev.className = `page-item ${currentPage === 1 ? "disabled" : ""}`;
   prev.innerHTML = `<a class="page-link" href="#">Previous</a>`;
@@ -130,7 +120,6 @@ function setupPagination() {
   });
   pagination.appendChild(prev);
 
-  // Page Buttons
   for (let i = 1; i <= pageCount; i++) {
     const pageBtn = document.createElement("li");
     pageBtn.className = `page-item ${i === currentPage ? "active" : ""}`;
@@ -143,7 +132,6 @@ function setupPagination() {
     pagination.appendChild(pageBtn);
   }
 
-  // Next Button
   const next = document.createElement("li");
   next.className = `page-item ${currentPage === pageCount ? "disabled" : ""}`;
   next.innerHTML = `<a class="page-link" href="#">Next</a>`;
