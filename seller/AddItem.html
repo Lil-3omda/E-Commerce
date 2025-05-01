@@ -102,8 +102,19 @@
                 const searchbar = document.getElementsByClassName("search-wrapper")[0];
                 const iconbar = document.getElementsByClassName("icon-bar")[0];
                 const icon1 = document.getElementsByClassName('icon-badge')[0];
+                const offcanvas = document.getElementsByClassName('sidemenuhide')[0];
                 const bottomNavLinks = document.querySelectorAll(".bottom-nav .nav-link");
+                const bottomNavbar = document.querySelector('.bottom-nav');
+                if (bottomNavbar) {
+                    bottomNavbar.classList.remove('d-none');
+                    const navList = bottomNavbar.querySelector('.navbar-nav');
+                    if (navList) {
+                        navList.classList.remove('gap-3');
+                        navList.classList.add('gap-0');
+                    }
+                }
                 searchbar.classList.add('d-none');
+                offcanvas.classList.add('d-none');
                 icon1.classList.add('d-none');
                 iconbar.classList.add('ms-auto');
                 bottomNavLinks.forEach(link => {
@@ -121,19 +132,21 @@
                 Dashboard.append(DashboardLink);
                 navList.append(Dashboard);                
                 const newLi1 = document.createElement('li');
-                newLi1.className = 'nav-item mt-2';
+                newLi1.className = 'nav-item mt-1';
                 const newLink1 = document.createElement('a');
-                newLink1.className = 'nav-link btn btn-outline-success mx-1';
+                newLink1.className = 'nav-link btn btn-outline-success fs-4 mx-1';
                 newLink1.style.border = 'none';
+                newLink1.style.fontWeight = 500;
                 newLink1.textContent = 'My Products';
                 newLink1.href = '/seller/homePage.html';
                 newLi1.appendChild(newLink1);
                 navList.appendChild(newLi1);
                 const newLi2 = document.createElement('li');
-                newLi2.className = 'nav-item mt-2';
+                newLi2.className = 'nav-item mt-1';
                 const newLink2 = document.createElement('a');
-                newLink2.className = 'nav-link btn btn-outline-success mx-1';
+                newLink2.className = 'nav-link btn btn-outline-success fs-4 mx-1';
                 newLink2.style.border = 'none';
+                newLink2.style.fontWeight = 500;
                 newLink2.textContent = 'Add Products';
                 newLink2.href = '/seller/AddItem.html';
                 newLi2.appendChild(newLink2);
