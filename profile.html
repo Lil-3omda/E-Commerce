@@ -80,6 +80,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4 mb-3">
+                    <div class="info-label">Phone Number</div>
+                    <input type="tel" id="userPhone" class="form-control mb-2" placeholder="01000000000" pattern="01[0-9]{9}" required>
+                    <button class="btn btn-primary mt-2" id="savePhoneBtn">Save Phone</button>
+                </div>
                 
                 <div class="mb-4">
                     <h2 class="section-heading">Address Information</h2>
@@ -125,6 +130,16 @@
             const alertContainer = document.getElementById('alertContainer');
             const currentUserId = parseInt(sessionStorage.getItem('loggedInUserId'));
             
+            const phoneInput = document.getElementById('userPhone');
+            phoneInput.addEventListener('input', function () {
+                const phonePattern = /^01[0-9]{9}$/;
+                if (!phonePattern.test(phoneInput.value)) {
+                    phoneInput.setCustomValidity("Phone number must start with 01 and be 11 digits.");
+                } else {
+                    phoneInput.setCustomValidity("");
+                }
+            });
+
             function loadUserData() {
                 try {
                     const storeData = JSON.parse(localStorage.getItem('userData'));
@@ -152,24 +167,75 @@
                 userName.textContent = user.name;
                 userEmail.textContent = user.email;
                 userId.textContent = user.id;
-                userRole.textContent = user.role;                
-                if (user.address) {
-                    userAddress.textContent = user.address;
-                    addressInput.value = user.address;
-                } else {
-                    userAddress.textContent = 'Not specified';
-                    addressInput.value = '';
-                }
-                if (user.order_history && Array.isArray(user.order_history) && user.order_history.length > 0) {
+                userRole.textContent = user.role;
+
+                userAddress.textContent = user.address || 'Not specified';
+                addressInput.value = user.address || '';
+                phoneInput.value = user.phone || '';
+
+                const allOrders = JSON.parse(localStorage.getItem('orders')) || [];
+                const userOrders = allOrders.filter(order => String(order.userId) === String(user.id));
+                if (userOrders.length > 0) {
+                    userOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    const lastOrder = userOrders[0];
                     orderHistory.innerHTML = '';
-                    user.order_history.forEach(orderId => {
-                        const orderItem = document.createElement('li');
-                        orderItem.className = 'list-group-item order-item';
-                        orderItem.textContent = `Order #${orderId}`;
-                        orderHistory.appendChild(orderItem);
-                    });
+                    const orderItem = document.createElement('li');
+                    orderItem.className = 'list-group-item order-item';
+                    orderItem.innerHTML = `
+                        <strong>Order ID:</strong> ${lastOrder.id}<br>
+                        <strong>Date:</strong> ${lastOrder.date}<br>
+                        <strong>Status:</strong> ${lastOrder.status}<br>
+                        <strong>Total:</strong> EGP ${lastOrder.totalAmount}<br>
+                        <strong>Items:</strong>
+                        <ul>
+                            ${lastOrder.items.map(item => `
+                                <li>${item.productName} (x${item.quantity}) - EGP ${item.total}</li>
+                            `).join('')}
+                        </ul>
+                    `;
+                    orderHistory.appendChild(orderItem);
                 } else {
-                    orderHistorySection.style.display = 'none';
+                    orderHistory.innerHTML = '<li class="list-group-item">No orders found.</li>';
+                }
+            }
+            function savePhone(newPhone) {
+                try {
+                    const storeData = JSON.parse(localStorage.getItem('userData'));
+                    if (!storeData) {
+                        showAlert('No data found in localStorage.', 'danger');
+                        return false;
+                    }
+                    let userUpdated = false;
+                    if (storeData.customers && Array.isArray(storeData.customers)) {
+                        const customerIndex = storeData.customers.findIndex(c => c.id === currentUserId);
+                        if (customerIndex !== -1) {
+                            storeData.customers[customerIndex].phone = newPhone;
+                            userUpdated = true;
+                        }
+                    }
+                    if (!userUpdated && storeData.admin && Array.isArray(storeData.admin)) {
+                        const adminIndex = storeData.admin.findIndex(a => a.id === currentUserId);
+                        if (adminIndex !== -1) {
+                            storeData.admin[adminIndex].phone = newPhone;
+                            userUpdated = true;
+                        }
+                    }
+                    if (!userUpdated && storeData.sellers && Array.isArray(storeData.sellers)) {
+                        const sellerIndex = storeData.sellers.findIndex(s => s.id === currentUserId);
+                        if (sellerIndex !== -1) {
+                            storeData.sellers[sellerIndex].phone = newPhone;
+                            userUpdated = true;
+                        }
+                    }
+                    if (!userUpdated) {
+                        showAlert(`User with ID ${currentUserId} not found.`, 'danger');
+                        return false;
+                    }
+                    localStorage.setItem('userData', JSON.stringify(storeData));
+                    return true;
+                } catch (error) {
+                    showAlert('Error saving phone number: ' + error.message, 'danger');
+                    return false;
                 }
             }
             function saveAddress(newAddress) {
@@ -232,6 +298,21 @@
                 if (success) {
                     userAddress.textContent = newAddress;
                     showAlert('Address updated successfully!');
+                }
+            });
+            const savePhoneBtn = document.getElementById('savePhoneBtn');
+            savePhoneBtn.addEventListener('click', function () {
+                const newPhone = phoneInput.value.trim();
+                const phonePattern = /^01[0-9]{9}$/;
+
+                if (!phonePattern.test(newPhone)) {
+                    showAlert('Invalid phone number. Must start with 01 and be 11 digits.', 'danger');
+                    return;
+                }
+
+                const success = savePhone(newPhone);
+                if (success) {
+                    showAlert('Phone number updated successfully!', 'success');
                 }
             });
             loadUserData();
