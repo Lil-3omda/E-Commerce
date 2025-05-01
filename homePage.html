@@ -133,8 +133,8 @@
                                 <p class="card-text text-danger"><del class="text-muted">EGP ${(product.price + 50)}</del>
                                     EGP ${product.price || 100}
                                      </p>
-                                <a href="#" class="btn btn-sm product-card-btn"
-                                 data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' >Add to Cart</a>
+                                <button  class="btn btn-sm product-card-btn"
+                                 data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' >Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -267,6 +267,7 @@
             setTimeout(updateLoginButton, 50);
         }
     }
+
     document.addEventListener('DOMContentLoaded', function() {
         createLogoSlides();
         updateLoginButton();
