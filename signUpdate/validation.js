@@ -237,13 +237,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         sessionStorage.setItem('loggedInUserId', user.id);
         sessionStorage.setItem('loggedInUserRole', user.role);
+        const baseUrl = window.location.origin;
+
         if (user.role === 'admin') {
-            window.location.href = 'http://127.0.0.1:8080/admin/admin.html';
+            window.location.href = `${baseUrl}/admin/admin.html`;
         } else if (user.role === 'seller') {
-            window.location.href = 'http://127.0.0.1:8080/seller/homePage.html';
+            window.location.href = `${baseUrl}/seller/homePage.html`;
         } else {
-            window.location.href = 'http://127.0.0.1:8080/homePage.html'; 
+            window.location.href = `${baseUrl}/homePage.html`;
         }
+
     }
     function addUser(fullname, email, password) {
         let userData = JSON.parse(localStorage.getItem('userData')) || {admin: [], customers: [], sellers: []};
