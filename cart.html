@@ -31,7 +31,6 @@
                             <i class="fa fa-arrow-left me-2"></i>Continue Shopping
                         </a>
                     </button>
-                   
                 </div>
             </div>
             <div class="col-lg-4">
@@ -107,6 +106,29 @@
             }
         }
         updateLoginButton()
+    </script>
+    <script>
+        function getCartItemCount() {
+            let totalCount = 0;        
+            const cartKeys = Object.keys(localStorage).filter(key => key.startsWith("cart_"));
+            cartKeys.forEach(key => {
+            try {
+                const cartItems = JSON.parse(localStorage.getItem(key)) || [];
+                cartItems.forEach(item => {
+                totalCount += item.quantity || 1;
+                });
+            } catch (e) {
+                console.error("Error parsing cart data for key:", key);
+            }
+            });
+            return totalCount;
+        }
+        window.addEventListener("DOMContentLoaded", function () {
+            const cartCountEl = document.getElementById("cart-count");
+            if (cartCountEl) {
+            cartCountEl.textContent = getCartItemCount();
+            }
+        });
     </script>
     <script src="/layout/JS/cart.js" type="module"></script>
     <script src="../layout/JS/all.min.js"></script>

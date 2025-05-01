@@ -122,11 +122,9 @@
                 const searchbar = document.getElementsByClassName("search-wrapper")[0];
                 const iconbar = document.getElementsByClassName("icon-bar")[0];
                 const icon1 = document.getElementsByClassName('icon-badge')[0];
-                const icon2 = document.getElementsByClassName('icon-badge')[1];                
                 const bottomNavLinks = document.querySelectorAll(".bottom-nav .nav-link");
                 searchbar.classList.add('d-none');
                 icon1.classList.add('d-none');
-                icon2.classList.add('d-none');
                 iconbar.classList.add('ms-auto');
                 bottomNavLinks.forEach(link => {
                     link.classList.add('d-none');
@@ -146,6 +144,7 @@
                 newLi1.className = 'nav-item mt-2';
                 const newLink1 = document.createElement('a');
                 newLink1.className = 'nav-link btn btn-outline-success mx-1';
+                newLink1.style.border = 'none';
                 newLink1.textContent = 'My Products';
                 newLink1.href = '/seller/homePage.html';
                 newLi1.appendChild(newLink1);
@@ -154,6 +153,7 @@
                 newLi2.className = 'nav-item mt-2';
                 const newLink2 = document.createElement('a');
                 newLink2.className = 'nav-link btn btn-outline-success mx-1';
+                newLink2.style.border = 'none';
                 newLink2.textContent = 'Add Products';
                 newLink2.href = '/seller/AddItem.html';
                 newLi2.appendChild(newLink2);
