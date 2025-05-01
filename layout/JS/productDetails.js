@@ -36,10 +36,15 @@ if (products.length > 0) {
                 ${specList}
                 ${highlights}
                 <p><strong>Price:</strong> EGP${product.price}</p>
-                <button class="btn" id="addToCartBtn">Add to Cart</button>
+                <button class="btn" data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' id="addToCartBtn">Add to Cart</button>
             </div>
         </div>
     `;
+    const addToCartBtn = document.getElementById("addToCartBtn");
+    addToCartBtn.addEventListener("click", () => {
+        const productData = addToCartBtn.getAttribute("data-product");
+        addToCart(productData);
+    });
 } else {
-    productDetails.innerHTML = "<p>Product not found.</p>";
+    productDetails.innerHTML = "<h5>Product not found.</h5>";
 }
