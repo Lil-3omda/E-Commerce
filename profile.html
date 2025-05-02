@@ -177,25 +177,29 @@
                 const userOrders = allOrders.filter(order => String(order.userId) === String(user.id));
                 if (userOrders.length > 0) {
                     userOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
-                    const lastOrder = userOrders[0];
                     orderHistory.innerHTML = '';
-                    const orderItem = document.createElement('li');
-                    orderItem.className = 'list-group-item order-item';
-                    orderItem.innerHTML = `
-                        <strong>Order ID:</strong> ${lastOrder.id}<br>
-                        <strong>Date:</strong> ${lastOrder.date}<br>
-                        <strong>Status:</strong> ${lastOrder.status}<br>
-                        <strong>Total:</strong> EGP ${lastOrder.totalAmount}<br>
-                        <strong>Items:</strong>
-                        <ul>
-                            ${lastOrder.items.map(item => `
-                                <li>${item.productName} (x${item.quantity}) - EGP ${item.total}</li>
-                            `).join('')}
-                        </ul>
-                    `;
-                    orderHistory.appendChild(orderItem);
-                } else {
-                    orderHistory.innerHTML = '<li class="list-group-item">No orders found.</li>';
+                    if (userOrders.length > 1) {
+                        const previousOrders = userOrders.slice(1);
+                        previousOrders.forEach(order => {
+                            const orderItem = document.createElement('li');
+                            orderItem.className = 'list-group-item order-item';
+                            orderItem.innerHTML = `
+                                <strong>Order ID:</strong> ${order.id}<br>
+                                <strong>Date:</strong> ${order.date}<br>
+                                <strong>Status:</strong> ${order.status}<br>
+                                <strong>Total:</strong> EGP ${order.totalAmount}<br>
+                                <strong>Items:</strong>
+                                <ul>
+                                    ${order.items.map(item => `
+                                        <li>${item.productName} (x${item.quantity}) - EGP ${item.total}</li>
+                                    `).join('')}
+                                </ul>
+                            `;
+                            orderHistory.appendChild(orderItem);
+                        });
+                    } else {
+                        orderHistory.innerHTML = '<li class="list-group-item">No previous orders found.</li>';
+                    }
                 }
             }
             function savePhone(newPhone) {
