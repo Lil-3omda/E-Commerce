@@ -245,6 +245,7 @@
         const storedProducts = JSON.parse(localStorage.getItem("products"));
         const lastValidProduct = [...storedProducts].reverse().find(p => typeof p.id === "number");
         const lastProductId = lastValidProduct.id;
+        const sellerID = parseInt(sessionStorage.getItem('loggedInUserId'));
         const newProduct = {
             id: lastProductId+1,
             name,
@@ -254,7 +255,7 @@
             brand,
             available,
             category,
-            sellerId : 201,
+            sellerId : sellerID,
             added: getFormattedDate(),
             moreDetails : additionalDetails,
         };
