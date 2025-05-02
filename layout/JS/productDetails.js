@@ -35,7 +35,7 @@ if (products.length > 0) {
                 <h2>${product.name}</h2>
                 ${specList}
                 ${highlights}
-                <p><strong>Price:</strong> EGP${product.price}</p>
+                <p><strong>Price:</strong> ${product.price} EGP</p>
                 <button class="btn" data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' id="addToCartBtn">Add to Cart</button>
             </div>
         </div>
