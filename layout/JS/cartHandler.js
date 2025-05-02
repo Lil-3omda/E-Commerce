@@ -1,8 +1,12 @@
-const userId = sessionStorage.getItem("loggedInUserId") || "0";
+// const userId = sessionStorage.getItem("loggedInUserId") || "0";
 const getCartKey = (userId) => `cart_${userId}`;
 
 export function addToCart(item) {
-  const userId = sessionStorage.getItem("loggedInUserId") || "0";
+  const userId = sessionStorage.getItem("loggedInUserId");
+  if (!userId) {
+    window.location.href = `/signUpdate/login.html?redirect=${encodeURIComponent(window.location.href)}`;
+    return;
+  }
   const cartKey = getCartKey(userId);
   let cart = localStorage.getItem(cartKey);
   cart = cart ? JSON.parse(cart) : []; 
@@ -19,7 +23,11 @@ export function addToCart(item) {
 
 
 export function removeFromCart(itemId) {
-  const userId = sessionStorage.getItem("loggedInUserId") || "0";
+  const userId = sessionStorage.getItem("loggedInUserId");
+  if (!userId) {
+    window.location.href = `/signUpdate/login.html?redirect=${encodeURIComponent(window.location.href)}`;
+    return;
+  }
   const cartKey = getCartKey(userId);
   let cart = localStorage.getItem(cartKey);
   cart = cart ? JSON.parse(cart) : [];
@@ -35,7 +43,11 @@ export function removeFromCart(itemId) {
 }
 
 export function increaseQuantity(itemId){
-  const userId = sessionStorage.getItem("loggedInUserId") || "0";
+  const userId = sessionStorage.getItem("loggedInUserId");
+  if (!userId) {
+    window.location.href = `/signUpdate/login.html?redirect=${encodeURIComponent(window.location.href)}`;
+    return;
+  }
   const cartKey= getCartKey(userId);
   console.log(cartKey)
   let cart=localStorage.getItem(cartKey);
@@ -52,7 +64,11 @@ export function increaseQuantity(itemId){
   console.log("Updated cart:", cart);
 }
 export function decreaseQuantity(itemId){
-  const userId = sessionStorage.getItem("loggedInUserId") || "0";
+  const userId = sessionStorage.getItem("loggedInUserId");
+  if (!userId) {
+    window.location.href = `/signUpdate/login.html?redirect=${encodeURIComponent(window.location.href)}`;
+    return;
+  }
   const cartKey= getCartKey(userId);
   let cart=localStorage.getItem(cartKey);
   cart=cart?JSON.parse(cart):[];
