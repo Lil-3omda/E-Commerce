@@ -179,7 +179,7 @@
                     userOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
                     orderHistory.innerHTML = '';
                     if (userOrders.length > 1) {
-                        const previousOrders = userOrders.slice(1);
+                        const previousOrders = userOrders.slice(0);
                         previousOrders.forEach(order => {
                             const orderItem = document.createElement('li');
                             orderItem.className = 'list-group-item order-item';
