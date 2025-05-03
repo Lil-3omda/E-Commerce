@@ -48,3 +48,24 @@ if (products.length > 0) {
 } else {
     productDetails.innerHTML = "<h5>Product not found.</h5>";
 }
+function getCartItemCount() {
+    let totalCount = 0;        
+    const cartKeys = Object.keys(localStorage).filter(key => key.startsWith("cart_"));
+    cartKeys.forEach(key => {
+    try {
+        const cartItems = JSON.parse(localStorage.getItem(key)) || [];
+        cartItems.forEach(item => {
+        totalCount += item.quantity || 1;
+        });
+    } catch (e) {
+        console.error("Error parsing cart data for key:", key);
+    }
+    });
+    return totalCount;
+}
+window.addEventListener("DOMContentLoaded", function () {
+    const cartCountEl = document.getElementById("cart-count");
+    if (cartCountEl) {
+    cartCountEl.textContent = getCartItemCount();
+    }
+});
