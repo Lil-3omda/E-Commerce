@@ -2,7 +2,7 @@ import { addToCart, getCart } from "./cartHandler.js";
 import { searchBar,addActiveToLinkes } from "./navBar.js";
 let products = [];
 let allProducts = [];
-const productsPerPage = 16;
+const productsPerPage = 15;
 let currentPage = 1;
 
 addActiveToLinkes();
