@@ -247,17 +247,20 @@
         const lastProductId = lastValidProduct.id;
         const sellerID = parseInt(sessionStorage.getItem('loggedInUserId'));
         const newProduct = {
-            id: lastProductId+1,
+            id: lastProductId + 1,
             name,
-            image,
-            description,
+            img: image,
             price,
-            brand,
             available,
             category,
-            sellerId : sellerID,
+            sellerId: sellerID,
             added: getFormattedDate(),
-            moreDetails : additionalDetails,
+            description: {
+                brand: brand,
+                details: description,
+            },
+            content: additionalDetails ? [additionalDetails] : [],
+            sold: 0
         };
         existingProducts.push(newProduct);
         localStorage.setItem("products", JSON.stringify(existingProducts));
