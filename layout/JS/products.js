@@ -38,10 +38,19 @@ catch (error) {
 }
 
 function displayProducts(page) {
-  if (!products || !Array.isArray(products) || products.length === 0) return;
+    const filterableCards = document.getElementById("filterable-cards");
+  if (!products || !Array.isArray(products) || products.length === 0){
+    filterableCards.removeAttribute("class");
+    filterableCards.innerHTML = `<div class="alert alert-danger text-center"  role="alert">
+    <h1 calss="text-center m-auto">No Products Found </h1>
+    </div>`;
+    return;
+  } 
   if (typeof productsPerPage !== "number" || productsPerPage <= 0) return;
 
-  const filterableCards = document.getElementById("filterable-cards");
+  filterableCards.classList.add('filterable-cards');
+
+  
 
   const start = (page - 1) * productsPerPage;
   const end = start + productsPerPage;
