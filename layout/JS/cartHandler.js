@@ -14,9 +14,31 @@ export function addToCart(item) {
   }
   localStorage.setItem(cartKey, JSON.stringify(cart));
   console.log("Updated cart:", cart);
+  updateCartCount();
 }
 
-
+function getCartItemCount() {
+  let totalCount = 0;
+  const cartKeys = Object.keys(localStorage).filter(key => key.startsWith("cart_"));
+  cartKeys.forEach(key => {
+      try {
+          const cartItems = JSON.parse(localStorage.getItem(key)) || [];
+          cartItems.forEach(item => {
+              totalCount += item.quantity || 1;
+          });
+      } catch (e) {
+          console.error("Error parsing cart data for key:", key);
+      }
+  });
+  return totalCount;
+}
+export function updateCartCount() {
+  const count = getCartItemCount();
+  const countEl = document.getElementById('cart-count');
+  if (countEl) {
+      countEl.textContent = count;
+  }
+}
 
 export function removeFromCart(itemId) {
   const userId = sessionStorage.getItem("loggedInUserId") || "0";

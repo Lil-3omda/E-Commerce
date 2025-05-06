@@ -115,7 +115,6 @@
             const products = JSON.parse(localStorage.getItem('products')) || [];
     
             const newProductsContainer = document.querySelector('.row.new-products');
-             
             const productCard = document.querySelector('.product-card');
             const topSellingContainer = document.querySelector('.row.top-selling');
             const topRatedContainer = document.querySelector('.col-md-4.top-rated .products-list');
@@ -127,14 +126,14 @@
                     <div class="col-md-3 mb-4 ">
                         <div class="card product-card">
                             <img src="${product.img}" class="card-img-top product-card-img" alt="${product.name}"
-                             data-id="${product.id}">
+                            data-id="${product.id}">
                             <div class="card-body">
                                 <h6 class="card-title">${product.name}</h6>
                                 <p class="card-text text-danger"><del class="text-muted">EGP ${(product.price + 50)}</del>
                                     EGP ${product.price || 100}
-                                     </p>
+                                    </p>
                                 <button  class="btn btn-sm product-card-btn"
-                                 data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' >Add to Cart</button>
+                                data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' >Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -268,13 +267,9 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        createLogoSlides();
-        updateLoginButton();
-    });
     </script>      
     <script type="module">
-        import { addToCart } from './layout/JS/cartHandler.js';
+        import { addToCart,updateCartCount  } from './layout/JS/cartHandler.js';
         import {addActiveToLinkes, searchBar} from './layout/JS/navBar.js';
         document.addEventListener('DOMContentLoaded', () => {
             const productCardBtn = document.querySelectorAll('.product-card-btn');
@@ -288,7 +283,11 @@
             });
         });
         
-        
+        document.addEventListener('DOMContentLoaded', function() {
+        createLogoSlides();
+        updateLoginButton();
+        updateCartCount();
+        });        
         addActiveToLinkes();
         try {
             searchBar.addEventListener("keydown", (e) => {
