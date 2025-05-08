@@ -19,19 +19,29 @@ export function addToCart(item) {
 
 function getCartItemCount() {
   let totalCount = 0;
-  const cartKeys = Object.keys(localStorage).filter(key => key.startsWith("cart_"));
-  cartKeys.forEach(key => {
+  const loginUser = sessionStorage.getItem("loggedInUserId");
+  let cartKeys = ["cart_0"];
+  if (loginUser) {
       try {
-          const cartItems = JSON.parse(localStorage.getItem(key)) || [];
+          const userId = JSON.parse(loginUser);
+          cartKeys.push(`cart_${userId}`);
+      } catch (e) {
+          console.error("Invalid loggedInUserId");
+      }
+  }
+  cartKeys.forEach(cartKey => {
+      try {
+          const cartItems = JSON.parse(localStorage.getItem(cartKey)) || [];
           cartItems.forEach(item => {
               totalCount += item.quantity || 1;
           });
       } catch (e) {
-          console.error("Error parsing cart data for key:", key);
+          console.error("Error parsing cart data for key:", cartKey);
       }
   });
   return totalCount;
 }
+
 export function updateCartCount() {
   const count = getCartItemCount();
   const countEl = document.getElementById('cart-count');
@@ -39,6 +49,7 @@ export function updateCartCount() {
       countEl.textContent = count;
   }
 }
+
 
 export function removeFromCart(itemId) {
   const userId = sessionStorage.getItem("loggedInUserId") || "0";

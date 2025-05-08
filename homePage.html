@@ -191,7 +191,7 @@
                     
                 });
             });
-            console.log(productCardImg);
+            // console.log(productCardImg);
             productCardContainer.forEach(e => {
                 e.addEventListener('click', function() {
                     const productId = e.getAttribute('data-id');
@@ -269,41 +269,35 @@
 
     </script>      
     <script type="module">
-        import { addToCart,updateCartCount  } from './layout/JS/cartHandler.js';
+        import { addToCart, updateCartCount  } from './layout/JS/cartHandler.js';
         import {addActiveToLinkes, searchBar} from './layout/JS/navBar.js';
         document.addEventListener('DOMContentLoaded', () => {
             const productCardBtn = document.querySelectorAll('.product-card-btn');
-        console.log(productCardBtn);
-        productCardBtn.forEach(e => {
-                e.addEventListener('click', function() {
-                    const product = e.getAttribute('data-product');
-                    addToCart(product);
+        // console.log(productCardBtn);
+            productCardBtn.forEach(e => {
+                    e.addEventListener('click', function() {
+                        const product = e.getAttribute('data-product');
+                        addToCart(product);
+                        
+                    });
+                });
+            }); 
+            addActiveToLinkes();
+            try {
+                searchBar.addEventListener("keydown", (e) => {
+                    if (event.key === 'Enter'){
+                        window.location.href = `searchResult.html?query=${searchBar.value}`;
+                    }
+                    
                     
                 });
-            });
-        });
-        
-        document.addEventListener('DOMContentLoaded', function() {
-        createLogoSlides();
-        updateLoginButton();
-        updateCartCount();
-        });        
-        addActiveToLinkes();
-        try {
-            searchBar.addEventListener("keydown", (e) => {
-                if (event.key === 'Enter'){
-                    window.location.href = `searchResult.html?query=${searchBar.value}`;
-                }
-                
-                
-            });
             }
             catch (error) {
-            window.location.reload();
-
+                window.location.reload();
             }
-
-
+            createLogoSlides();
+            updateLoginButton();
+            updateCartCount();
     </script>
     <script src="/include/JsonFiles/data.js"></script>
     <script src="/layout/JS/all.min.js"></script>
