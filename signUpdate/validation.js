@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     error_message.innerText = errors.join(". ");
                 } else {
                     error_message.classList.add('d-none');
-                    addUser(firstname_input.value, email_input.value, password_input.value);
+                    addUser(sanitizeInput(firstname_input.value),sanitizeInput(email_input.value), password_input.value);
                 }
             } else {
                 errors = getLoginFormErrors(
@@ -269,4 +269,19 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("User added successfully!");
         window.location.href = "login.html";
     }
+    function sanitizeInput(str) {
+        return str.replace(/[&<>"'`=\/]/g, function (s) {
+            return ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;',
+                '`': '&#x60;',
+                '=': '&#x3D;',
+                '/': '&#x2F;'
+            })[s];
+        });
+    }
+
 });
