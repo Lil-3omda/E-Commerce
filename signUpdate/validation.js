@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
             error_message.classList.add('d-none');
         }
     }
-    function checkUserRole(email, password) {
+    async function checkUserRole(email, password) {
         const users = JSON.parse(localStorage.getItem('userData'));
         if (!users.admin || !Array.isArray(users.admin) || !users.sellers || !Array.isArray(users.sellers) || !users.customers || !Array.isArray(users.customers)) {
             error_message.classList.remove('d-none');
@@ -230,7 +230,8 @@ document.addEventListener('DOMContentLoaded', function() {
             error_message.innerText = 'Email or Password is Wrong';
             return;
         }    
-        if (user.password !== password) {
+        const hashedInputPassword = await hashPassword(password);
+        if (user.password !== hashedInputPassword) {
             error_message.classList.remove('d-none');
             error_message.innerText = 'Email Or Password is Wrong';
             return;
@@ -248,16 +249,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
     }
-    function addUser(fullname, email, password) {
+    async function addUser(fullname, email, password) {
         let userData = JSON.parse(localStorage.getItem('userData')) || {admin: [], customers: [], sellers: []};
     
         let customers = userData.customers || [];
-    
+        const hashedPassword = await hashPassword(password);
         let newCustomer = {
             id: customers.length > 0 ? customers[customers.length - 1].id + 1 : 1,
             name: fullname,
             email: email,
-            password: password,
+            password: hashedPassword,
             role: "customer",
             address: "",          
             order_history: [],
@@ -282,6 +283,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 '/': '&#x2F;'
             })[s];
         });
+    }
+    async function hashPassword(password) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
 });
