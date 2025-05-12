@@ -298,7 +298,7 @@
 
             const name = sanitizeInput(document.getElementById('ProductName').value.trim());
             const image = document.getElementById('imgPath').value.trim();
-            const description = sanitizeInput(document.getElementById('description').value.trim());
+            const description = document.getElementById('description').value.trim();
             const price = parseFloat(document.getElementById('price').value);
             const brand = sanitizeInput(document.getElementById('brand').value.trim());
             const numberOfPieces = parseInt(document.getElementById('numberOfPieces').value);
