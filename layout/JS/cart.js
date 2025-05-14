@@ -123,7 +123,7 @@ function checkout() {
         }
         const newOrder = {
             id: `order_${new Date().getTime()}`,
-            userId: userId,
+            userId: Number(userId),
             items: cart.map(item => ({
                 productId: JSON.parse(item.productData).id,
                 productName: JSON.parse(item.productData).name,
