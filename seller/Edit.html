@@ -296,14 +296,14 @@
         editBtn.addEventListener('click', (e) => {
             e.preventDefault();
 
-            const name = document.getElementById('ProductName').value.trim();
+            const name = sanitizeInput(document.getElementById('ProductName').value.trim());
             const image = document.getElementById('imgPath').value.trim();
             const description = document.getElementById('description').value.trim();
             const price = parseFloat(document.getElementById('price').value);
-            const brand = document.getElementById('brand').value.trim();
+            const brand = sanitizeInput(document.getElementById('brand').value.trim());
             const numberOfPieces = parseInt(document.getElementById('numberOfPieces').value);
             const category = document.getElementById('category').value;
-            const additionalDetails = document.getElementById('AdditionalDetails').value.trim();
+            const additionalDetails = sanitizeInput(document.getElementById('AdditionalDetails').value.trim());
 
             if (!name || !image || isNaN(price) || price <= 0 || !brand || isNaN(numberOfPieces) || numberOfPieces <= 0 || category === "Choose...") {
                 showErrorMessage("Please fill all required fields properly with correct information.");
@@ -375,6 +375,20 @@
         document.addEventListener('DOMContentLoaded', function() {
             updateLoginButton();
         });
+        function sanitizeInput(str) {
+            return str.replace(/[&<>"'`=\/]/g, function (s) {
+                return ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;',
+                    '`': '&#x60;',
+                    '=': '&#x3D;',
+                    '/': '&#x2F;'
+                })[s];
+            });
+        }
     </script>
     <div id="footer"></div>
     <script>

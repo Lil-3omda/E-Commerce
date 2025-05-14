@@ -24,9 +24,9 @@ if (products.length > 0) {
             return `<p><strong>${label}:</strong> ${val}</p>`;
         }).join("");
 
-    const highlights = description.content
-        ? `<h4>Highlights:</h4><ul>${description.content.map(item => `<li>${item}</li>`).join("")}</ul>`
-        : '';
+    // const highlights = description.content
+    //     ? `<h4>Highlights:</h4><ul>${description.content.map(item => `<li>${item}</li>`).join("")}</ul>`
+    //     : '';
 
     productDetails.innerHTML = `
         <div class="product-details row m-5" style="place-content: center;">
@@ -34,7 +34,7 @@ if (products.length > 0) {
             <div class="product-info col-6">
                 <h2>${product.name}</h2>
                 ${specList}
-                ${highlights}
+                
                 <p><strong>Price:</strong> ${product.price} EGP</p>
                 <button class="btn" data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' id="addToCartBtn">Add to Cart</button>
             </div>
