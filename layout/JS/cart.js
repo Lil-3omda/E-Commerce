@@ -54,10 +54,10 @@ function displayData(){
                 const hr = document.createElement("hr");
                 hr.className = "my-3";
                 cartItem.innerHTML += `
-  <p class="text-center text-danger fw-semibold mt-2 ${quantity >= productData.available ? '' : 'd-none'}">
-    <i class="fa fa-exclamation-circle me-1"></i>
-    Only ${productData.available} unit(s) of "<span class="fw-bold">${productData.name}</span>" available in stock.
-  </p>`;
+                <p class="text-center text-danger fw-semibold mt-2 ${quantity >= productData.available ? '' : 'd-none'}">
+                    <i class="fa fa-exclamation-circle me-1"></i>
+                    Only ${productData.available} unit(s) of "<span class="fw-bold">${productData.name}</span>" available in stock.
+                </p>`;
 
                 cart_body.appendChild(hr);
     })
