@@ -57,13 +57,13 @@ function displayData(){
             <p>Please add some products to your cart.</p>
             <hr>
             <p class="mb-0">You can continue shopping by clicking the button below.</p>
-            <a href="/homePage.html" class="btn btn-primary">Continue Shopping</a>
+            <a href="/homePage.html" class="btn btn-danger m-1">Continue Shopping</a>
         </div>`
     }
     const deleteButtons = document.querySelectorAll(".deleteButton");
     deleteButtons.forEach((button) => {
         button.addEventListener("click", (e) => {
-            const productId = JSON.parse(e.target.dataset.product).id;
+            const productId = JSON.parse(e.currentTarget.dataset.product).id;
             removeFromCart(productId);
             displayData();
         });
@@ -92,7 +92,13 @@ increaseButtons.forEach((button) => {
 displayData();
 
 function checkout() {
-    const userId = sessionStorage.getItem("loggedInUserId") || "0";
+
+    const userId = sessionStorage.getItem("loggedInUserId");
+    
+    if (!userId || userId === "0") {
+        window.location.href="../../signUpdate/login.html";
+        return ;
+    }
     const cart = getCart(userId) || [];
     let allAvailable = true;
     let products = JSON.parse(localStorage.getItem("products")) || [];
