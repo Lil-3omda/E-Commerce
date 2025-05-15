@@ -1,94 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Signup</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signup</title>
 
-  <!-- Bootstrap CSS -->
-  <link href="/layout/CSS/bootstrap.min.css" rel="stylesheet" />
-  <link href="/layout/CSS/all.min.css" rel="stylesheet" />
+<link href="/layout/CSS/bootstrap.min.css" rel="stylesheet" />
+<link href="/layout/CSS/all.min.css" rel="stylesheet" />
 
-  <style>
-    body {
-      background-color: #000 !important;
-      color: #fff !important;
-    }
+<style>
+body {
+    background-color: #000 !important;
+    color: #fff !important;
+}
 
-    .auth-card {
-      background-color: #1a1a1a !important;
-      border: 1px solid #333 !important;
-      border-radius: 12px !important;
-      padding: 2rem !important;
-      box-shadow: 0 0 20px rgba(184, 0, 28, 0.3) !important;
-      color: #fff !important;
-    }
+.auth-card {
+    background-color: #1a1a1a !important;
+    border: 1px solid #333 !important;
+    border-radius: 12px !important;
+    padding: 2rem !important;
+    box-shadow: 0 0 20px rgba(184, 0, 28, 0.3) !important;
+    color: #fff !important;
+}
 
-    .auth-card .btn-primary {
-      background-color: #b8001c !important;
-      border-color: #b8001c !important;
-      color: #fff !important;
-    }
+.auth-card .btn-primary {
+    background-color: #b8001c !important;
+    border-color: #b8001c !important;
+    color: #fff !important;
+}
 
-    .auth-card .btn-primary:hover,
-    .auth-card .btn-primary:focus {
-      background-color: #a10018 !important;
-      border-color: #a10018 !important;
-      color: #fff !important;
-    }
+.auth-card .btn-primary:hover,
+.auth-card .btn-primary:focus {
+    background-color: #a10018 !important;
+    border-color: #a10018 !important;
+    color: #fff !important;
+}
 
-    .form-control {
-      background-color: #000 !important;
-      border: 1px solid #444 !important;
-      color: #fff !important;
-    }
+.form-control {
+    background-color: #000 !important;
+    border: 1px solid #444 !important;
+    color: #fff !important;
+}
 
-    .form-control::placeholder {
-      color: #aaa !important;
-    }
+.form-control::placeholder {
+    color: #aaa !important;
+}
 
-    .input-group-text {
-      background-color: #000 !important;
-      border: 1px solid #444 !important;
-      color: #b8001c !important;
-    }
+.input-group-text {
+    background-color: #000 !important;
+    border: 1px solid #444 !important;
+    color: #b8001c !important;
+}
 
-    a {
-      color: #b8001c !important;
-    }
+a {
+    color: #b8001c !important;
+}
 
-    a:hover {
-      color: #ff3344 !important;
-    }
+a:hover {
+    color: #ff3344 !important;
+}
 
-    .alert-danger {
-      background-color: #66000f !important;
-      border-color: #b8001c !important;
-      color: #fff !important;
-    }
+.alert-danger {
+    background-color: #66000f !important;
+    border-color: #b8001c !important;
+    color: #fff !important;
+}
 
-    /* Password strength bar styling */
-    .progress {
-      background-color: #333 !important;
-    }
-    .progress-bar {
-      background-color: #b8001c !important;
-    }
+.progress {
+    background-color: #333 !important;
+}
+.progress-bar {
+    background-color: #b8001c !important;
+}
 
-    /* Checkbox label link styling */
-    .form-check-label a {
-      color: #b8001c !important;
-      text-decoration: underline;
-    }
-  </style>
+.form-check-label a {
+    color: #b8001c !important;
+    text-decoration: underline;
+}
+</style>
 </head>
 <body>
-  <div id="navbar"></div>
+    <div id="navbar"></div>
 
-  <script>
+    <script>
     fetch('/include/navbar.html')
-      .then(response => response.text())
-      .then(data => {
+        .then(response => response.text())
+        .then(data => {
         document.getElementById('navbar').innerHTML = data;
         const searchbar = document.getElementsByClassName("search-wrapper")[0];
         const iconbar = document.getElementsByClassName("icon-bar")[0];
@@ -96,109 +93,109 @@
         if (searchbar) searchbar.classList.add('d-none');
         if (iconbar) iconbar.classList.add('d-none');
         if (bottomNav) bottomNav.classList.remove('d-md-block');
-      })
-      .catch(error => console.error('Error loading navbar:', error));
-  </script>
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+    </script>
 
-  <div class="container">
+    <div class="container">
     <div class="row justify-content-center align-items-center min-vh-100">
-      <div class="col-lg-6 col-md-8 col-sm-10">
+        <div class="col-lg-6 col-md-8 col-sm-10">
         <div class="card auth-card">
-          <div class="card-body">
+            <div class="card-body">
             <h1 class="text-center mb-4">Sign Up</h1>
             <div id="error-message" class="alert alert-danger d-none"></div>
 
             <form id="form" novalidate>
-              <div class="form-group mb-3">
+                <div class="form-group mb-3">
                 <div class="input-group">
-                  <span class="input-group-text">
+                    <span class="input-group-text">
                     <i class="fas fa-user"></i>
-                  </span>
-                  <input
+                    </span>
+                    <input
                     type="text"
                     class="form-control"
                     name="firstname"
                     id="firstname-input"
                     placeholder="Full Name"
                     required
-                  />
-                  <div class="invalid-feedback">Please enter your name</div>
+                    />
+                    <div class="invalid-feedback">Please enter your name</div>
                 </div>
-              </div>
+                </div>
 
-              <div class="form-group mb-3">
+                <div class="form-group mb-3">
                 <div class="input-group">
-                  <span class="input-group-text">
+                    <span class="input-group-text">
                     <i class="fas fa-envelope"></i>
-                  </span>
-                  <input
+                    </span>
+                    <input
                     type="email"
                     class="form-control"
                     name="email"
                     id="email-input"
                     placeholder="Email"
                     required
-                  />
-                  <div class="invalid-feedback">Please enter a valid email address</div>
+                    />
+                    <div class="invalid-feedback">Please enter a valid email address</div>
                 </div>
-              </div>
+                </div>
 
-              <div class="form-group mb-3">
+                <div class="form-group mb-3">
                 <div class="input-group">
-                  <span class="input-group-text">
+                    <span class="input-group-text">
                     <i class="fas fa-lock"></i>
-                  </span>
-                  <input
+                    </span>
+                    <input
                     type="password"
                     class="form-control"
                     name="password"
                     id="password-input"
                     placeholder="Password"
                     required
-                  />
-                  <div class="invalid-feedback">Password must be at least 8 characters</div>
+                    />
+                    <div class="invalid-feedback">Password must be at least 8 characters</div>
                 </div>
                 <div class="password-strength mt-1 d-none">
-                  <div class="progress">
+                    <div class="progress">
                     <div class="progress-bar" role="progressbar" style="width: 0%"></div>
-                  </div>
-                  <small class="text-muted strength-text"></small>
+                    </div>
+                    <small class="text-muted strength-text"></small>
                 </div>
-              </div>
+                </div>
 
-              <div class="form-group mb-4">
+                <div class="form-group mb-4">
                 <div class="input-group">
-                  <span class="input-group-text">
+                    <span class="input-group-text">
                     <i class="fas fa-lock"></i>
-                  </span>
-                  <input
+                    </span>
+                    <input
                     type="password"
                     class="form-control"
                     name="repeat-password"
                     id="repeat-password-input"
                     placeholder="Confirm Password"
                     required
-                  />
-                  <div class="invalid-feedback">Passwords do not match</div>
+                    />
+                    <div class="invalid-feedback">Passwords do not match</div>
                 </div>
-              </div>
+                </div>
 
-              <div class="form-group mb-3">
+                <div class="form-group mb-3">
                 <div class="form-check mb-3">
-                  <input
+                    <input
                     class="form-check-input"
                     type="checkbox"
                     id="terms-checkbox"
                     required
-                  />
-                  <label class="form-check-label" for="terms-checkbox">
+                    />
+                    <label class="form-check-label" for="terms-checkbox">
                     I agree to the <a href="#">Terms of Service</a> and
                     <a href="#">Privacy Policy</a>
-                  </label>
-                  <div class="invalid-feedback">You must agree before submitting</div>
+                    </label>
+                    <div class="invalid-feedback">You must agree before submitting</div>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Sign Up</button>
-              </div>
+                </div>
             </form>
 
             <p class="text-center">
@@ -207,14 +204,14 @@
             <p class="text-center mt-2">
                 Want to sell? <a href="sellersignup.html">Sign up as a Seller</a>
             </p>
-          </div>
+            </div>
         </div>
-      </div>
+        </div>
     </div>
-  </div>
+    </div>
 
-  <script src="validation.js"></script>
-  <script src="/layout/JS/all.min.js"></script>
-  <script src="/layout/JS/bootstrap.bundle.min.js"></script>
+    <script src="validation.js"></script>
+    <script src="/layout/JS/all.min.js"></script>
+    <script src="/layout/JS/bootstrap.bundle.min.js"></script>
 </body>
 </html>
