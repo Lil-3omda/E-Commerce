@@ -102,13 +102,19 @@ increaseButtons.forEach((button) => {
 displayData();
 
 function checkout() {
-
     const userId = sessionStorage.getItem("loggedInUserId");
-    
+    const loggedInStatus = sessionStorage.getItem("loggedInStatus");
+
     if (!userId || userId === "0") {
-        window.location.href="../../signUpdate/login.html";
-        return ;
+        window.location.href = "../../signUpdate/login.html";
+        return;
     }
+
+    if (loggedInStatus !== "active") {
+        showToast("⏳ Your account is not active yet. Please wait 24 hours for approval.", "danger");
+        return;
+    }
+
     const cart = getCart(userId) || [];
     let allAvailable = true;
     let products = JSON.parse(localStorage.getItem("products")) || [];
@@ -127,6 +133,7 @@ function checkout() {
             break;
         }
     }
+
     if (allAvailable) {
         for (let item of cart) {
             const productInCart = JSON.parse(item.productData);
@@ -137,6 +144,7 @@ function checkout() {
                 products[productIndex].sold += quantity;
             }
         }
+
         const newOrder = {
             id: `order_${new Date().getTime()}`,
             userId: Number(userId),
@@ -148,7 +156,7 @@ function checkout() {
                 total: item.quantity * JSON.parse(item.productData).price
             })),
             totalAmount: cart.reduce((total, item) => total + item.quantity * JSON.parse(item.productData).price, 0),
-            status: "Pending", 
+            status: "Pending",
             date: new Date().toLocaleString()
         };
 
@@ -156,11 +164,12 @@ function checkout() {
         localStorage.setItem("orders", JSON.stringify(orders));
         localStorage.setItem("products", JSON.stringify(products));
         localStorage.removeItem(`cart_${userId}`);
-        showToast(" ✅ Checkout complete! Your items will be on their way soon.", "dark");
-        setTimeout(()=>location.reload(),3000)
-        
+
+        showToast("Checkout complete! Your items will be on their way soon.", "dark");
+        setTimeout(() => location.reload(), 3000);
     }
 }
+
 document.addEventListener('DOMContentLoaded', () => {
     const checkoutBtn = document.getElementById("checkoutBtn");
     if (checkoutBtn) {
