@@ -42,77 +42,85 @@ catch (error) {
 
 
 function displayProducts(page) {
-  if (!products || !Array.isArray(products) || products.length === 0) return;
+    const filterableCards = document.getElementById("filterable-cards");
+  if (!products || !Array.isArray(products) || products.length === 0){
+    filterableCards.removeAttribute("class");
+    filterableCards.innerHTML = `<div class="alert alert-danger text-center"  role="alert">
+    <h1 calss="text-center m-auto">No Products Found </h1>
+    </div>`;
+    return;
+  } 
   if (typeof productsPerPage !== "number" || productsPerPage <= 0) return;
 
-  const filterableCards = document.getElementById("filterable-cards");
+  filterableCards.classList.add('filterable-cards');
 
+  
 
   const start = (page - 1) * productsPerPage;
   const end = start + productsPerPage;
   const paginatedProducts = products.slice(start, end);
+
+
+  // Helper: render product cards
 
   function renderProducts(productList) {
     filterableCards.innerHTML = productList
       .map(
         (product) => `
         <div class="card item p-2 m-4 mt-0">
-            <img class="product-card" src="${product.img}" alt="" data-id="${product.id}">
-            <div class="card-body">
-                <h6 class="card-title fs-5">${product.name}</h6>
-                <p class="card-description">${product.category}</p>
-                <p class="card-description">${product.price} EGP</p>
-                <button data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' class="btn cartBtn">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
-            </div>
+          <img src="${product.img}" alt="" class="product-card" data-id="${product.id}">
+          <div class="card-body">
+              <h6 class="card-title fs-5">${product.name}</h6>
+              <p class="card-description">${product.category}</p>
+              <p class="card-description">${product.price}EGP</p>
+              <button data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' class="btn cartBtn">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
+          </div>
         </div>
       `
       )
       .join("");
   }
 
+  // Helper: set active filter button
   function setActiveFilter(activeId) {
     ["all", "best-seller", "premium", "economic"].forEach((id) => {
       document.getElementById(id).classList.toggle("active", id === activeId);
     });
   }
 
+  // Filter functions
+  const filters = {
+    "all": () => products,
+    "best-seller": () => products.filter((product) => product.sold >= 50),
+    "premium": () => products.filter((product) => product.price >= 60000),
+    "economic": () => products.filter((product) => product.price <= 800),
+  };
+
+  // Attach event listeners for filters
+  Object.keys(filters).forEach((filterId) => {
+    const element = document.getElementById(filterId);
+    element.addEventListener("click", () => {
+      setActiveFilter(filterId);
+      renderProducts(filters[filterId]());
+    });
+  });
+
+  // Initial render with pagination
   renderProducts(paginatedProducts);
 
-  document.getElementById("all").addEventListener("click", () => {
-    setActiveFilter("all");
-    renderProducts(products);
-  });
-
-  document.getElementById("best-seller").addEventListener("click", () => {
-    setActiveFilter("best-seller");
-    const bestSellers = products.filter((product) => product.sold >= 7);
-    renderProducts(bestSellers);
-  });
-
-  document.getElementById("premium").addEventListener("click", () => {
-    setActiveFilter("premium");
-    const premiumProducts = products.filter((product) => product.price >= 10000);
-    renderProducts(premiumProducts);
-  });
-
-  document.getElementById("economic").addEventListener("click", () => {
-    setActiveFilter("economic");
-    const economicProducts = products.filter((product) => product.price <= 1000);
-    renderProducts(economicProducts);
-  });
-
+  // Optional: click event for navigating to product detail
   filterableCards.addEventListener("click", (e) => {
     if (e.target.classList.contains("product-card")) {
       const productId = e.target.dataset.id;
-      console.log(`Navigating to product ${productId}`);
       window.location.href = `productDetails.html?productId=${productId}`;
     }
   });
   filterableCards.addEventListener("click", (e) => {
-      if (e.target.classList.contains("cartBtn")) {
-        addToCart(e.target.dataset.product);
-      }
-    });
+    const userId = sessionStorage.getItem("loggedInUserId") || "0";
+    if (e.target.classList.contains("cartBtn")) {
+      addToCart(e.target.dataset.product);
+    }
+  });
 }
 
 
