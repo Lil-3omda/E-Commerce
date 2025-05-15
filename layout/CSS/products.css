@@ -124,6 +124,13 @@
     transition: background-color var(--transition);
     align-self: start;
   }
+
+
+  .card-body button:focus, 
+  .card-body button:focus-visible {
+  outline: 2px solid var(--red-color) !important;
+  outline-offset: 2px;
+  }
   
   .card-body button:hover {
     background-color: #f3cad0;

@@ -156,8 +156,9 @@ function checkout() {
         localStorage.setItem("orders", JSON.stringify(orders));
         localStorage.setItem("products", JSON.stringify(products));
         localStorage.removeItem(`cart_${userId}`);
-        showToast("Checkout successful!", "success");
-        location.reload();
+        showToast(" ✅ Checkout complete! Your items will be on their way soon.", "dark");
+        setTimeout(()=>location.reload(),3000)
+        
     }
 }
 document.addEventListener('DOMContentLoaded', () => {
@@ -167,18 +168,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 function showToast(message, type = "info") {
+    console.log("showToast called with message:", message);
     const toast = document.createElement("div");
     toast.className = `alert alert-${type}`;
     toast.style.position = "fixed";
-    toast.style.top = "20px";
-    toast.style.right = "20px";
+    toast.style.top = "20%";
+    toast.style.height="100px"
+    toast.style.right = "35%";
     toast.style.zIndex = 9999;
-    toast.style.minWidth = "250px";
+    toast.style.minWidth = "300px";
+    toast.style.boxShadow = "0 2px 10px rgba(0,0,0,0.2)";
+    toast.style.borderRadius = "5px";
     toast.textContent = message;
 
     document.body.appendChild(toast);
+    console.log("Toast added to DOM");
 
     setTimeout(() => {
+        console.log("Removing toast now");
         toast.remove();
     }, 3000);
 }
+
+
