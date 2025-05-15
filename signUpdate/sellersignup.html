@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Seller Registration</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+    <div id="navbar"></div>
+    <script>
+        fetch('/include/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+            document.getElementById('navbar').innerHTML = data;
+            const searchbar = document.getElementsByClassName("search-wrapper")[0];
+            const iconbar = document.getElementsByClassName("icon-bar")[0];
+            const bottomNav = document.getElementsByClassName("bottom-nav")[0];
+            searchbar.classList.add('d-none');
+            iconbar.classList.add('d-none');
+            bottomNav.classList.remove('d-md-block');
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+    </script>
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-lg-8 col-md-10 col-sm-12">
+                <div class="card auth-card">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">Become a Tech Seller</h1>
+                        <div class="badge-container text-center mb-3">
+                            <span class="tech-badge"><i class="fas fa-laptop"></i> Laptops</span>
+                            <span class="tech-badge"><i class="fas fa-mobile-alt"></i> Phones</span>
+                            <span class="tech-badge"><i class="fas fa-headphones"></i> Headphones</span>
+                        </div>
+                        <p class="text-center intro-text mb-4">Join our marketplace as a specialized seller of premium laptops, phones, and headphones. Connect with tech enthusiasts looking for quality products.</p>
+                        <div id="error-message" class="alert alert-danger d-none"></div>
+                        
+                        <form id="form" novalidate>
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h4 class="section-title">Personal Information</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="fullname" id="fullname-input" placeholder="Full Name" required>
+                                            <div class="invalid-feedback">Please enter your full name</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-envelope"></i>
+                                            </span>
+                                            <input type="email" class="form-control" name="email" id="email-input" placeholder="Email" required>
+                                            <div class="invalid-feedback">Please enter a valid email address</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-phone"></i>
+                                            </span>
+                                            <input type="tel" class="form-control" name="phone" id="phone-input" placeholder="Phone Number" required>
+                                            <div class="invalid-feedback">Please enter a valid phone number</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-id-card"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="taxid" id="taxid-input" placeholder="Tax ID / SSN" required>
+                                            <div class="invalid-feedback">Please enter your Tax ID or SSN</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h4 class="section-title">Business Information</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-store"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="businessname" id="businessname-input" placeholder="Business Name" required>
+                                            <div class="invalid-feedback">Please enter your business name</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-building"></i>
+                                            </span>
+                                            <select class="form-control" name="businesstype" id="businesstype-input" required>
+                                                <option value="" disabled selected>Select Business Type</option>
+                                                <option value="individual">Individual/Sole Proprietor</option>
+                                                <option value="partnership">Partnership</option>
+                                                <option value="corporation">Corporation</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select your business type</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="address" id="address-input" placeholder="Business Address" required>
+                                            <div class="invalid-feedback">Please enter your business address</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-city"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="city" id="city-input" placeholder="City" required>
+                                            <div class="invalid-feedback">Please enter your city</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-map"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="state" id="state-input" placeholder="State/Province" required>
+                                            <div class="invalid-feedback">Please enter your state</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-mail-bulk"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="zipcode" id="zipcode-input" placeholder="Zip/Postal Code" required>
+                                            <div class="invalid-feedback">Please enter your zip code</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h4 class="section-title">Tech Product Details</h4>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <p class="form-text">Select the tech products you want to sell:</p>
+                                    <div class="product-selection">
+                                        <div class="form-check form-check-inline product-check">
+                                            <input class="form-check-input" type="checkbox" id="laptop-check" name="products" value="laptops" required>
+                                            <label class="form-check-label" for="laptop-check">
+                                                <i class="fas fa-laptop"></i> Laptops
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline product-check">
+                                            <input class="form-check-input" type="checkbox" id="phone-check" name="products" value="phones">
+                                            <label class="form-check-label" for="phone-check">
+                                                <i class="fas fa-mobile-alt"></i> Phones
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline product-check">
+                                            <input class="form-check-input" type="checkbox" id="headphone-check" name="products" value="headphones">
+                                            <label class="form-check-label" for="headphone-check">
+                                                <i class="fas fa-headphones"></i> Headphones
+                                            </label>
+                                        </div>
+                                        <div class="invalid-feedback product-feedback">Please select at least one product category</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-trademark"></i>
+                                            </span>
+                                            <select class="form-control" name="brands" id="brands-input" multiple required>
+                                                <option value="" disabled>Select Brands You Sell (Ctrl+Click for multiple)</option>
+                                                <option value="apple">Apple</option>
+                                                <option value="samsung">Samsung</option>
+                                                <option value="dell">Dell</option>
+                                                <option value="hp">HP</option>
+                                                <option value="lenovo">Lenovo</option>
+                                                <option value="asus">Asus</option>
+                                                <option value="acer">Acer</option>
+                                                <option value="sony">Sony</option>
+                                                <option value="bose">Bose</option>
+                                                <option value="jbl">JBL</option>
+                                                <option value="sennheiser">Sennheiser</option>
+                                                <option value="google">Google</option>
+                                                <option value="oneplus">OnePlus</option>
+                                                <option value="xiaomi">Xiaomi</option>
+                                                <option value="huawei">Huawei</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select at least one brand</div>
+                                        </div>
+                                        <small class="text-muted">Hold Ctrl/Cmd to select multiple brands</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-box"></i>
+                                            </span>
+                                            <select class="form-control" name="inventory" id="inventory-input" required>
+                                                <option value="" disabled selected>Estimated Monthly Inventory</option>
+                                                <option value="1-10">1-10 units</option>
+                                                <option value="11-50">11-50 units</option>
+                                                <option value="51-100">51-100 units</option>
+                                                <option value="101-500">101-500 units</option>
+                                                <option value="500+">500+ units</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select your estimated inventory</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <label for="seller-description" class="form-label">Brief description of your tech business:</label>
+                                        <textarea class="form-control" id="seller-description" name="description" rows="3" placeholder="Tell us about your experience selling tech products, specialties, and why customers choose your products..." required></textarea>
+                                        <div class="invalid-feedback">Please provide a brief description</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h4 class="section-title">Account Setup</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-lock"></i>
+                                            </span>
+                                            <input type="password" class="form-control" name="password" id="password-input" placeholder="Password" required>
+                                            <div class="invalid-feedback">Password must be at least 8 characters</div>
+                                        </div>
+                                        <div class="password-strength mt-1 d-none">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                            </div>
+                                            <small class="text-muted strength-text"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-lock"></i>
+                                            </span>
+                                            <input type="password" class="form-control" name="repeat-password" id="repeat-password-input" placeholder="Confirm Password" required>
+                                            <div class="invalid-feedback">Passwords do not match</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-file-upload"></i>
+                                            </span>
+                                            <input type="file" class="form-control" name="businessdoc" id="businessdoc-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                                            <div class="invalid-feedback">Please upload a valid document</div>
+                                        </div>
+                                        <small class="text-muted">Upload business registration, license, or ID verification (optional)</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-certificate"></i>
+                                            </span>
+                                            <input type="file" class="form-control" name="certifications" id="certifications-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple>
+                                        </div>
+                                        <small class="text-muted">Upload brand certifications, if any (optional)</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-award"></i>
+                                            </span>
+                                            <select class="form-control" name="experience" id="experience-input" required>
+                                                <option value="" disabled selected>Years of Experience</option>
+                                                <option value="less-than-1">Less than 1 year</option>
+                                                <option value="1-3">1-3 years</option>
+                                                <option value="3-5">3-5 years</option>
+                                                <option value="5-10">5-10 years</option>
+                                                <option value="10+">10+ years</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select your experience level</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mb-3">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="terms-checkbox" required>
+                                    <label class="form-check-label" for="terms-checkbox">
+                                        I agree to the <a href="#">Tech Seller Terms of Service</a>, <a href="#">Marketplace Policy</a>, and <a href="#">Privacy Policy</a>
+                                    </label>
+                                    <div class="invalid-feedback">You must agree before submitting</div>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="authenticity-checkbox" required>
+                                    <label class="form-check-label" for="authenticity-checkbox">
+                                        I certify that all products I sell are authentic and come with a valid warranty
+                                    </label>
+                                    <div class="invalid-feedback">You must certify product authenticity</div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Register as Tech Seller</button>
+                            </div>
+                        </form>
+                        
+                        <p class="text-center">Already registered as a seller? <a href="login.html">Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="tech-seller-validation.js"></script>
+    <script src="/layout/JS/all.min.js"></script>
+    <script src="/layout/JS/bootstrap.bundle.min.js"></script>
+</body>
+</html>
