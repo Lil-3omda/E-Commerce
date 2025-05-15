@@ -69,6 +69,8 @@ function displayData(){
             <p class="mb-0">You can continue shopping by clicking the button below.</p>
             <a href="/homePage.html" class="btn btn-danger m-1">Continue Shopping</a>
         </div>`
+        showToast("Checkout successful!", "success");
+
     }
     const deleteButtons = document.querySelectorAll(".deleteButton");
     deleteButtons.forEach((button) => {
