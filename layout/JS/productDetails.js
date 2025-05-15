@@ -24,9 +24,9 @@ if (products.length > 0) {
             return `<p><strong>${label}:</strong> ${val}</p>`;
         }).join("");
 
-    const highlights = description.content
-        ? `<h4>Highlights:</h4><ul>${description.content.map(item => `<li>${item}</li>`).join("")}</ul>`
-        : '';
+    // const highlights = description.content
+    //     ? `<h4>Highlights:</h4><ul>${description.content.map(item => `<li>${item}</li>`).join("")}</ul>`
+    //     : '';
 
     productDetails.innerHTML = `
         <div class="product-details row m-5" style="place-content: center;">
@@ -34,8 +34,8 @@ if (products.length > 0) {
             <div class="product-info col-6">
                 <h2>${product.name}</h2>
                 ${specList}
-                ${highlights}
-                <p><strong>Price:</strong> EGP${product.price}</p>
+                
+                <p><strong>Price:</strong> ${product.price} EGP</p>
                 <button class="btn" data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' id="addToCartBtn">Add to Cart</button>
             </div>
         </div>
@@ -48,3 +48,24 @@ if (products.length > 0) {
 } else {
     productDetails.innerHTML = "<h5>Product not found.</h5>";
 }
+function getCartItemCount() {
+    let totalCount = 0;        
+    const cartKeys = Object.keys(localStorage).filter(key => key.startsWith("cart_"));
+    cartKeys.forEach(key => {
+    try {
+        const cartItems = JSON.parse(localStorage.getItem(key)) || [];
+        cartItems.forEach(item => {
+        totalCount += item.quantity || 1;
+        });
+    } catch (e) {
+        console.error("Error parsing cart data for key:", key);
+    }
+    });
+    return totalCount;
+}
+window.addEventListener("DOMContentLoaded", function () {
+    const cartCountEl = document.getElementById("cart-count");
+    if (cartCountEl) {
+    cartCountEl.textContent = getCartItemCount();
+    }
+});

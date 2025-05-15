@@ -80,7 +80,13 @@
             setTimeout(updateLoginButton, 50);
         }
     }
-    document.addEventListener('DOMContentLoaded', updateLoginButton);
+</script>
+<script type="module">
+    import { updateCartCount  } from './layout/JS/cartHandler.js';
+    document.addEventListener('DOMContentLoaded', function() {
+        updateLoginButton();
+        updateCartCount();
+    });    
 </script>
 <script src="../layout/JS/all.min.js"></script>
 <script src="../layout/JS/bootstrap.bundle.min.js"></script>

@@ -2,7 +2,7 @@ import { addToCart, getCart } from "./cartHandler.js";
 import { searchBar,addActiveToLinkes } from "./navBar.js";
 let products = [];
 let allProducts = [];
-const productsPerPage = 16;
+const productsPerPage = 15;
 let currentPage = 1;
 addActiveToLinkes();
 ;
@@ -116,13 +116,11 @@ function displayProducts(page) {
     }
   });
 }
-//end of displayProducts
 function setupPagination() {
   const pageCount = Math.ceil(products.length / productsPerPage);
   const pagination = document.getElementById("pagination");
   pagination.innerHTML = "";
 
-  // Previous Button
   const prev = document.createElement("li");
   prev.className = `page-item ${currentPage === 1 ? "disabled" : ""}`;
   prev.innerHTML = `<a class="page-link" href="#">Previous</a>`;
@@ -135,7 +133,6 @@ function setupPagination() {
   });
   pagination.appendChild(prev);
 
-  // Page Buttons
   for (let i = 1; i <= pageCount; i++) {
     const pageBtn = document.createElement("li");
     pageBtn.className = `page-item ${i === currentPage ? "active" : ""}`;
@@ -148,7 +145,6 @@ function setupPagination() {
     pagination.appendChild(pageBtn);
   }
 
-  // Next Button
   const next = document.createElement("li");
   next.className = `page-item ${currentPage === pageCount ? "disabled" : ""}`;
   next.innerHTML = `<a class="page-link" href="#">Next</a>`;
@@ -161,12 +157,5 @@ function setupPagination() {
   });
   pagination.appendChild(next);
 }
-// const buttons = document.querySelectorAll("button");
-// console.log(buttons);
-// buttons.forEach(button => {
-//     button.addEventListener("click", () => {
-//         // Your logic here
-//         console.log("Button clicked:", button.textContent);
-//     });
-// });
+
 fetchProducts();

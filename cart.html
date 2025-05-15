@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/layout/CSS/cart.css">
-    <title>Products</title>
+    <title>Cart</title>
 </head>
 <body>
     <div id="navbar"></div>
@@ -43,11 +43,11 @@
                         </div>
                         <div class="d-flex justify-content-between mb-3">
                             <span>Shipping</span>
-                            <span>$10.00</span>
+                            <span>150 EGP</span>
                         </div>
                         <div class="d-flex justify-content-between mb-3">
                             <span>Tax</span>
-                            <span>$20.00</span>
+                            <span>250 EGP</span>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between mb-4">
@@ -105,30 +105,13 @@
                 setTimeout(updateLoginButton, 50);
             }
         }
-        updateLoginButton()
     </script>
-    <script>
-        function getCartItemCount() {
-            let totalCount = 0;        
-            const cartKeys = Object.keys(localStorage).filter(key => key.startsWith("cart_"));
-            cartKeys.forEach(key => {
-            try {
-                const cartItems = JSON.parse(localStorage.getItem(key)) || [];
-                cartItems.forEach(item => {
-                totalCount += item.quantity || 1;
-                });
-            } catch (e) {
-                console.error("Error parsing cart data for key:", key);
-            }
-            });
-            return totalCount;
-        }
-        window.addEventListener("DOMContentLoaded", function () {
-            const cartCountEl = document.getElementById("cart-count");
-            if (cartCountEl) {
-            cartCountEl.textContent = getCartItemCount();
-            }
-        });
+    <script type="module">
+        import { updateCartCount  } from './layout/JS/cartHandler.js';
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLoginButton();
+            updateCartCount();
+        });    
     </script>
     <script src="/layout/JS/cart.js" type="module"></script>
     <script src="../layout/JS/all.min.js"></script>

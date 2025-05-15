@@ -1,6 +1,6 @@
 /* Custom Styles to work with Bootstrap */
 body {
-    background-image: url(pexels-fwstudio-33348-129731.jpg);
+    background-color: rgb(228, 234, 239) !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

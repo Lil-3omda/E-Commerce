@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../layout/CSS/homePage.css">
-    <title>Document</title>
+    <title>Home Page</title>
 </head>
 <body>
     <div id="navbar"></div>
@@ -115,7 +115,6 @@
             const products = JSON.parse(localStorage.getItem('products')) || [];
     
             const newProductsContainer = document.querySelector('.row.new-products');
-             
             const productCard = document.querySelector('.product-card');
             const topSellingContainer = document.querySelector('.row.top-selling');
             const topRatedContainer = document.querySelector('.col-md-4.top-rated .products-list');
@@ -127,14 +126,14 @@
                     <div class="col-md-3 mb-4 ">
                         <div class="card product-card">
                             <img src="${product.img}" class="card-img-top product-card-img" alt="${product.name}"
-                             data-id="${product.id}">
+                            data-id="${product.id}">
                             <div class="card-body">
                                 <h6 class="card-title">${product.name}</h6>
                                 <p class="card-text text-danger"><del class="text-muted">EGP ${(product.price + 50)}</del>
                                     EGP ${product.price || 100}
-                                     </p>
+                                    </p>
                                 <button  class="btn btn-sm product-card-btn"
-                                 data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' >Add to Cart</button>
+                                data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' >Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -192,7 +191,7 @@
                     
                 });
             });
-            console.log(productCardImg);
+            // console.log(productCardImg);
             productCardContainer.forEach(e => {
                 e.addEventListener('click', function() {
                     const productId = e.getAttribute('data-id');
@@ -238,6 +237,13 @@
 
         if (loginBtn) {
             if (loggedInUserId && loggedInUserRole) {
+                let dashboardItem = '';
+                if (loggedInUserRole === 'seller') {
+                    dashboardItem = `<li><a class="dropdown-item small" href="/seller/homePage.html"><i class="fa-solid fa-gauge-high"></i>Seller Dashboard</a></li>`;
+                } else if (loggedInUserRole === 'admin') {
+                    dashboardItem = `<li><a class="dropdown-item small" href="/admin/admin.html"><i class="fa-solid fa-chart-line"></i> Admin Dashboard</a></li>`;
+                }
+
                 const userDropdownHTML = `
                     <div class="dropdown">
                         <a href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 45px; height: 45px;">
@@ -245,12 +251,15 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end rounded-3 mt-2" aria-labelledby="userDropdown" style="min-width: 120px;">
                             <li><a class="dropdown-item small" href="/profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                            ${dashboardItem}
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item small text-danger" href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
                         </ul>
                     </div>
                 `;
+
                 loginBtn.outerHTML = userDropdownHTML;
+
                 setTimeout(() => {
                     const logoutBtn = document.getElementById('logoutBtn');
                     if (logoutBtn) {
@@ -268,43 +277,37 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        createLogoSlides();
-        updateLoginButton();
-    });
     </script>      
     <script type="module">
-        import { addToCart } from './layout/JS/cartHandler.js';
+        import { addToCart, updateCartCount  } from './layout/JS/cartHandler.js';
         import {addActiveToLinkes, searchBar} from './layout/JS/navBar.js';
         document.addEventListener('DOMContentLoaded', () => {
             const productCardBtn = document.querySelectorAll('.product-card-btn');
-        console.log(productCardBtn);
-        productCardBtn.forEach(e => {
-                e.addEventListener('click', function() {
-                    const product = e.getAttribute('data-product');
-                    addToCart(product);
+        // console.log(productCardBtn);
+            productCardBtn.forEach(e => {
+                    e.addEventListener('click', function() {
+                        const product = e.getAttribute('data-product');
+                        addToCart(product);
+                        
+                    });
+                });
+            }); 
+            addActiveToLinkes();
+            try {
+                searchBar.addEventListener("keydown", (e) => {
+                    if (event.key === 'Enter'){
+                        window.location.href = `searchResult.html?query=${searchBar.value}`;
+                    }
+                    
                     
                 });
-            });
-        });
-        
-        
-        addActiveToLinkes();
-        try {
-            searchBar.addEventListener("keydown", (e) => {
-                if (event.key === 'Enter'){
-                    window.location.href = `searchResult.html?query=${searchBar.value}`;
-                }
-                
-                
-            });
             }
             catch (error) {
-            window.location.reload();
-
+                window.location.reload();
             }
-
-
+            createLogoSlides();
+            updateLoginButton();
+            updateCartCount();
     </script>
     <script src="/include/JsonFiles/data.js"></script>
     <script src="/layout/JS/all.min.js"></script>

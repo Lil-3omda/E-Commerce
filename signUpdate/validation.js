@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     error_message.innerText = errors.join(". ");
                 } else {
                     error_message.classList.add('d-none');
-                    addUser(firstname_input.value, email_input.value, password_input.value);
+                    addUser(sanitizeInput(firstname_input.value),sanitizeInput(email_input.value), password_input.value);
                 }
             } else {
                 errors = getLoginFormErrors(
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
             error_message.classList.add('d-none');
         }
     }
-    function checkUserRole(email, password) {
+    async function checkUserRole(email, password) {
         const users = JSON.parse(localStorage.getItem('userData'));
         if (!users.admin || !Array.isArray(users.admin) || !users.sellers || !Array.isArray(users.sellers) || !users.customers || !Array.isArray(users.customers)) {
             error_message.classList.remove('d-none');
@@ -230,31 +230,35 @@ document.addEventListener('DOMContentLoaded', function() {
             error_message.innerText = 'Email or Password is Wrong';
             return;
         }    
-        if (user.password !== password) {
+        const hashedInputPassword = await hashPassword(password);
+        if (user.password !== hashedInputPassword) {
             error_message.classList.remove('d-none');
             error_message.innerText = 'Email Or Password is Wrong';
             return;
         }
         sessionStorage.setItem('loggedInUserId', user.id);
         sessionStorage.setItem('loggedInUserRole', user.role);
+        const baseUrl = window.location.origin;
+
         if (user.role === 'admin') {
-            window.location.href = 'http://127.0.0.1:8080/admin/admin.html';
+            window.location.href = `${baseUrl}/admin/admin.html`;
         } else if (user.role === 'seller') {
-            window.location.href = 'http://127.0.0.1:8080/seller/homePage.html';
+            window.location.href = `${baseUrl}/seller/homePage.html`;
         } else {
-            window.location.href = 'http://127.0.0.1:8080/homePage.html'; 
+            window.location.href = `${baseUrl}/homePage.html`;
         }
+
     }
-    function addUser(fullname, email, password) {
+    async function addUser(fullname, email, password) {
         let userData = JSON.parse(localStorage.getItem('userData')) || {admin: [], customers: [], sellers: []};
     
         let customers = userData.customers || [];
-    
+        const hashedPassword = await hashPassword(password);
         let newCustomer = {
             id: customers.length > 0 ? customers[customers.length - 1].id + 1 : 1,
             name: fullname,
             email: email,
-            password: password,
+            password: hashedPassword,
             role: "customer",
             address: "",          
             order_history: [],
@@ -266,4 +270,26 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("User added successfully!");
         window.location.href = "login.html";
     }
+    function sanitizeInput(str) {
+        return str.replace(/[&<>"'`=\/]/g, function (s) {
+            return ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;',
+                '`': '&#x60;',
+                '=': '&#x3D;',
+                '/': '&#x2F;'
+            })[s];
+        });
+    }
+    async function hashPassword(password) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
 });

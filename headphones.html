@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/layout/CSS/products.css">
     <script src="/include/JsonFiles/data.js"></script>
-    <title>Products</title>
+    <title>Headphones</title>
 </head>
 <body>
     <div id="navbar"></div>
@@ -49,60 +49,54 @@
             const loggedInUserRole = sessionStorage.getItem('loggedInUserRole');
 
             if (loginBtn) {
-                if (loggedInUserId && loggedInUserRole) {
-                    const userDropdownHTML = `
-                        <div class="dropdown">
+            if (loggedInUserId && loggedInUserRole) {
+                let dashboardItem = '';
+                if (loggedInUserRole === 'seller') {
+                    dashboardItem = `<li><a class="dropdown-item small" href="/seller/homePage.html"><i class="fa-solid fa-gauge-high"></i>Seller Dashboard</a></li>`;
+                } else if (loggedInUserRole === 'admin') {
+                    dashboardItem = `<li><a class="dropdown-item small" href="/admin/admin.html"><i class="fa-solid fa-chart-line"></i> Admin Dashboard</a></li>`;
+                }
+
+                const userDropdownHTML = `
+                    <div class="dropdown">
                         <a href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 45px; height: 45px;">
                             <i class="fa-solid fa-circle-user text-white display-6"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end rounded-3 mt-2" aria-labelledby="userDropdown" style="min-width: 120px;">
                             <li><a class="dropdown-item small" href="/profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                            ${dashboardItem}
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item small text-danger" href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
                         </ul>
                     </div>
-                    `;
-                    loginBtn.outerHTML = userDropdownHTML;
-                    setTimeout(() => {
-                        const logoutBtn = document.getElementById('logoutBtn');
-                        if (logoutBtn) {
-                            logoutBtn.addEventListener('click', function(e) {
-                                e.preventDefault();
-                                sessionStorage.removeItem('loggedInUserId');
-                                sessionStorage.removeItem('loggedInUserRole');
-                                window.location.href = '/signUpdate/login.html';
-                            });
-                        }
-                    }, 50);
-                }
-            } else {
-                setTimeout(updateLoginButton, 50);
+                `;
+
+                loginBtn.outerHTML = userDropdownHTML;
+
+                setTimeout(() => {
+                    const logoutBtn = document.getElementById('logoutBtn');
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            sessionStorage.removeItem('loggedInUserId');
+                            sessionStorage.removeItem('loggedInUserRole');
+                            window.location.href = '/homePage.html';
+                        });
+                    }
+                }, 50);
             }
+        } else {
+            setTimeout(updateLoginButton, 50);
+        }
         }
         document.addEventListener('DOMContentLoaded', updateLoginButton);
     </script>
-    <script>
-        function getCartItemCount() {
-            let totalCount = 0;        
-            const cartKeys = Object.keys(localStorage).filter(key => key.startsWith("cart_"));
-            cartKeys.forEach(key => {
-            try {
-                const cartItems = JSON.parse(localStorage.getItem(key)) || [];
-                cartItems.forEach(item => {
-                totalCount += item.quantity || 1;
-                });
-            } catch (e) {
-                console.error("Error parsing cart data for key:", key);
-            }
-            });
-            return totalCount;
-        }
-        window.addEventListener("DOMContentLoaded", function () {
-            const cartCountEl = document.getElementById("cart-count");
-            if (cartCountEl) {
-            cartCountEl.textContent = getCartItemCount();
-            }
-        });
+    <script type="module">
+        import { updateCartCount  } from './layout/JS/cartHandler.js';
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLoginButton();
+            updateCartCount();
+        });     
     </script>
     <script src="/layout/JS/headphons.js" type="module"></script>
     <script src="../layout/JS/all.min.js"></script>

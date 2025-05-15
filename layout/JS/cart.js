@@ -4,7 +4,7 @@ function displayData(){
     const cart_body = document.querySelector("#cart-body");
     const total_price = document.querySelector("#totalPrice");
     const subTotal = document.querySelector("#Subtotal");
-    let total = 30;
+    let total = 400;
     let subtotal = 0;
     cart_body.innerHTML = "";
     const userId = sessionStorage.getItem("loggedInUserId") || "0";
@@ -18,8 +18,8 @@ function displayData(){
             const productData = JSON.parse(item.productData);
             const quantity = item.quantity;
             subtotal += productData.price * quantity;
-            subTotal.innerHTML=`$${subtotal}`;
-            total_price.innerHTML=`$${subtotal+total}`;
+            subTotal.innerHTML=`${subtotal} EGP`;
+            total_price.innerHTML=`${subtotal+total} EGP`;
             const cartItem = document.createElement("div");
             cartItem.className = "row cart-item mb-3";
             cartItem.innerHTML = `
@@ -41,7 +41,7 @@ function displayData(){
                     </div>
                 </div>
                 <div class="col-md-2 text-end">
-                    <p class="fw-bold">$${productData.price * quantity}</p>
+                    <p class="fw-bold">${productData.price * quantity} EGP</p>
                     <button class="btn btn-sm deleteButton"
                     data-product='${JSON.stringify(productData).replace(/'/g, "&apos;")}'>
                         <i class="fa fa-trash"></i>
@@ -129,7 +129,7 @@ function checkout() {
         }
         const newOrder = {
             id: `order_${new Date().getTime()}`,
-            userId: userId,
+            userId: Number(userId),
             items: cart.map(item => ({
                 productId: JSON.parse(item.productData).id,
                 productName: JSON.parse(item.productData).name,

@@ -2,7 +2,7 @@ import { addToCart, getCart } from "./cartHandler.js";
 import { searchBar,addActiveToLinkes } from "./navBar.js";
 let products = [];
 let allProducts = [];
-const productsPerPage = 16;
+const productsPerPage = 15;
 let currentPage = 1;
 
 addActiveToLinkes();
@@ -20,7 +20,6 @@ async function fetchProducts() {
   setupPagination();
 }
 
-// Search bar functionality
 try {
   searchBar.addEventListener("input", (e) => {
     const query = e.target.value.toLowerCase();
@@ -33,8 +32,7 @@ try {
   });
 }
 catch (error) {
-  window.location.reload();
- 
+  window.location.reload(); 
 }
 
 function displayProducts(page) {
@@ -56,7 +54,6 @@ function displayProducts(page) {
   const end = start + productsPerPage;
   const paginatedProducts = products.slice(start, end);
 
-  // Helper: render product cards
   function renderProducts(productList) {
     filterableCards.innerHTML = productList
       .map(
@@ -66,7 +63,7 @@ function displayProducts(page) {
           <div class="card-body">
               <h6 class="card-title fs-5">${product.name}</h6>
               <p class="card-description">${product.category}</p>
-              <p class="card-description">${product.price}EGP</p>
+              <p class="card-description">${product.price} EGP</p>
               <button data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' class="btn cartBtn">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
           </div>
         </div>
@@ -75,14 +72,12 @@ function displayProducts(page) {
       .join("");
   }
 
-  // Helper: set active filter button
   function setActiveFilter(activeId) {
     ["all", "best-seller", "premium", "economic"].forEach((id) => {
       document.getElementById(id).classList.toggle("active", id === activeId);
     });
   }
 
-  // Filter functions
   const filters = {
     "all": () => products,
     "best-seller": () => products.filter((product) => product.sold >= 50),
@@ -90,7 +85,6 @@ function displayProducts(page) {
     "economic": () => products.filter((product) => product.price <= 800),
   };
 
-  // Attach event listeners for filters
   Object.keys(filters).forEach((filterId) => {
     const element = document.getElementById(filterId);
     element.addEventListener("click", () => {
@@ -99,10 +93,8 @@ function displayProducts(page) {
     });
   });
 
-  // Initial render with pagination
   renderProducts(paginatedProducts);
 
-  // Optional: click event for navigating to product detail
   filterableCards.addEventListener("click", (e) => {
     if (e.target.classList.contains("product-card")) {
       const productId = e.target.dataset.id;
@@ -123,7 +115,6 @@ function setupPagination() {
   const pagination = document.getElementById("pagination");
   pagination.innerHTML = "";
 
-  // Previous Button
   const prev = document.createElement("li");
   prev.className = `page-item ${currentPage === 1 ? "disabled" : ""}`;
   prev.innerHTML = `<a class="page-link" href="#">Previous</a>`;
@@ -136,7 +127,6 @@ function setupPagination() {
   });
   pagination.appendChild(prev);
 
-  // Page Buttons
   for (let i = 1; i <= pageCount; i++) {
     const pageBtn = document.createElement("li");
     pageBtn.className = `page-item ${i === currentPage ? "active" : ""}`;
@@ -149,7 +139,6 @@ function setupPagination() {
     pagination.appendChild(pageBtn);
   }
 
-  // Next Button
   const next = document.createElement("li");
   next.className = `page-item ${currentPage === pageCount ? "disabled" : ""}`;
   next.innerHTML = `<a class="page-link" href="#">Next</a>`;

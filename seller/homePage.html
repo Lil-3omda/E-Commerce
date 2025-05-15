@@ -42,11 +42,11 @@
             height: 200px;
             object-fit: contain;
         }
-        .status-pending {
+        .status-Processing {
             background-color: #ffeeba;
             color: #856404;
         }
-        .status-completed {
+        .status-Delivered {
             background-color: #d4edda;
             color: #155724;
         }
@@ -100,8 +100,19 @@
                 const searchbar = document.getElementsByClassName("search-wrapper")[0];
                 const iconbar = document.getElementsByClassName("icon-bar")[0];
                 const icon1 = document.getElementsByClassName('icon-badge')[0];
+                const offcanvas = document.getElementsByClassName('sidemenuhide')[0];
                 const bottomNavLinks = document.querySelectorAll(".bottom-nav .nav-link");
+                const bottomNavbar = document.querySelector('.bottom-nav');
+                if (bottomNavbar) {
+                    bottomNavbar.classList.remove('d-none');
+                    const navList = bottomNavbar.querySelector('.navbar-nav');
+                    if (navList) {
+                        navList.classList.remove('gap-3');
+                        navList.classList.add('gap-0');
+                    }
+                }
                 searchbar.classList.add('d-none');
+                offcanvas.classList.add('d-none');
                 icon1.classList.add('d-none');
                 iconbar.classList.add('ms-auto');
                 bottomNavLinks.forEach(link => {
@@ -119,19 +130,21 @@
                 Dashboard.append(DashboardLink);
                 navList.append(Dashboard);                
                 const newLi1 = document.createElement('li');
-                newLi1.className = 'nav-item mt-2';
+                newLi1.className = 'nav-item mt-1';
                 const newLink1 = document.createElement('a');
-                newLink1.className = 'nav-link btn btn-outline-success mx-1';
+                newLink1.className = 'nav-link btn btn-outline-success fs-4 mx-1';
                 newLink1.style.border = 'none';
+                newLink1.style.fontWeight = 500;
                 newLink1.textContent = 'My Products';
                 newLink1.href = '/seller/homePage.html';
                 newLi1.appendChild(newLink1);
                 navList.appendChild(newLi1);
                 const newLi2 = document.createElement('li');
-                newLi2.className = 'nav-item mt-2';
+                newLi2.className = 'nav-item mt-1';
                 const newLink2 = document.createElement('a');
-                newLink2.className = 'nav-link btn btn-outline-success mx-1';
+                newLink2.className = 'nav-link btn btn-outline-success fs-4 mx-1';
                 newLink2.style.border = 'none';
+                newLink2.style.fontWeight = 500;
                 newLink2.textContent = 'Add Products';
                 newLink2.href = '/seller/AddItem.html';
                 newLi2.appendChild(newLink2);
@@ -193,7 +206,7 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="text-xs fw-bold text-warning text-uppercase mb-1">Pending Orders</div>
-                                <div class="h5 mb-0 fw-bold" id="pendingOrders">20</div>
+                                <div class="h5 mb-0 fw-bold" id="PendingOrders">20</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-clipboard-list fa-2x text-warning-emphasis"></i>
@@ -409,10 +422,12 @@
             const orders = JSON.parse(localStorage.getItem('orders')) || [];
             const products = JSON.parse(localStorage.getItem('products')) || [];
             const sellerId = sessionStorage.getItem('loggedInUserId');
+
             function getSellerIdByProductId(productId) {
                 const product = products.find(p => p.id === productId);
                 return product ? String(product.sellerId) : null;
             }
+
             let sellerOrders = [];
             orders.forEach(order => {
                 const sellerItems = order.items.filter(item => {
@@ -423,8 +438,10 @@
                     sellerOrders.push(sellerOrder);
                 }
             });
-            const pendingCount = sellerOrders.filter(order => order.status === "Pending").length;
-            document.getElementById('pendingOrders').textContent = pendingCount;
+
+            const PendingCount = sellerOrders.filter(order => order.status === "Pending").length;
+            document.getElementById('PendingOrders').textContent = PendingCount;
+
             sellerOrders.forEach(order => {
                 const orderRow = document.createElement('tr');
                 const statusClass = getStatusClass(order.status);
@@ -439,13 +456,15 @@
                     <td>
                         <select class="form-select form-select-sm status-select" data-order-id="${order.id}">
                             <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
-                            <option value="Completed" ${order.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                            <option value="Processing" ${order.status === 'Processing' ? 'selected' : ''}>Processing</option>
+                            <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
                             <option value="Canceled" ${order.status === 'Canceled' ? 'selected' : ''}>Canceled</option>
                         </select>
                     </td>
                 `;
                 recentSales.appendChild(orderRow);
             });
+
             document.querySelectorAll('.status-select').forEach(select => {
                 select.addEventListener('change', updateOrderStatus);
             });
@@ -453,8 +472,9 @@
 
         function getStatusClass(status) {
             switch(status) {
-                case 'Pending': return 'status-pending';
-                case 'Completed': return 'status-completed';
+                case 'Pending': return 'status-Pending';
+                case 'Processing': return 'status-Processing';
+                case 'Delivered': return 'status-Delivered';
                 case 'Canceled': return 'status-canceled';
                 default: return '';
             }
@@ -472,8 +492,8 @@
                 const statusCell = select.closest('tr').querySelector('td:nth-child(6)');
                 statusCell.textContent = newStatus;
                 statusCell.className = getStatusClass(newStatus);                
-                const pendingCount = orders.filter(order => order.status === "Pending").length;
-                document.getElementById('pendingOrders').textContent = pendingCount;                
+                const ProcessingCount = orders.filter(order => order.status === "Pending").length;
+                document.getElementById('ProcessingOrders').textContent = ProcessingCount;                
                 // alert(`Order #${orderId} status updated to ${newStatus}`);
             }
         }
@@ -511,11 +531,11 @@
             const sellerProducts = products.filter(product => String(product.sellerId) === String(sellerId));
             document.getElementById('totalProducts').textContent = sellerProducts.length;
 
-            const completedOrders = orders.filter(order => order.status === "Completed");
-            document.getElementById('totalSales').textContent = completedOrders.length;
+            const DeliveredOrders = orders.filter(order => order.status === "Delivered");
+            document.getElementById('totalSales').textContent = DeliveredOrders.length;
 
             let totalEarnings = 0;
-            completedOrders.forEach(order => {
+            DeliveredOrders.forEach(order => {
                 const sellerItems = order.items.filter(item => {
                     return String(products.find(product => product.id === item.productId).sellerId) === String(sellerId);
                 });
