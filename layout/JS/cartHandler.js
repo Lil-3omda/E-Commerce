@@ -75,8 +75,14 @@ export function increaseQuantity(itemId){
   cart=cart?JSON.parse(cart):[];
   const existingIndex=cart.findIndex(cartItem=>JSON.parse(cartItem.productData).id===itemId);
   if(existingIndex!==-1){
+    const product = JSON.parse(cart[existingIndex].productData);
+    const available = product.available;
+    if(cart[existingIndex].quantity < available){
     cart[existingIndex].quantity+=1;
+  }else{
+    
   }
+  } 
   else{
     console.error(`Item with ID ${itemId} not found in cart for user ID ${userId}.`);
     return;
@@ -90,6 +96,7 @@ export function decreaseQuantity(itemId){
   let cart=localStorage.getItem(cartKey);
   cart=cart?JSON.parse(cart):[];
   const existingIndex=cart.findIndex(cartItem=>JSON.parse(cartItem.productData).id===itemId);
+  
   if(existingIndex!==-1){
     if(cart[existingIndex].quantity>1){
       cart[existingIndex].quantity-=1;

@@ -37,7 +37,11 @@ function displayData(){
                         -</button>
                         <input style="max-width:100px" type="text" class="form-control form-control-sm text-center quantity-input" value="${quantity}">
                         <button class="btn btn-sm increaseButton"
-                        type="button" data-product='${JSON.stringify(productData).replace(/'/g, "&apos;")}'>+</button>
+                            type="button" 
+                            data-product='${JSON.stringify(productData).replace(/'/g, "&apos;")}'
+                            ${quantity >= productData.available ? "disabled" : ""}
+                        >+</button>
+
                     </div>
                 </div>
                 <div class="col-md-2 text-end">
@@ -49,6 +53,12 @@ function displayData(){
                 cart_body.appendChild(cartItem);
                 const hr = document.createElement("hr");
                 hr.className = "my-3";
+                cartItem.innerHTML += `
+  <p class="text-center text-danger fw-semibold mt-2 ${quantity >= productData.available ? '' : 'd-none'}">
+    <i class="fa fa-exclamation-circle me-1"></i>
+    Only ${productData.available} unit(s) of "<span class="fw-bold">${productData.name}</span>" available in stock.
+  </p>`;
+
                 cart_body.appendChild(hr);
     })
     }else{
@@ -146,7 +156,7 @@ function checkout() {
         localStorage.setItem("orders", JSON.stringify(orders));
         localStorage.setItem("products", JSON.stringify(products));
         localStorage.removeItem(`cart_${userId}`);
-        alert("Checkout successful!");
+        showToast("Checkout successful!", "success");
         location.reload();
     }
 }
@@ -156,3 +166,19 @@ document.addEventListener('DOMContentLoaded', () => {
         checkoutBtn.addEventListener("click", checkout);
     }
 });
+function showToast(message, type = "info") {
+    const toast = document.createElement("div");
+    toast.className = `alert alert-${type}`;
+    toast.style.position = "fixed";
+    toast.style.top = "20px";
+    toast.style.right = "20px";
+    toast.style.zIndex = 9999;
+    toast.style.minWidth = "250px";
+    toast.textContent = message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
