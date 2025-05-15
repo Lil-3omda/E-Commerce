@@ -251,7 +251,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     async function addUser(fullname, email, password) {
         let userData = JSON.parse(localStorage.getItem('userData')) || {admin: [], customers: [], sellers: []};
-    
+        const allUsers = [...userData.admin, ...userData.customers, ...userData.sellers];
+
+        const existingUser = allUsers.find(user => user.email.toLowerCase() === email.toLowerCase());
+        if (existingUser) {
+            error_message.classList.remove('d-none');
+            error_message.innerText = 'Email already exists. Please use a different email.';
+            return;
+        }
         let customers = userData.customers || [];
         const hashedPassword = await hashPassword(password);
         let newCustomer = {
