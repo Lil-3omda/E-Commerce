@@ -386,3 +386,7 @@ body {
         transform: translateX(-50%);
     }
 }
+a:hover, a:focus {
+  color: #ff001f !important;
+  text-decoration: none !important;
+}
