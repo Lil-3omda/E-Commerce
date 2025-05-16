@@ -107,7 +107,7 @@ displayData();
 
 function checkout() {
     const userId = sessionStorage.getItem("loggedInUserId");
-    const loggedInStatus = sessionStorage.getItem("loggedInStatus");
+    const loggedInStatus = sessionStorage.getItem("loggedInUserStatus");
 
     if (!userId || userId === "0") {
         window.location.href = "../../signUpdate/login.html";
