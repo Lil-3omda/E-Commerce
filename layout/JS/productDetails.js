@@ -67,7 +67,7 @@ if (products.length > 0) {
                         <textarea id="comment" class="form-control" rows="4" placeholder="Write your review here..." required></textarea>
                     </div>
                     <div id="review-message" class="mt-2"></div>
-                    <button type="submit" class="btn btn-primary w-100">Submit Review</button>
+                    <button type="submit" class="btn btn-danger w-100">Submit Review</button>
                     </form>
                 </div>
             </section>
