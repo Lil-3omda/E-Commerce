@@ -5,131 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Seller Registration</title>
     <style>
-        /* Base backgrounds and text */
-body, .container-fluid {
-  background-color: #000 !important;  /* Black background */
-  color: #fff !important;             /* White text */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-}
+        body, .container-fluid {
+        background-color: #000 !important; 
+        color: #fff !important;  
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        }
 
-/* Card styling */
-.auth-card {
-  background-color: #121212 !important; /* Dark gray */
-  border: 2px solid #b8001c !important;
-  border-radius: 10px !important;
-  box-shadow: 0 0 15px #b8001c88 !important;
-  padding: 2rem !important;
-  color: #fff !important;
-}
+        .auth-card {
+            background-color: #121212 !important;
+            border: 2px solid #b8001c !important;
+            border-radius: 10px !important;
+            box-shadow: 0 0 15px #b8001c88 !important;
+            padding: 2rem !important;
+            color: #fff !important;
+        }
 
-/* Headings */
-h1, h4.section-title {
-  color: #b8001c !important;
-  font-weight: 700 !important;
-}
+        h1, h4.section-title {
+            color: #b8001c !important;
+            font-weight: 700 !important;
+        }
 
-/* Badge */
-.tech-badge {
-  background-color: #b8001c !important;
-  color: #fff !important;
-  padding: 0.4rem 1rem !important;
-  margin: 0 0.3rem !important;
-  border-radius: 20px !important;
-  font-weight: 600 !important;
-  font-size: 1rem !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 0.4rem !important;
-}
+        .tech-badge {
+            background-color: #b8001c !important;
+            color: #fff !important;
+            padding: 0.4rem 1rem !important;
+            margin: 0 0.3rem !important;
+            border-radius: 20px !important;
+            font-weight: 600 !important;
+            font-size: 1rem !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 0.4rem !important;
+        }
 
-.tech-badge i {
-  color: #fff !important;
-}
+        .tech-badge i {
+            color: #fff !important;
+        }
 
-/* Intro paragraph */
-.intro-text {
-  color: #ccc !important;
-  font-size: 1.1rem !important;
-}
+        .intro-text {
+            color: #ccc !important;
+            font-size: 1.1rem !important;
+        }
 
-/* Form controls */
-.form-control {
-  background-color: #222 !important;
-  border: 1.5px solid #444 !important;
-  color: #eee !important;
-  transition: border-color 0.3s ease !important;
-}
+        .form-control {
+            background-color: #222 !important;
+            border: 1.5px solid #444 !important;
+            color: #eee !important;
+            transition: border-color 0.3s ease !important;
+        }
 
-.form-control:focus {
-  background-color: #1a1a1a !important;
-  border-color: #b8001c !important;
-  color: #fff !important;
-  box-shadow: 0 0 8px #b8001caa !important;
-  outline: none !important;
-}
+        .form-control:focus {
+            background-color: #1a1a1a !important;
+            border-color: #b8001c !important;
+            color: #fff !important;
+            box-shadow: 0 0 8px #b8001caa !important;
+            outline: none !important;
+        }
 
-/* Input group prepend (icons) */
-.input-group-text {
-  background-color: #b8001c !important;
-  color: #fff !important;
-  border: none !important;
-}
+        .input-group-text {
+            background-color: #b8001c !important;
+            color: #fff !important;
+            border: none !important;
+        }
 
-/* Checkboxes */
-.form-check-input {
-  background-color: #000 !important;
-  border-color: #444 !important;
-}
+        .form-check-input {
+            background-color: #000 !important;
+            border-color: #444 !important;
+        }
 
-.form-check-input:checked {
-  background-color: #b8001c !important;
-  border-color: #b8001c !important;
-}
+        .form-check-input:checked {
+            background-color: #b8001c !important;
+            border-color: #b8001c !important;
+        }
 
-/* Labels */
-.form-check-label {
-  color: #eee !important;
-  font-weight: 500 !important;
-}
+        .form-check-label {
+            color: #eee !important;
+            font-weight: 500 !important;
+        }
 
-/* Invalid feedback (error messages) */
-.invalid-feedback, 
-.product-feedback {
-  color: #ff4d4d !important;
-  font-weight: 600 !important;
-}
+        .invalid-feedback, 
+        .product-feedback {
+            color: #ff4d4d !important;
+            font-weight: 600 !important;
+        }
 
-/* Submit button */
-.btn-danger {
-  background-color: #b8001c !important;
-  border-color: #b8001c !important;
-  font-weight: 700 !important;
-  transition: background-color 0.3s ease !important;
-  color: #fff !important;
-}
+        .btn-danger {
+            background-color: #b8001c !important;
+            border-color: #b8001c !important;
+            font-weight: 700 !important;
+            transition: background-color 0.3s ease !important;
+            color: #fff !important;
+        }
 
-.btn-danger:hover, 
-.btn-danger:focus {
-  background-color: #900015 !important;
-  border-color: #900015 !important;
-  color: #fff !important;
-}
+        .btn-danger:hover, 
+        .btn-danger:focus {
+            background-color: #900015 !important;
+            border-color: #900015 !important;
+            color: #fff !important;
+        }
 
-/* Password strength bar */
-.password-strength .progress-bar {
-  background-color: #b8001c !important;
-}
+        .password-strength .progress-bar {
+            background-color: #b8001c !important;
+        }
 
-/* Links */
-a {
-  color: #b8001c !important;
-  text-decoration: underline !important;
-}
+        a {
+            color: #b8001c !important;
+            text-decoration: underline !important;
+        }
 
-a:hover, a:focus {
-  color: #ff001f !important;
-  text-decoration: none !important;
-}
+        a:hover, a:focus {
+            color: #ff001f !important;
+            text-decoration: none !important;
+        }
 
     </style>
 </head>
