@@ -7,70 +7,99 @@
     <link rel="stylesheet" href="/layout/CSS/bootstrap.min.css">
     <title>User Profile</title>
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .profile-role {
-            background-color: #e7f1ff;
-            color: #0d6efd;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .section-heading {
-            color: #0d6efd;
-            border-bottom: 1px solid #dee2e6;
-            padding-bottom: 10px;
-            margin-bottom: 16px;
-        }
-        .info-label {
-            font-weight: 600;
-            color: #6c757d;
-            margin-bottom: 5px;
-        }
-        .order-item {
-            background-color: #f1f8ff;
-            font-weight: 500;
-        }
-        .chat-bubble {
-            max-width: 75%;
-            padding: 10px 15px;
-            border-radius: 20px;
-            margin: 8px 0;
-            position: relative;
-            word-wrap: break-word;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
+    body {
+        background-color: #f8f9fa !important;
+        color: #000 !important;
+    }
 
-        .user-bubble {
-            background-color: #e1f5fe;
-            align-self: flex-start;
-            margin-right: auto;
-        }
+    .profile-role {
+        background-color: #fbe4e7 !important;
+        color: #b8001c !important;
+        padding: 6px 12px !important;
+        border-radius: 20px !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+    }
 
-        .admin-bubble {
-            background-color: #dcedc8;
-            align-self: flex-end;
-            margin-left: auto;
-        }
+    .section-heading {
+        color: #b8001c !important;
+        border-bottom: 1px solid #dee2e6 !important;
+        padding-bottom: 10px !important;
+        margin-bottom: 16px !important;
+    }
 
-        .message-text {
-            font-size: 20px;
-        }
+    .info-label {
+        font-weight: 600 !important;
+        color: #000 !important;
+        margin-bottom: 5px !important;
+    }
 
-        .message-time {
-            font-size: 10px;
-            text-align: right;
-            margin-top: 5px;
-            color: #666;
-        }
-        #messageThread {
-            display: flex;
-            flex-direction: column;
-        }
+    .order-item {
+        background-color: #fff0f1 !important;
+        font-weight: 500 !important;
+        border-left: 4px solid #b8001c !important;
+    }
 
+    .chat-bubble {
+        max-width: 75% !important;
+        padding: 10px 15px !important;
+        border-radius: 20px !important;
+        margin: 8px 0 !important;
+        position: relative !important;
+        word-wrap: break-word !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+    }
+
+    .user-bubble {
+        background-color: #ffe6e9 !important;
+        align-self: flex-start !important;
+        margin-right: auto !important;
+    }
+
+    .admin-bubble {
+        background-color: #e6e6e6 !important;
+        align-self: flex-end !important;
+        margin-left: auto !important;
+    }
+
+    .message-text {
+        font-size: 20px !important;
+        color: #000 !important;
+    }
+
+    .message-time {
+        font-size: 10px !important;
+        text-align: right !important;
+        margin-top: 5px !important;
+        color: #666 !important;
+    }
+
+    #messageThread {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .btn-primary {
+        background-color: #b8001c !important;
+        border-color: #b8001c !important;
+    }
+
+    .btn-primary:hover {
+        background-color: #a00018 !important;
+        border-color: #a00018 !important;
+    }
+    .btn-primary:focus{
+         background-color: #a00018 !important;
+         border-color: #a00018 !important;
+         outline: none;
+    }
+
+    .form-label,
+    .form-control {
+        color: #000 !important;
+    }
     </style>
+
 </head>
 <body>
     <div id="navbar"></div>
@@ -90,7 +119,7 @@
         <div class="card shadow-sm mb-4">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h1 class="mb-0 text-primary">My Profile</h1>
+                    <h1 class="mb-0 text-danger">My Profile</h1>
                     <span class="profile-role" id="userRole">Customer</span>
                 </div>
             </div>
