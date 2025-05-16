@@ -4,7 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Seller Registration</title>
-    <link rel="stylesheet" href="signup.css">
+    <style>
+        /* Base backgrounds and text */
+body, .container-fluid {
+  background-color: #000 !important;  /* Black background */
+  color: #fff !important;             /* White text */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+/* Card styling */
+.auth-card {
+  background-color: #121212 !important; /* Dark gray */
+  border: 2px solid #b8001c !important;
+  border-radius: 10px !important;
+  box-shadow: 0 0 15px #b8001c88 !important;
+  padding: 2rem !important;
+  color: #fff !important;
+}
+
+/* Headings */
+h1, h4.section-title {
+  color: #b8001c !important;
+  font-weight: 700 !important;
+}
+
+/* Badge */
+.tech-badge {
+  background-color: #b8001c !important;
+  color: #fff !important;
+  padding: 0.4rem 1rem !important;
+  margin: 0 0.3rem !important;
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+}
+
+.tech-badge i {
+  color: #fff !important;
+}
+
+/* Intro paragraph */
+.intro-text {
+  color: #ccc !important;
+  font-size: 1.1rem !important;
+}
+
+/* Form controls */
+.form-control {
+  background-color: #222 !important;
+  border: 1.5px solid #444 !important;
+  color: #eee !important;
+  transition: border-color 0.3s ease !important;
+}
+
+.form-control:focus {
+  background-color: #1a1a1a !important;
+  border-color: #b8001c !important;
+  color: #fff !important;
+  box-shadow: 0 0 8px #b8001caa !important;
+  outline: none !important;
+}
+
+/* Input group prepend (icons) */
+.input-group-text {
+  background-color: #b8001c !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+/* Checkboxes */
+.form-check-input {
+  background-color: #000 !important;
+  border-color: #444 !important;
+}
+
+.form-check-input:checked {
+  background-color: #b8001c !important;
+  border-color: #b8001c !important;
+}
+
+/* Labels */
+.form-check-label {
+  color: #eee !important;
+  font-weight: 500 !important;
+}
+
+/* Invalid feedback (error messages) */
+.invalid-feedback, 
+.product-feedback {
+  color: #ff4d4d !important;
+  font-weight: 600 !important;
+}
+
+/* Submit button */
+.btn-danger {
+  background-color: #b8001c !important;
+  border-color: #b8001c !important;
+  font-weight: 700 !important;
+  transition: background-color 0.3s ease !important;
+  color: #fff !important;
+}
+
+.btn-danger:hover, 
+.btn-danger:focus {
+  background-color: #900015 !important;
+  border-color: #900015 !important;
+  color: #fff !important;
+}
+
+/* Password strength bar */
+.password-strength .progress-bar {
+  background-color: #b8001c !important;
+}
+
+/* Links */
+a {
+  color: #b8001c !important;
+  text-decoration: underline !important;
+}
+
+a:hover, a:focus {
+  color: #ff001f !important;
+  text-decoration: none !important;
+}
+
+    </style>
 </head>
 <body>
     <div id="navbar"></div>
@@ -23,8 +150,8 @@
         .catch(error => console.error('Error loading navbar:', error));
     </script>
 
-    <div class="container">
-        <div class="row justify-content-center align-items-center min-vh-100">
+    <div class="container-fluid p-3 bg-dark">
+        <div class="row justify-content-center align-items-center min-vh-100 ">
             <div class="col-lg-8 col-md-10 col-sm-12">
                 <div class="card auth-card">
                     <div class="card-body">
@@ -305,7 +432,7 @@
                                     </label>
                                     <div class="invalid-feedback">You must certify product authenticity</div>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100">Register as Tech Seller</button>
+                                <button type="submit" class="btn btn-danger w-100">Register as Tech Seller</button>
                             </div>
                         </form>
                         
@@ -425,41 +552,41 @@
             window.location.href = "login.html";
         }
 
-            registerSeller();
+        registerSeller();
+    });
+
+    function showError(message) {
+        const errorBox = document.getElementById("error-message");
+        errorBox.classList.remove("d-none");
+        errorBox.textContent = message;
+    }
+
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    function generateUniqueId(sellers) {
+        const ids = sellers.map(s => s.id);
+        let id = 100;
+        while (ids.includes(id)) id++;
+        return id;
+    }
+
+    function sanitizeInput(str) {
+        return str.replace(/[&<>"'`=\/]/g, function (s) {
+            return ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;',
+                '`': '&#x60;',
+                '=': '&#x3D;',
+                '/': '&#x2F;'
+            })[s];
         });
-
-        function showError(message) {
-            const errorBox = document.getElementById("error-message");
-            errorBox.classList.remove("d-none");
-            errorBox.textContent = message;
-        }
-
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
-        function generateUniqueId(sellers) {
-            const ids = sellers.map(s => s.id);
-            let id = 100;
-            while (ids.includes(id)) id++;
-            return id;
-        }
-
-        function sanitizeInput(str) {
-            return str.replace(/[&<>"'`=\/]/g, function (s) {
-                return ({
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#39;',
-                    '`': '&#x60;',
-                    '=': '&#x3D;',
-                    '/': '&#x2F;'
-                })[s];
-            });
-        }
+    }
     </script>
 
     <script src="/layout/JS/all.min.js"></script>
