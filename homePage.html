@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../layout/CSS/homePage.css">
-    <title>Home Page</title>
+    <title>Document</title>
 </head>
 <body>
     <div id="navbar"></div>
@@ -77,12 +77,12 @@
 
         <div class="row text-center ">
             <div class="col-md-4 top-rated">
-                <h5 class="mb-3 new-products-titel">Top Rated</h5>
+                <h5 class="mb-3 new-products-titel">Lucky Wheel</h5>
                 <div class="products-list"></div>
             </div>
             
             <div class="col-md-4 top-view">
-                <h5 class="mb-3 new-products-titel">Top View</h5>
+                <h5 class="mb-3 new-products-titel">Top Recommended</h5>
                 <div class="products-list"></div>
             </div>
             
@@ -168,9 +168,19 @@
                 
             });
             
-            products.slice(y, (y+4)).forEach(product => {
+            // products.slice(y, (y+4)).forEach(product => {
+            //     topSellingContainer.innerHTML += createProductCard(product);
+            // });
+
+            let topSelling = [...products]
+                 .filter(p => typeof p.sold === 'number')
+                 .sort((a, b) => b.sold - a.sold)
+                 .slice(0, 4);   
+
+             topSelling.forEach(product => {
                 topSellingContainer.innerHTML += createProductCard(product);
             });
+            
     
             products.slice(z, (z+4)).forEach(product => {
                 topRatedContainer.innerHTML += createTopProductMini(product);
@@ -179,9 +189,14 @@
             products.slice(n, (n+4)).forEach(product => {
                 topViewContainer.innerHTML += createTopProductMini(product);
             });
-            products.slice(m, (m+4)).forEach(product => {
+            // products.slice(m, (m+4)).forEach(product => {
+            //     topselllingContainer.innerHTML += createTopProductMini(product);
+            // });
+
+            topSelling.forEach(product => {
                 topselllingContainer.innerHTML += createTopProductMini(product);
             });
+            
 
             const productCardImg = document.querySelectorAll('.product-card-img');
             const productCardContainer=document.querySelectorAll('.product-card-container');
@@ -311,13 +326,3 @@
     <script src="/layout/JS/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
