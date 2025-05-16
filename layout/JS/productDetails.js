@@ -29,13 +29,18 @@ if (products.length > 0) {
     //     : '';
 
     productDetails.innerHTML = `
-        <div class="product-details row m-5 justify-content-center">
-            <img src="${product.img}" alt="${product.name}"  class="product-image col-md-6 col-12 mb-4">
-            <div class="product-info col-md-6 col-12">
-            <h2>${product.name}</h2>
-            ${specList}
-            <p><strong>Price:</strong> ${product.price} EGP</p>
-            <button class="btn btn-primary" data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' id="addToCartBtn">Add to Cart</button>
+
+        <div class="product-details row m-5" style="place-content: center;">
+            <img src="${product.img}" alt="${product.name}"  class="product-image col-6">
+            <div class="product-info col-6">
+                <h2>${product.name}</h2>
+                ${specList}
+                
+                <p><strong>Price:</strong> ${product.price} EGP</p>
+                <button class="btn" data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' id="addToCartBtn"
+                ${ product.available <= 0 ? "disabled" : ""}>
+              ${ product.available <= 0 ? "Out Of Stock": `Add to Cart <i class="fa-solid fa-cart-plus ms-1"></i>`}</button>
+
             </div>
 
             <section id="reviews-section" class="mt-3 mb-2 col-12">
