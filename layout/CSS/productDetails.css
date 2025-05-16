@@ -76,7 +76,7 @@ ul {
 ul li {
   font-size: 0.95rem;
   margin-bottom: 0.4rem;
-  color: var(--subtext-color);
+  /* color: var(--subtext-color); */
 }
 
 #addToCartBtn {
@@ -99,6 +99,7 @@ ul li {
   transform: translateY(-1px);
   outline: none;
 }
+
 
 @media (max-width: 768px) {
   .product-details {
