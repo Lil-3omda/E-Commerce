@@ -9,9 +9,13 @@ function displayData(){
     cart_body.innerHTML = "";
     const userId = sessionStorage.getItem("loggedInUserId") || "0";
     if (userId !== "0") {
-        (getCart(0) || []).forEach(item => addToCart(item.productData));
+        const oldCart = getCart(0) || [];
+        oldCart.forEach(item => {
+            addToCart(item.productData, item.quantity);
+        });
         localStorage.removeItem('cart_0');
     }
+
     let products = getCart(userId) || [];
     if(products && products.length>0){
         products.forEach((item) => {
