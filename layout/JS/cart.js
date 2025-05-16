@@ -114,7 +114,7 @@ function checkout() {
         return;
     }
 
-    if (loggedInStatus !== "active") {
+    if (loggedInStatus !== "enabled") {
         showToast("⏳ Your account is not active yet. Please wait 24 hours for approval.", "danger");
         return;
     }

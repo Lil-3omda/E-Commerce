@@ -154,7 +154,7 @@
                     const state = sessionStorage.getItem('loggedInUserStatus');
                     const seller = users.sellers.find(s => s.id == loggedInUserId);
 
-                    if (seller && (state === 'active' || state === 'undefined')) {
+                    if (seller && (state === 'enabled' || state === 'undefined')) {
                         window.location.href = '/seller/AddItem.html';
                     } else {
                         const msg = document.getElementById('statusMessage');
@@ -628,7 +628,7 @@
             const state = sessionStorage.getItem('loggedInUserStatus');
             const seller = users.sellers.find(s => s.id == loggedInUserId);
 
-            if (seller && (state === 'active' || state === 'undefined')) {
+            if (seller && (state === 'enabled' || state === 'undefined')) {
                 window.location.href = '/seller/AddItem.html';
             } else {
                 const msg = document.getElementById('statusMessage2');
