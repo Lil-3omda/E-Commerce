@@ -155,5 +155,8 @@
   color: black;
   border: 1px solid #dee2e6;
 }
-
+a:hover, a:focus {
+  color: #ff001f !important;
+  text-decoration: none !important;
+}
   

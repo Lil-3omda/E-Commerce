@@ -116,3 +116,7 @@ ul li {
     padding: 1.5rem 1rem;
   }
 }
+a:hover, a:focus {
+  color: #ff001f !important;
+  text-decoration: none !important;
+}
