@@ -238,6 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         sessionStorage.setItem('loggedInUserId', user.id);
         sessionStorage.setItem('loggedInUserRole', user.role);
+        sessionStorage.setItem('loggedInUserStatus', user.status);
         const baseUrl = window.location.origin;
 
         if (user.role === 'admin') {
@@ -267,7 +268,8 @@ document.addEventListener('DOMContentLoaded', function() {
             email: email,
             password: hashedPassword,
             role: "customer",
-            address: "",          
+            address: "",
+            status: "disabled",          
             order_history: [],
         };
     

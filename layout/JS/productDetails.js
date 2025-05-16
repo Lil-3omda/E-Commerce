@@ -29,6 +29,7 @@ if (products.length > 0) {
     //     : '';
 
     productDetails.innerHTML = `
+
         <div class="product-details row m-5" style="place-content: center;">
             <img src="${product.img}" alt="${product.name}"  class="product-image col-6">
             <div class="product-info col-6">
@@ -39,9 +40,39 @@ if (products.length > 0) {
                 <button class="btn" data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' id="addToCartBtn"
                 ${ product.available <= 0 ? "disabled" : ""}>
               ${ product.available <= 0 ? "Out Of Stock": `Add to Cart <i class="fa-solid fa-cart-plus ms-1"></i>`}</button>
+
             </div>
+
+            <section id="reviews-section" class="mt-3 mb-2 col-12">
+            <h4 class="mb-4 text-center">Product Reviews</h4>
+            
+            <div id="reviews-list" class="mb-4"></div>
+            
+            <div id="review-form-container" class="border p-4 rounded shadow-sm bg-light">
+                <h4 class="mb-3">Add Your Review</h4>
+                <form id="review-form">
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Rating:</label>
+                    <select id="rating" class="form-select" required>
+                    <option value="" selected disabled>Select rating</option>
+                    <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                    <option value="4">⭐⭐⭐⭐ (4)</option>
+                    <option value="3">⭐⭐⭐ (3)</option>
+                    <option value="2">⭐⭐ (2)</option>
+                    <option value="1">⭐ (1)</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="comment" class="form-label">Comment:</label>
+                    <textarea id="comment" class="form-control" rows="4" placeholder="Write your review here..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Submit Review</button>
+                </form>
+            </div>
+            </section>
         </div>
-    `;
+        `;
+
     const addToCartBtn = document.getElementById("addToCartBtn");
     addToCartBtn.addEventListener("click", () => {
         const productData = addToCartBtn.getAttribute("data-product");

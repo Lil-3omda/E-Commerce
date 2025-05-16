@@ -11,9 +11,9 @@ async function fetchProducts() {
   const productsData = localStorage.getItem("products");
   if (productsData) {
     allProducts = JSON.parse(productsData);
-    products=[...allProducts];
+    products = allProducts.filter(product => product.status !== "disabled");
   } else {
-    console.error("No product founded");
+    console.error("No product found");
     products = [];
   }
   displayProducts(currentPage);

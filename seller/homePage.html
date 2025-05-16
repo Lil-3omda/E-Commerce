@@ -146,13 +146,28 @@
                 newLink2.style.border = 'none';
                 newLink2.style.fontWeight = 500;
                 newLink2.textContent = 'Add Products';
-                newLink2.href = '/seller/AddItem.html';
+                newLink2.href = '#';
+                newLink2.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const loggedInUserId = sessionStorage.getItem('loggedInUserId');
+                    const users = JSON.parse(localStorage.getItem('userData'));
+                    const state = sessionStorage.getItem('loggedInUserStatus');
+                    const seller = users.sellers.find(s => s.id == loggedInUserId);
+
+                    if (seller && (state === 'active' || state === 'undefined')) {
+                        window.location.href = '/seller/AddItem.html';
+                    } else {
+                        const msg = document.getElementById('statusMessage');
+                        msg.textContent = "Can't add product now. Wait 24 hours for review.";
+                        msg.style.display = 'block';
+                    }
+                });
                 newLi2.appendChild(newLink2);
                 navList.appendChild(newLi2);
             })
             .catch(error => console.error('Error loading navbar:', error));
     </script>
-
+    <div id="statusMessage" class="text-center text-danger fw-bold my-3" style="display: none;"></div>
     <div class="container-fluid">
         <div class="row mb-4 mt-4">
             <div class="col-md-3">
@@ -176,7 +191,7 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="text-xs fw-bold text-success text-uppercase mb-1">Total Sales</div>
-                                <div class="h5 mb-0 fw-bold" id="totalSales">100</div>
+                                <div class="h5 mb-0 fw-bold" id="totalSales">0</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-shopping-cart fa-2x text-success-emphasis"></i>
@@ -245,11 +260,12 @@
                 <div class="card">
                     <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Available Products</h5>
-                        <a href="/seller/AddItem.html"><button class="btn btn-sm btn-light" id="addProductBtn">
+                        <button id="addProductBtn" class="btn btn-sm btn-light" >
                             <i class="fas fa-plus"></i> Add Product
-                        </button></a>
+                        </button>
                     </div>
                     <div class="card-body">
+                        <div id="statusMessage2" class="text-center text-danger fw-bold my-3" style="display: none;"></div>
                         <div class="row" id="productsList">
                         </div>
                     </div>
@@ -446,6 +462,7 @@
                 const orderRow = document.createElement('tr');
                 const statusClass = getStatusClass(order.status);
                 const sellerTotal = order.items.reduce((sum, item) => sum + item.total, 0);
+                calculateTotalSales();
                 orderRow.innerHTML = `
                     <td>${order.id}</td>
                     <td>${order.items.map(item => item.productName).join(', ')}</td>
@@ -469,6 +486,22 @@
                 select.addEventListener('change', updateOrderStatus);
             });
         }
+
+        function calculateTotalSales() {
+            const products = JSON.parse(localStorage.getItem("products")) || [];
+            const sellerId = sessionStorage.getItem('loggedInUserId');
+            let totalSales = 0;
+
+            products.forEach(product => {
+                if (String(product.sellerId) === String(sellerId)) {
+                    totalSales += product.sold || 0;
+                }
+            });
+
+    document.getElementById("totalSales").textContent = totalSales;
+}
+
+
 
         function getStatusClass(status) {
             switch(status) {
@@ -532,7 +565,7 @@
             document.getElementById('totalProducts').textContent = sellerProducts.length;
 
             const DeliveredOrders = orders.filter(order => order.status === "Delivered");
-            document.getElementById('totalSales').textContent = DeliveredOrders.length;
+            // document.getElementById('totalSales').textContent = DeliveredOrders.length;
 
             let totalEarnings = 0;
             DeliveredOrders.forEach(order => {
@@ -572,6 +605,7 @@
                                 e.preventDefault();
                                 sessionStorage.removeItem('loggedInUserId');
                                 sessionStorage.removeItem('loggedInUserRole');
+                                sessionStorage.removeItem('loggedInUserStatus');
                                 window.location.href = '/homePage.html';
                             });
                         }
@@ -586,6 +620,21 @@
             renderProducts();
             updateStatistics();
             updateLoginButton();
+        });
+        document.getElementById('addProductBtn').addEventListener('click', () => {
+            // e.preventDefault();
+            const loggedInUserId = sessionStorage.getItem('loggedInUserId');
+            const users = JSON.parse(localStorage.getItem('userData'));
+            const state = sessionStorage.getItem('loggedInUserStatus');
+            const seller = users.sellers.find(s => s.id == loggedInUserId);
+
+            if (seller && (state === 'active' || state === 'undefined')) {
+                window.location.href = '/seller/AddItem.html';
+            } else {
+                const msg = document.getElementById('statusMessage2');
+                msg.textContent = "Can't add product now. Wait 24 hours for review.";
+                msg.style.display = 'block';
+            }
         });
     </script>
 </body>

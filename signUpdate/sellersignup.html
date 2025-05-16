@@ -81,8 +81,8 @@
                                             <span class="input-group-text">
                                                 <i class="fas fa-id-card"></i>
                                             </span>
-                                            <input type="text" class="form-control" name="taxid" id="taxid-input" placeholder="Tax ID / SSN" required>
-                                            <div class="invalid-feedback">Please enter your Tax ID or SSN</div>
+                                            <input type="text" class="form-control" name="taxid" id="taxid-input" placeholder="ID / SSN" required>
+                                            <div class="invalid-feedback">Please enter your ID or SSN</div>
                                         </div>
                                     </div>
                                 </div>
@@ -194,38 +194,7 @@
                                         <div class="invalid-feedback product-feedback">Please select at least one product category</div>
                                     </div>
                                 </div>
-                                
-                                <div class="col-md-6">
-                                    <div class="form-group mb-3">
-                                        <div class="input-group">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-trademark"></i>
-                                            </span>
-                                            <select class="form-control" name="brands" id="brands-input" multiple required>
-                                                <option value="" disabled>Select Brands You Sell (Ctrl+Click for multiple)</option>
-                                                <option value="apple">Apple</option>
-                                                <option value="samsung">Samsung</option>
-                                                <option value="dell">Dell</option>
-                                                <option value="hp">HP</option>
-                                                <option value="lenovo">Lenovo</option>
-                                                <option value="asus">Asus</option>
-                                                <option value="acer">Acer</option>
-                                                <option value="sony">Sony</option>
-                                                <option value="bose">Bose</option>
-                                                <option value="jbl">JBL</option>
-                                                <option value="sennheiser">Sennheiser</option>
-                                                <option value="google">Google</option>
-                                                <option value="oneplus">OnePlus</option>
-                                                <option value="xiaomi">Xiaomi</option>
-                                                <option value="huawei">Huawei</option>
-                                                <option value="other">Other</option>
-                                            </select>
-                                            <div class="invalid-feedback">Please select at least one brand</div>
-                                        </div>
-                                        <small class="text-muted">Hold Ctrl/Cmd to select multiple brands</small>
-                                    </div>
-                                </div>
-                                
+
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
                                         <div class="input-group">
@@ -242,14 +211,6 @@
                                             </select>
                                             <div class="invalid-feedback">Please select your estimated inventory</div>
                                         </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-12">
-                                    <div class="form-group mb-3">
-                                        <label for="seller-description" class="form-label">Brief description of your tech business:</label>
-                                        <textarea class="form-control" id="seller-description" name="description" rows="3" placeholder="Tell us about your experience selling tech products, specialties, and why customers choose your products..." required></textarea>
-                                        <div class="invalid-feedback">Please provide a brief description</div>
                                     </div>
                                 </div>
                             </div>
@@ -355,7 +316,152 @@
         </div>
     </div>
 
-    <script src="tech-seller-validation.js"></script>
+    <script>
+    document.getElementById("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const errorBox = document.getElementById("error-message");
+        errorBox.classList.add("d-none");
+        errorBox.textContent = "";
+
+        const fullname = document.getElementById("fullname-input").value.trim();
+        const email = document.getElementById("email-input").value.trim();
+        const phone = document.getElementById("phone-input").value.trim();
+        const taxid = document.getElementById("taxid-input").value.trim();
+        const businessname = document.getElementById("businessname-input").value.trim();
+        const businesstype = document.getElementById("businesstype-input").value;
+        const address = document.getElementById("address-input").value.trim();
+        const city = document.getElementById("city-input").value.trim();
+        const state = document.getElementById("state-input").value.trim();
+        const zipcode = document.getElementById("zipcode-input").value.trim();
+        const inventory = document.getElementById("inventory-input").value;
+        const password = document.getElementById("password-input").value;
+        const repeatPassword = document.getElementById("repeat-password-input").value;
+        const experience = document.getElementById("experience-input").value;
+        const terms = document.getElementById("terms-checkbox").checked;
+        const authenticity = document.getElementById("authenticity-checkbox").checked;
+
+        const productCheckboxes = document.querySelectorAll("input[name='products']:checked");
+        if (productCheckboxes.length === 0) {
+            showError("Please select at least one product category.");
+            return;
+        }
+        const selectedProducts = Array.from(productCheckboxes).map(cb => cb.value);
+
+        if (!fullname || !email || !phone || !taxid || !businessname || !businesstype || !address || !city || !state || !zipcode || !inventory || !password || !repeatPassword || !experience) {
+            showError("Please fill out all required fields.");
+            return;
+        }
+
+        if (!terms || !authenticity) {
+            showError("You must agree to terms and certify authenticity.");
+            return;
+        }
+
+        if (!validateEmail(email)) {
+            showError("Invalid email format.");
+            return;
+        }
+        if (taxid.length < 14) {
+            showError("Invalid ID/SSN format.");
+            return;
+        }
+        if (password.length < 8) {
+            showError("Password must be at least 8 characters.");
+            return;
+        }
+
+        if (password !== repeatPassword) {
+            showError("Passwords do not match.");
+            return;
+        }
+
+        let userData = JSON.parse(localStorage.getItem("userData")) || {
+            admin: [],
+            customers: [],
+            sellers: []
+        };
+
+        const allUsers = [...userData.admin, ...userData.customers, ...userData.sellers];
+        if (allUsers.some(user => user.email === email)) {
+            showError("This email is already registered.");
+            return;
+        }
+
+        const newId = generateUniqueId(userData.sellers);
+
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function registerSeller() {
+            const hashedPassword = await hashPassword(password);
+            const newSeller = {
+                id: newId,
+                name: fullname,
+                email: email,
+                phonenum: phone,
+                taxid: taxid,
+                businessname: businessname,
+                businesstype: businesstype,
+                address: address,
+                city: city,
+                state: state,
+                status: "disabled",
+                zipcode: zipcode,
+                products: selectedProducts,
+                inventory: inventory,
+                password: hashedPassword,
+                role: "seller",
+                experience: experience,
+                registeredAt: new Date().toISOString()
+            };
+            userData.sellers.push(newSeller);
+            localStorage.setItem("userData", JSON.stringify(userData));
+            window.location.href = "login.html";
+        }
+
+            registerSeller();
+        });
+
+        function showError(message) {
+            const errorBox = document.getElementById("error-message");
+            errorBox.classList.remove("d-none");
+            errorBox.textContent = message;
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function generateUniqueId(sellers) {
+            const ids = sellers.map(s => s.id);
+            let id = 100;
+            while (ids.includes(id)) id++;
+            return id;
+        }
+
+        function sanitizeInput(str) {
+            return str.replace(/[&<>"'`=\/]/g, function (s) {
+                return ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;',
+                    '`': '&#x60;',
+                    '=': '&#x3D;',
+                    '/': '&#x2F;'
+                })[s];
+            });
+        }
+    </script>
+
     <script src="/layout/JS/all.min.js"></script>
     <script src="/layout/JS/bootstrap.bundle.min.js"></script>
 </body>

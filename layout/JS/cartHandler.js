@@ -1,21 +1,25 @@
 const userId = sessionStorage.getItem("loggedInUserId") || "0";
 const getCartKey = (userId) => `cart_${userId}`;
 
-export function addToCart(item) {
+export function addToCart(item, quantity = 1) {
   const userId = sessionStorage.getItem("loggedInUserId") || "0";
   const cartKey = getCartKey(userId);
   let cart = localStorage.getItem(cartKey);
-  cart = cart ? JSON.parse(cart) : []; 
+  cart = cart ? JSON.parse(cart) : [];
+
   const existingIndex = cart.findIndex(cartItem => JSON.parse(cartItem.productData).id === JSON.parse(item).id);
+  
   if (existingIndex !== -1) {
-    cart[existingIndex].quantity += 1;
+    cart[existingIndex].quantity += quantity;
   } else {
-    cart.push({ productData: item, quantity: 1 });
+    cart.push({ productData: item, quantity });
   }
+
   localStorage.setItem(cartKey, JSON.stringify(cart));
   console.log("Updated cart:", cart);
   updateCartCount();
 }
+
 
 function getCartItemCount() {
   let totalCount = 0;
