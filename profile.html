@@ -174,47 +174,6 @@
                 }
             }
 
-            //commucation with admin
-            const sendMessageBtn = document.getElementById('sendMessageBtn');
-            const userMessage = document.getElementById('userMessage');
-            const messageThread = document.getElementById('messageThread');
-
-            function loadMessages() {
-                const allMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
-                const conversation = allMessages.filter(msg => msg.userId === currentUserId);
-                
-                messageThread.innerHTML = '';
-                conversation.forEach(msg => {
-                    const item = document.createElement('li');
-                    item.className = 'list-group-item';
-                    item.innerHTML = `
-                        <strong>${msg.sender === 'user' ? 'You' : 'Admin'}:</strong> ${msg.message}<br>
-                        <small class="text-muted">${new Date(msg.timestamp).toLocaleString()}</small>
-                    `;
-                    messageThread.appendChild(item);
-                });
-            }
-            sendMessageBtn.addEventListener('click', function () {
-                const msg = userMessage.value.trim();
-                if (!msg) {
-                    showAlert('Please enter a message.', 'danger');
-                    return;
-                }
-
-                const allMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
-                allMessages.push({
-                    userId: currentUserId,
-                    sender: 'user',
-                    message: msg,
-                    timestamp: new Date().toISOString()
-                });
-
-                localStorage.setItem('adminMessages', JSON.stringify(allMessages));
-                userMessage.value = '';
-                loadMessages();
-                showAlert('Message sent to admin!');
-            });
-
             function displayUserData(user) {
                 userName.textContent = user.name;
                 userEmail.textContent = user.email;
@@ -372,6 +331,48 @@
                 }
             });
             loadUserData();
+
+             //commucation with admin
+            const sendMessageBtn = document.getElementById('sendMessageBtn');
+            const userMessage = document.getElementById('userMessage');
+            const messageThread = document.getElementById('messageThread');
+
+            function loadMessages() {
+                const allMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+                const conversation = allMessages.filter(msg => msg.userId === currentUserId);
+                
+                messageThread.innerHTML = '';
+                conversation.forEach(msg => {
+                    const item = document.createElement('li');
+                    item.className = 'list-group-item';
+                    item.innerHTML = `
+                        <strong>${msg.sender === 'user' ? 'You' : 'Admin'}:</strong> ${msg.message}<br>
+                        <small class="text-muted">${new Date(msg.timestamp).toLocaleString()}</small>
+                    `;
+                    messageThread.appendChild(item);
+                });
+            }
+            sendMessageBtn.addEventListener('click', function () {
+                const msg = userMessage.value.trim();
+                if (!msg) {
+                    showAlert('Please enter a message.', 'danger');
+                    return;
+                }
+
+                const allMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+                allMessages.push({
+                    userId: currentUserId,
+                    sender: 'user',
+                    message: msg,
+                    timestamp: new Date().toISOString()
+                });
+
+                localStorage.setItem('adminMessages', JSON.stringify(allMessages));
+                userMessage.value = '';
+                loadMessages();
+                showAlert('Message sent to admin!');
+            });
+            loadMessages();
         });
         function updateLoginButton() {
             const loginBtn = document.getElementById('loginBtn');
