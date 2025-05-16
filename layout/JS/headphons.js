@@ -73,7 +73,10 @@ function displayProducts(page) {
               <h6 class="card-title fs-5">${product.name}</h6>
               <p class="card-description">${product.category}</p>
               <p class="card-description">${product.price}EGP</p>
-              <button data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' class="btn cartBtn">Add to Cart<i class="fa-solid fa-cart-plus ms-1"></i></button>
+              <button data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' class="btn cartBtn"
+              ${ product.available <= 0 ? "disabled" : ""}
+              >
+              ${ product.available <= 0 ? "Out Of Stock": `Add to Cart <i class="fa-solid fa-cart-plus ms-1"></i>`}</button>
           </div>
         </div>
       `

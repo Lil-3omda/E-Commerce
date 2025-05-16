@@ -36,7 +36,9 @@ if (products.length > 0) {
                 ${specList}
                 
                 <p><strong>Price:</strong> ${product.price} EGP</p>
-                <button class="btn" data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' id="addToCartBtn">Add to Cart</button>
+                <button class="btn" data-product='${JSON.stringify(product).replace(/'/g, "&apos;")}' id="addToCartBtn"
+                ${ product.available <= 0 ? "disabled" : ""}>
+              ${ product.available <= 0 ? "Out Of Stock": `Add to Cart <i class="fa-solid fa-cart-plus ms-1"></i>`}</button>
             </div>
         </div>
     `;
