@@ -146,11 +146,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="info-label">Phone Number</div>
-                    <input type="tel" id="userPhone" class="form-control mb-2" placeholder="01000000000" pattern="01[0-9]{9}" required>
-                    <button class="btn btn-primary mt-2" id="savePhoneBtn">Save Phone</button>
+                <div class="mb-4">
+                    <h2 class="section-heading">Phone Information</h2>
+                    <div class="mb-3">
+                        <div class="info-label">Phone Number</div>
+                        <div id="userPhone">Not specified</div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <form id="phoneForm">
+                            <div class="mb-3">
+                                <label for="phoneInput" class="form-label">Update Phone Number</label>
+                                <input type="tel" id="phoneInput" class="form-control" placeholder="01000000000" pattern="01[0-9]{9}" required>
+                            </div>
+                            <button type="submit" id="savePhoneBtn" class="btn btn-primary">Save Phone</button>
+                        </form>
+                    </div>
                 </div>
+
                 
                 <div class="mb-4">
                     <h2 class="section-heading">Address Information</h2>
@@ -201,12 +214,13 @@
             const userAddress = document.getElementById('userAddress');
             const addressInput = document.getElementById('addressInput');
             const addressForm = document.getElementById('addressForm');
+            const phoneForm = document.getElementById('phoneForm');
             const orderHistory = document.getElementById('orderHistory');
             const orderHistorySection = document.getElementById('orderHistorySection');
             const alertContainer = document.getElementById('alertContainer');
             const currentUserId = parseInt(sessionStorage.getItem('loggedInUserId'));
             
-            const phoneInput = document.getElementById('userPhone');
+            const phoneInput = document.getElementById('phoneInput');
             phoneInput.addEventListener('input', function () {
                 const phonePattern = /^01[0-9]{9}$/;
                 if (!phonePattern.test(phoneInput.value)) {
@@ -248,7 +262,9 @@
 
                 userAddress.textContent = user.address || 'Not specified';
                 addressInput.value = user.address || '';
-                phoneInput.value = user.phone || '';
+                document.getElementById('userPhone').textContent = user.phone || 'Not specified';
+                document.getElementById('phoneInput').value = user.phone || '';
+
 
                 const allOrders = JSON.parse(localStorage.getItem('orders')) || [];
                 const userOrders = allOrders.filter(order => String(order.userId) === String(user.id));
@@ -380,10 +396,29 @@
                     userAddress.textContent = newAddress;
                     showAlert('Address updated successfully!');
                 }
+                if (success) {
+                    document.getElementById('userPhone').textContent = newPhone;
+                    showAlert('Phone number updated successfully!', 'success');
+                }
+            });
+            phoneForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const newPhone = phoneInput.value; 
+                if (!newPhone) {
+                    showAlert('Please enter a valid phone number.', 'danger');
+                    return;
+                }  
+                const success = savePhone(newPhone);
+                if (success) {
+                    document.getElementById('userPhone').textContent = newPhone;
+                    showAlert('Phone number updated successfully!', 'success');
+                } else {
+                    showAlert('Failed to update phone number.', 'danger');
+                }
             });
             const savePhoneBtn = document.getElementById('savePhoneBtn');
             savePhoneBtn.addEventListener('click', function () {
-                const newPhone = phoneInput.value.trim();
+                const newPhone = phoneInput.value;
                 const phonePattern = /^01[0-9]{9}$/;
 
                 if (!phonePattern.test(newPhone)) {
